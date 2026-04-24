@@ -1219,6 +1219,11 @@
     const LOC_LABEL    = IS_TRAINER ? '활동지역' : '센터명';
     const LANDING_SRC  = window.location.pathname;
 
+    // === 성공 메시지 카운터 범위 (마케팅용 수동 조정) ===
+    // 상단 카운터 .fc-current data-target 값과 맞춰서 관리
+    const SUCCESS_NUM_MIN = 328;
+    const SUCCESS_NUM_MAX = 340;
+
     // === DOM ===
     const modal       = document.getElementById('waitlist-modal');
     const modalClose  = document.getElementById('wl-close');
@@ -1279,11 +1284,12 @@
       submitBtn.textContent = '등록 중...';
 
       try {
-        const { data, error } = await supa.from('waitlist').insert(payload).select('founder_number').single();
+        const { error } = await supa.from('waitlist').insert(payload);
         if (error) throw error;
 
         form.hidden = true;
-        successNum.textContent = `No.${data.founder_number}`;
+        const fakeNum = Math.floor(Math.random() * (SUCCESS_NUM_MAX - SUCCESS_NUM_MIN + 1)) + SUCCESS_NUM_MIN;
+        successNum.textContent = `No.${fakeNum}`;
         successEl.hidden = false;
 
         const fcCurrent = document.querySelector('.fc-current, .hub-counter-num');
