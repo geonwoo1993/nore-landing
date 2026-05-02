@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노어 · 트레이너 무료 체험판</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/demo.css">
+</head>
+<body>
+  <div class="demo-shell">
+    <nav class="demo-nav">
+      <a class="brand" href="/trainer">
+        <span class="brand-symbol"><span></span><span></span><span></span></span>
+        <span>NORE</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="/trainer">트레이너 랜딩</a>
+        <a class="nav-link" href="/operator/try/">대표 체험판</a>
+        <a class="nav-link" href="/checkout/?role=trainer&plan=founder-monthly">결제하고 시작하기</a>
+      </div>
+    </nav>
+
+    <header class="demo-hero">
+      <div>
+        <span class="eyebrow">Static Demo · 무료 체험판</span>
+        <h1 class="demo-title">트레이너 흐름을<br><em>랜덤 시나리오</em>로 먼저 봅니다.</h1>
+        <p class="demo-lead">실제 AI API를 호출하지 않습니다. NoerAI 앱의 핵심 흐름을 바탕으로 만든 정적 데모로, 회원 관리부터 피드백과 KPI까지 한 번에 확인합니다.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="/checkout/?role=trainer&plan=founder-monthly">결제하고 시작하기</a>
+          <a class="btn-secondary" href="/trainer/#waitlist">문의/대기자 등록</a>
+        </div>
+      </div>
+      <aside class="hero-note">
+        <strong>공격 표면 없이 보여주는 체험판</strong>
+        <p>입력값은 브라우저 안에서만 바뀌며 서버 저장, Supabase insert, OpenAI 호출이 없습니다. 구매 전 제품 흐름을 이해시키는 목적의 샘플입니다.</p>
+      </aside>
+    </header>
+
+    <main class="demo-stage">
+      <aside class="scenario-panel">
+        <span class="panel-label">Scenarios</span>
+        <div class="scenario-list" id="scenario-list"></div>
+        <button class="btn-primary random-btn" id="random-scenario" type="button">랜덤 시나리오</button>
+      </aside>
+
+      <section class="workspace">
+        <article class="result-panel">
+          <span class="scenario-tag" id="scenario-tag"></span>
+          <h2 class="scenario-title" id="scenario-title"></h2>
+          <p class="scenario-lead" id="scenario-lead"></p>
+
+          <div class="demo-grid">
+            <div class="input-panel">
+              <h3 id="input-title"></h3>
+              <textarea class="sample-input" id="sample-input" aria-label="샘플 입력"></textarea>
+              <div class="input-actions">
+                <button class="btn-secondary" id="simulate-demo" type="button">샘플 출력 갱신</button>
+                <span class="safe-note" id="demo-status"></span>
+              </div>
+            </div>
+
+            <div class="preview-panel">
+              <h3 id="output-title"></h3>
+              <div id="scenario-output"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="preview-panel">
+          <h3 id="member-title">회원이 보는 화면</h3>
+          <div class="member-flow" id="member-flow"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script>window.NORE_DEMO_CONFIG = { role: 'trainer' };</script>
+  <script src="../../assets/demo.js"></script>
+</body>
+</html>

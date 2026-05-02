@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노어 · 결제하고 시작하기</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/demo.css">
+</head>
+<body>
+  <div class="checkout-shell">
+    <nav class="demo-nav">
+      <a class="brand" href="/">
+        <span class="brand-symbol"><span></span><span></span><span></span></span>
+        <span>NORE</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="/operator/try/">대표 체험판</a>
+        <a class="nav-link" href="/trainer/try/">트레이너 체험판</a>
+      </div>
+    </nav>
+
+    <main class="checkout-wrap">
+      <section class="checkout-card">
+        <span class="eyebrow">Checkout Link · 결제 시작</span>
+        <h1 id="checkout-title">결제하고 시작하기</h1>
+        <p id="checkout-copy">선택한 역할과 요금제를 확인하고 provider-hosted 결제 링크로 이동합니다.</p>
+
+        <div class="checkout-options">
+          <div class="plan-box">
+            <strong id="checkout-role">선택 역할</strong>
+            <span id="checkout-role-copy">역할 정보를 불러오는 중입니다.</span>
+          </div>
+          <div class="plan-box">
+            <strong id="checkout-plan">선택 요금제</strong>
+            <span id="checkout-plan-copy">요금제 정보를 불러오는 중입니다.</span>
+          </div>
+        </div>
+
+        <div class="checkout-status" id="checkout-status">
+          실제 PG 결제 URL은 아직 이 repo에 저장되어 있지 않습니다. 보안상 secret key를 넣지 않고, provider-hosted 공개 결제 링크만 연결하는 슬롯으로 분리해두었습니다.
+        </div>
+
+        <div class="checkout-actions">
+          <a class="btn-primary" id="checkout-link" href="#">결제 링크 열기</a>
+          <a class="btn-secondary" id="checkout-demo" href="/trainer/try/">무료 체험판 보기</a>
+          <a class="btn-ghost" id="checkout-back" href="/">랜딩으로 돌아가기</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const CHECKOUT_LINKS = {
+      // Provider-hosted checkout URL만 여기에 연결하세요. Secret key는 절대 넣지 않습니다.
+      // trainer: 'https://provider.example/checkout/trainer-founder-monthly',
+      // operator: 'https://provider.example/checkout/operator-founder-yearly'
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get('role') === 'operator' ? 'operator' : 'trainer';
+    const plan = params.get('plan') || (role === 'operator' ? 'founder-yearly' : 'founder-monthly');
+    const roleLabel = role === 'operator' ? '대표·관리자' : '트레이너';
+    const planLabel = plan.includes('yearly') ? '창립 파트너 1년권' : '창립 파트너 월 이용권';
+    const landingHref = role === 'operator' ? '/operator/#pilot' : '/trainer/#pilot';
+    const demoHref = role === 'operator' ? '/operator/try/' : '/trainer/try/';
+
+    document.getElementById('checkout-title').textContent = `${roleLabel} 결제하고 시작하기`;
+    document.getElementById('checkout-copy').textContent = `${roleLabel}용 ${planLabel} 선택 상태입니다. 실제 결제는 provider-hosted checkout 링크에서만 진행하도록 분리합니다.`;
+    document.getElementById('checkout-role').textContent = roleLabel;
+    document.getElementById('checkout-role-copy').textContent = role === 'operator'
+      ? '센터 운영, 매출/KPI, 직원 계정까지 보는 대표·관리자 흐름입니다.'
+      : '회원 관리, 피드백, 브랜딩, 개인 KPI를 쓰는 트레이너 흐름입니다.';
+    document.getElementById('checkout-plan').textContent = planLabel;
+    document.getElementById('checkout-plan-copy').textContent = plan.includes('yearly')
+      ? '연간 결제 기준의 창립 파트너 혜택을 적용합니다.'
+      : '첫 달 100원 혜택을 포함한 월 이용권 흐름입니다.';
+    document.getElementById('checkout-demo').href = demoHref;
+    document.getElementById('checkout-back').href = landingHref;
+
+    const checkoutLink = document.getElementById('checkout-link');
+    const status = document.getElementById('checkout-status');
+    const realLink = CHECKOUT_LINKS[role];
+
+    if (realLink) {
+      checkoutLink.href = realLink;
+      status.textContent = '결제 버튼은 provider-hosted checkout으로 이동합니다. 이 페이지에는 secret key나 결제 처리 코드가 없습니다.';
+    } else {
+      checkoutLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        status.textContent = '아직 실제 PG 결제 링크가 연결되지 않았습니다. 공개 checkout URL이 준비되면 CHECKOUT_LINKS에 역할별 링크만 추가하면 됩니다.';
+      });
+    }
+  </script>
+</body>
+</html>
