@@ -55,62 +55,110 @@
       {
         id: 'brand',
         tag: 'Personal Brand',
-        title: '수업 기록이 트레이너의 검색 자산이 됩니다.',
-        lead: '회원 질문과 수업 판단을 바탕으로 과장 없는 블로그·SNS 초안을 만들고, 트레이너의 전문성을 누적합니다.',
-        inputTitle: '콘텐츠 소재',
-        input: '주제: 허리 통증이 있는 회원의 스쿼트 접근\n대상: 운동 초보 직장인\n톤: 과장 없이 전문적이고 쉽게\n포함: 통증을 참지 말 것, 힙힌지, 호흡',
-        outputTitle: '콘텐츠 초안 방향',
+        title: '기존 콘텐츠가 트레이너의 브랜딩 기준이 됩니다.',
+        lead: '블로그와 인스타 링크를 먼저 읽고, 말투·강점·지역 맥락을 압축한 뒤 감정 설계와 블로그 초안으로 이어집니다.',
+        inputTitle: '브랜딩 링크와 에피소드',
+        input: '네이버 블로그: https://blog.naver.com/minji-fit-note\n인스타그램: @minji_fit.note\n주제: 허리 통증이 있는 직장인의 스쿼트 접근\n현장 에피소드: 회원이 "운동을 쉬어야 하나요?"라고 물음\n목표: 상담 전 신뢰를 만드는 블로그 초안',
+        outputTitle: 'AI 블로그 작성 흐름',
+        outputLabel: '작성 기준',
         output: [
-          '제목: 허리가 불편한데 스쿼트를 해도 될까요?',
-          '도입부는 통증을 참는 운동이 성실함이 아니라는 메시지로 시작합니다.',
-          '본문은 힙힌지, 호흡, 가동범위 조절을 초보자 언어로 설명합니다.'
+          '블로그와 인스타에서 말투, 전문 영역, 반복 키워드를 먼저 요약합니다.',
+          '감정 설계에서 독자가 느껴야 할 감정, 중심 장면, 빼야 할 소재를 분리합니다.',
+          '본문은 현장 사례, 판단 기준, 상담 CTA가 있는 블로그 초안으로 생성됩니다.'
         ],
-        memberTitle: '회원이 보는 화면',
+        brandPreview: {
+          sources: [
+            { label: 'BLOG', value: '통증관리 · 힙힌지 · 직장인 스쿼트', status: '요약 저장됨' },
+            { label: 'INSTAGRAM', value: '과장 없는 설명 · 수업 전 안심시키는 톤', status: '수동 보조 입력' }
+          ],
+          emotion: {
+            feeling: '이 트레이너는 통증을 무리로 밀어붙이지 않는다',
+            scene: '회원이 스쿼트 전 허리를 만지며 불안해하던 장면',
+            filter: '무리한 비포애프터, 치료처럼 보이는 표현'
+          },
+          draft: {
+            title: '# 허리가 불편한데 스쿼트를 해도 될까요?',
+            lines: [
+              '도입: "운동을 쉬어야 하나요?"라고 묻는 직장인의 불안에서 시작',
+              '전개: 힙힌지, 호흡, 가동범위 조절을 초보자 언어로 설명',
+              '마무리: 체형 분석 30분 상담으로 부담 없이 연결'
+            ],
+            tags: '강남PT, 허리통증운동, 스쿼트자세, 힙힌지, 체형교정'
+          }
+        },
+        memberTitle: '검색과 상담으로 이어지는 화면',
         member: [
-          '회원은 트레이너가 어떤 기준으로 운동을 보는지 이해합니다.',
-          '검색에서 발견된 글이 상담 전 신뢰를 만듭니다.',
-          '센터와 트레이너의 전문성이 같은 톤으로 쌓입니다.'
+          '상담 전 회원은 트레이너의 판단 기준을 검색에서 먼저 확인합니다.',
+          '센터 홍보보다 실제 수업 장면과 말투가 브랜드 자산으로 쌓입니다.',
+          '블로그, SNS, 상담 문구가 같은 톤으로 이어집니다.'
         ]
       },
       {
         id: 'feedback',
         tag: 'Smart Feedback',
-        title: '수업 직후 메모가 회원 피드백이 됩니다.',
-        lead: '운동 기록을 단순 저장하지 않고 잘한 점, 주의점, 다음 수업 목표로 나누어 회원에게 전달합니다.',
+        title: '수업 메모가 회원 피드백으로 정돈됩니다.',
+        lead: '수업 직후 남긴 메모나 음성 원문을 운동내용, 자세피드백, 다음목표 순서로 정리해 회원에게 보낼 문장으로 만듭니다.',
         inputTitle: '수업 메모',
-        input: '오늘 스쿼트 40kg 5x5 성공. 마지막 세트에서 무릎이 안쪽으로 살짝 들어감. 호흡은 좋아짐. 다음 시간은 중량 올리기보다 템포 유지.',
-        outputTitle: '생성된 피드백 예시',
+        input: '회원: 김민지\n음성 원문: 오늘 스쿼트 40kg 5세트 했고 마지막 세트에서 무릎이 안쪽으로 들어왔어요. 허리 뻐근함은 없었고 호흡은 좋아졌습니다. 다음 시간은 중량보다 템포 유지로 갈게요.',
+        outputTitle: 'NoreAI 운동 피드백',
+        outputLabel: '전송 전 확인',
         output: [
-          '오늘 스쿼트 40kg 5세트 모두 잘 마무리했습니다. 특히 호흡이 지난 수업보다 안정적이었습니다.',
-          '마지막 세트에서 무릎이 안쪽으로 들어가는 순간이 있어 다음 수업은 템포와 무릎 방향을 먼저 잡겠습니다.',
-          '집에서는 무리한 추가 운동보다 가벼운 고관절 스트레칭만 진행해주세요.'
+          '수치와 운동명은 보존하고 filler를 제거해 회원이 읽기 쉬운 문장으로 바꿉니다.',
+          '통증/부상 신호는 주의사항으로 반드시 남기고 의학적 진단처럼 쓰지 않습니다.',
+          '회원에게 전송하면 홈과 운동 기록 흐름에 피드백 도착 알림이 남습니다.'
         ],
+        feedbackPreview: {
+          raw: '스쿼트 40kg 5x5. 마지막 세트 무릎 안쪽. 허리 통증 없음. 다음은 템포 유지.',
+          sections: [
+            { label: '오늘의 운동 요약', text: '스쿼트 40kg 5세트를 안정적으로 마무리했습니다.' },
+            { label: '잘한 점', text: '호흡이 지난 수업보다 안정적이었고 허리 불편감 없이 진행했습니다.' },
+            { label: '개선 포인트', text: '마지막 세트에서 무릎이 안쪽으로 들어오는 순간이 있어 다음 수업에서 무릎 방향을 먼저 확인합니다.' },
+            { label: '다음 수업 방향', text: '중량을 올리기보다 3초 하강 템포와 고관절 접기 패턴을 유지합니다.' }
+          ],
+          notice: '회원 앱 알림 · 운동 피드백이 도착했어요'
+        },
         memberTitle: '회원이 보는 화면',
         member: [
-          '수업이 끝난 뒤 앱에서 바로 피드백을 확인합니다.',
+          '수업이 끝난 뒤 앱에서 피드백 도착 알림을 확인합니다.',
           '잘한 점과 조심할 점이 분리되어 보입니다.',
-          '다음 수업 목표가 짧은 문장으로 남습니다.'
+          '다음 수업 목표가 운동 기록과 함께 남습니다.'
         ]
       },
       {
         id: 'kpi',
         tag: 'My KPI',
-        title: '내 KPI를 회원 유지 신호로 봅니다.',
-        lead: '평가표처럼 보이는 숫자를 다음 달 수업, 재등록, 피드백 누락을 챙기는 실무 신호로 바꿉니다.',
+        title: '내 KPI를 다음 액션으로 읽습니다.',
+        lead: '진행 세션, 판매소화율, 재등록률, 만족도, 이탈 위험 회원을 한 화면에서 보고 이번 주 우선순위를 정합니다.',
         inputTitle: '이번 달 신호',
-        input: '완료 수업 118회, 재등록 예정 9명, 식단 피드백 대기 4건, 신규 배정 6명, 만족도 4.7',
-        outputTitle: 'KPI 요약',
+        input: '5월 현재\nPT 매출 1,240만원 / 진행 세션 118회\n판매소화율 92% / 재등록률 38%\n만족도 4.8 / 이탈 위험 내 회원 3명\n식단 피드백 대기 4건',
+        outputTitle: '내 KPI 종합',
+        outputLabel: '이번 주 우선순위',
         output: [
-          '수업 완료와 만족도는 안정적입니다. 다음 주 우선순위는 재등록 예정 9명입니다.',
-          '식단 피드백 대기 4건은 회원 대화에서 먼저 처리하면 이탈 신호를 줄일 수 있습니다.',
-          '신규 배정 회원은 첫 2주 안에 목표와 통증 이력을 고정해두는 것이 좋습니다.'
+          '수업 완료와 만족도는 안정적이지만 재등록 상담 대상 3명을 먼저 확인합니다.',
+          '식단 피드백 대기 4건은 회원관리 대화에서 처리해 이탈 신호를 줄입니다.',
+          '진행 세션이 높은 주에는 신규 배정보다 기존 회원 전송 기록 누락을 먼저 봅니다.'
         ],
-        memberTitle: '회원이 보는 화면',
+        kpiPreview: {
+          metrics: [
+            { label: 'PT 매출', value: '1,240만', note: '+8%' },
+            { label: '판매소화율', value: '92%', note: '건강' },
+            { label: '재등록률', value: '38%', note: '주의' },
+            { label: '만족도', value: '4.8', note: '안정' }
+          ],
+          risks: [
+            '박서연 · 잔여 3회 · 재등록 상담',
+            '이준호 · 7일 미방문 · 안부 연락',
+            '김민지 · 식단 피드백 대기'
+          ],
+          trend: ['3월 31%', '4월 35%', '5월 38%'],
+          action: '오늘 할 일: 잔여 5회 이하 회원 3명에게 상담 메시지 보내기'
+        },
+        memberTitle: '트레이너에게 남는 다음 액션',
         member: [
-          '회원별 대화와 피드백이 누락되지 않습니다.',
-          '트레이너가 바쁜 날에도 다음 액션이 남습니다.',
-          '관리 품질이 트레이너 개인 기억에만 의존하지 않습니다.'
-        ]
+          '숫자가 평가표가 아니라 오늘 처리할 회원 목록으로 바뀝니다.',
+          '재등록률, 소화율, 만족도를 따로 보지 않고 회원 유지 신호로 읽습니다.',
+          '이탈 위험 회원과 피드백 대기 건이 회원관리 대화로 이어집니다.'
+        ],
       }
     ],
     operator: [
@@ -260,9 +308,99 @@
     `;
   }
 
+  function renderBrandPreview(item) {
+    const data = item.brandPreview;
+    if (!data) return '';
+    return `
+      <div class="scenario-preview brand-preview" aria-label="브랜딩 작성 흐름 샘플">
+        <div class="preview-mini-grid">
+          ${data.sources.map((source) => `
+            <div class="preview-block">
+              <span class="preview-kicker">${escapeHtml(source.label)}</span>
+              <strong>${escapeHtml(source.value)}</strong>
+              <small>${escapeHtml(source.status)}</small>
+            </div>
+          `).join('')}
+        </div>
+        <div class="preview-block accent">
+          <span class="preview-kicker">Emotion Design</span>
+          <p><b>감정</b>${escapeHtml(data.emotion.feeling)}</p>
+          <p><b>장면</b>${escapeHtml(data.emotion.scene)}</p>
+          <p><b>제외</b>${escapeHtml(data.emotion.filter)}</p>
+        </div>
+        <div class="preview-block draft">
+          <span class="preview-kicker">Blog Draft</span>
+          <strong>${escapeHtml(data.draft.title)}</strong>
+          <ul>${data.draft.lines.map((line) => `<li>${escapeHtml(line)}</li>`).join('')}</ul>
+          <small>${escapeHtml(data.draft.tags)}</small>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderFeedbackPreview(item) {
+    const data = item.feedbackPreview;
+    if (!data) return '';
+    return `
+      <div class="scenario-preview feedback-preview" aria-label="운동 피드백 생성 샘플">
+        <div class="preview-block muted">
+          <span class="preview-kicker">Raw Memo</span>
+          <strong>${escapeHtml(data.raw)}</strong>
+        </div>
+        <div class="feedback-sections">
+          ${data.sections.map((section) => `
+            <div class="feedback-section">
+              <span>${escapeHtml(section.label)}</span>
+              <p>${escapeHtml(section.text)}</p>
+            </div>
+          `).join('')}
+        </div>
+        <div class="preview-notice">${escapeHtml(data.notice)}</div>
+      </div>
+    `;
+  }
+
+  function renderKpiPreview(item) {
+    const data = item.kpiPreview;
+    if (!data) return '';
+    return `
+      <div class="scenario-preview kpi-preview" aria-label="트레이너 KPI 샘플">
+        <div class="metric-grid">
+          ${data.metrics.map((metric) => `
+            <div class="metric-card">
+              <span>${escapeHtml(metric.label)}</span>
+              <strong>${escapeHtml(metric.value)}</strong>
+              <small>${escapeHtml(metric.note)}</small>
+            </div>
+          `).join('')}
+        </div>
+        <div class="preview-mini-grid">
+          <div class="preview-block">
+            <span class="preview-kicker">At-risk Members</span>
+            <ul>${data.risks.map((risk) => `<li>${escapeHtml(risk)}</li>`).join('')}</ul>
+          </div>
+          <div class="preview-block accent">
+            <span class="preview-kicker">Re-registration Trend</span>
+            <div class="trend-row">${data.trend.map((point) => `<span>${escapeHtml(point)}</span>`).join('')}</div>
+            <strong>${escapeHtml(data.action)}</strong>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderScenarioPreview(item) {
+    return [
+      renderChatPreview(item),
+      renderBrandPreview(item),
+      renderFeedbackPreview(item),
+      renderKpiPreview(item)
+    ].join('');
+  }
+
   function renderOutput(item, lines = item.output) {
     output.innerHTML = `
-      ${renderChatPreview(item)}
+      ${renderScenarioPreview(item)}
       <div class="output-card">
         <strong>${escapeHtml(item.outputLabel || '우선 액션')}</strong>
         <ul>${lines.map((line) => `<li>${escapeHtml(line)}</li>`).join('')}</ul>

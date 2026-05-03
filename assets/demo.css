@@ -23,6 +23,7 @@ html,
 body {
   background-color: var(--bg) !important;
   color: var(--ink) !important;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -33,7 +34,7 @@ body {
   min-height: 100vh;
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-feature-settings: "ss18", "tnum";
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
   line-height: 1.55;
   word-break: keep-all;
 }
@@ -204,7 +205,7 @@ button {
   color: var(--ink);
   font-size: 68px;
   font-weight: 600;
-  letter-spacing: -0.026em;
+  letter-spacing: 0;
   line-height: 1.12;
 }
 
@@ -220,7 +221,7 @@ button {
   color: var(--ink-soft);
   font-size: 19px;
   font-weight: 400;
-  letter-spacing: -0.008em;
+  letter-spacing: 0;
   line-height: 1.72;
 }
 
@@ -243,7 +244,7 @@ button {
   padding: 14px 24px;
   font-size: 14.5px;
   font-weight: 500;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
   transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
 }
 
@@ -283,7 +284,7 @@ button {
   color: var(--ink);
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: -0.012em;
+  letter-spacing: 0;
 }
 
 .hero-note p {
@@ -417,7 +418,7 @@ button {
   color: var(--ink);
   font-size: 42px;
   font-weight: 600;
-  letter-spacing: -0.024em;
+  letter-spacing: 0;
   line-height: 1.18;
 }
 
@@ -426,7 +427,7 @@ button {
   margin-top: 14px;
   color: var(--ink-soft);
   font-size: 16.5px;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
   line-height: 1.65;
 }
 
@@ -456,7 +457,7 @@ button {
   color: var(--ink);
   font-size: 17px;
   font-weight: 600;
-  letter-spacing: -0.012em;
+  letter-spacing: 0;
 }
 
 .sample-input {
@@ -469,6 +470,8 @@ button {
   background: var(--bg);
   color: var(--ink);
   line-height: 1.6;
+  overflow-wrap: anywhere;
+  word-break: normal;
   outline: none;
 }
 
@@ -527,6 +530,8 @@ button {
   color: var(--ink-soft);
   font-size: 14px;
   line-height: 1.58;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .chat-line.system .chat-bubble {
@@ -558,6 +563,154 @@ button {
   border-color: var(--accent);
   background: var(--surface);
   color: var(--ink);
+}
+
+.scenario-preview {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.preview-block,
+.metric-card,
+.feedback-section {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 13px 14px;
+  background: var(--bg);
+}
+
+.preview-block.accent,
+.feedback-section:nth-child(2),
+.feedback-section:nth-child(4) {
+  border-color: rgba(255, 105, 0, 0.28);
+  background: var(--accent-soft);
+}
+
+.preview-block.muted {
+  background: #F7F3EC;
+}
+
+.preview-kicker,
+.metric-card span,
+.feedback-section span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--accent);
+  font-family: "Archivo", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.preview-block strong,
+.metric-card strong {
+  display: block;
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.preview-block p,
+.feedback-section p {
+  margin: 7px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.preview-block p b {
+  display: inline-flex;
+  width: 42px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.preview-block ul,
+.feedback-sections {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.preview-block li {
+  list-style: none;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.preview-block small,
+.metric-card small {
+  display: block;
+  margin-top: 8px;
+  color: var(--ink-mute);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.feedback-sections {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.preview-notice {
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 10px 14px;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.metric-card {
+  padding: 12px;
+}
+
+.metric-card strong {
+  font-family: "Archivo", sans-serif;
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.trend-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin: 4px 0 12px;
+}
+
+.trend-row span {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 8px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-align: center;
 }
 
 .output-card {
@@ -644,7 +797,7 @@ button {
   color: var(--ink);
   font-size: clamp(40px, 6vw, 68px);
   font-weight: 600;
-  letter-spacing: -0.026em;
+  letter-spacing: 0;
   line-height: 1.12;
 }
 
@@ -675,7 +828,7 @@ button {
   color: var(--ink);
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.014em;
+  letter-spacing: 0;
 }
 
 .plan-box span {
@@ -723,12 +876,24 @@ button {
   }
 
   .demo-grid,
-  .checkout-options {
+  .checkout-options,
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-mini-grid,
+  .feedback-sections {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
+  .demo-nav,
+  .demo-hero,
+  .demo-stage {
+    max-width: 100vw;
+  }
+
   .demo-nav {
     align-items: flex-start;
     flex-direction: column;
@@ -739,16 +904,22 @@ button {
   }
 
   .demo-title {
-    font-size: 36px;
+    font-size: 32px;
     line-height: 1.15;
+    word-break: break-all;
+    overflow-wrap: anywhere;
   }
 
   .demo-hero > div,
   .hero-note,
+  .scenario-panel,
+  .workspace,
+  .result-panel,
   .demo-lead,
   .hero-actions,
   .checkout-actions {
-    max-width: calc(100vw - 48px);
+    max-width: 330px;
+    width: 100%;
   }
 
   .demo-lead {
@@ -759,6 +930,8 @@ button {
 
   .scenario-title {
     font-size: 30px;
+    word-break: normal;
+    overflow-wrap: anywhere;
   }
 
   .scenario-list {
@@ -775,7 +948,8 @@ button {
   .hero-actions,
   .checkout-actions {
     display: grid;
-    width: 100%;
+    width: calc(100vw - 48px);
+    max-width: calc(100vw - 48px);
   }
 
   .input-actions .btn-secondary {
@@ -784,6 +958,10 @@ button {
 
   .safe-note {
     max-width: none;
+  }
+
+  .trend-row {
+    grid-template-columns: 1fr;
   }
 
   .checkout-wrap {
