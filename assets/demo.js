@@ -8,20 +8,48 @@
         id: 'member-care',
         tag: 'AI Chat',
         title: '회원 채팅을 관리 흐름으로 바꿉니다.',
-        lead: '상담 내용, 통증 신호, 식단 공백, 예약 변경을 따로 기억하지 않고 다음 수업과 회원 대화로 연결합니다.',
-        inputTitle: '트레이너가 남긴 메모',
-        input: '김민지 회원\n목표: 체지방 감량, 하체 근력 회복\n최근 신호: 식단 사진 2일 누락, 허리 불편감, 수업 예약 변경 1회\n오늘 할 일: 가볍게 안부 확인 후 다음 수업 강도 조정',
-        outputTitle: 'NORE가 정리한 관리 판단',
+        lead: '실제 앱의 회원관리 운영 대화처럼 회원 답장, @노어 초안, 최종 전송, 다음 할 일이 한 흐름에 남습니다.',
+        inputTitle: '회원 상태 신호',
+        input: '김민지 · 잔여 8회 · 5월 18일 만료\n오늘 이 회원은:\n- 식단 피드백 대기 있음\n- 이번 주 회원 전송 기록 없음\n- 허리 불편감 메모 있음\n\n트레이너 입력:\n@노어 민지님에게 오늘 하체 수업 전 안부와 식단 기록 재개 메시지 초안 만들어줘',
+        outputTitle: '모바일 회원관리 운영 대화',
+        outputLabel: '운영 포인트',
         output: [
-          '이탈 위험 신호는 낮음이지만 식단 기록 공백과 허리 불편감을 같이 확인합니다.',
-          '다음 수업은 하체 볼륨보다 코어 안정화와 힙힌지 패턴 점검을 우선합니다.',
-          '회원에게는 부담 없는 안부 메시지와 식단 기록 재개 요청을 함께 보냅니다.'
+          '@노어 입력은 회원에게 바로 가지 않고 AI 초안으로 남습니다.',
+          '트레이너가 확인한 문장만 회원 홈으로 전송됩니다.',
+          '운동 기록하기, 영양 목표 같은 액션도 같은 대화에 흔적으로 남습니다.'
         ],
-        memberTitle: '회원에게 이어지는 화면',
+        chatMessages: [
+          {
+            type: 'system',
+            label: 'NORE',
+            text: '오늘 이 회원은:\n- 식단 피드백 대기 있음\n- 허리 불편감 메모 있음\n- 잔여 8회 · 5월 18일 만료'
+          },
+          {
+            type: 'member',
+            label: '회원',
+            text: '선생님 오늘 허리가 조금 뻐근한데 하체 운동해도 될까요? 식단도 어제 못 올렸어요.'
+          },
+          {
+            type: 'trainer',
+            label: '트레이너',
+            text: '@노어 민지님에게 안부 확인하고 오늘 수업 강도 조절한다고 답장 초안 만들어줘'
+          },
+          {
+            type: 'ai',
+            label: 'NORE',
+            text: 'NORE AI 초안\n민지님, 허리 뻐근함이 있으면 오늘은 강도를 올리기보다 움직임부터 확인해볼게요. 식단 기록은 오늘 저녁부터 다시 이어가면 충분합니다. 오실 때 불편한 동작이 있었는지만 알려주세요.'
+          },
+          {
+            type: 'sent',
+            label: '회원 전송됨',
+            text: '민지님, 오늘은 무리해서 강도 올리지 않고 움직임부터 확인해볼게요. 식단 기록은 저녁부터 다시 이어가면 충분합니다.'
+          }
+        ],
+        memberTitle: '회원 NORE 화면',
         member: [
-          '트레이너가 놓치지 않은 안부 메시지가 도착합니다.',
-          '허리 불편감은 회원이 바로 답장할 수 있는 질문으로 남습니다.',
-          '다음 수업 전까지 할 작은 과제가 회원 카드에 남습니다.'
+          '회원 홈에 트레이너 메시지 도착 알림이 뜹니다.',
+          '회원은 허리 상태를 바로 답장하고 다음 수업 전 과제를 확인합니다.',
+          '트레이너에게는 전송 기록과 할 일이 주간 운영 대화에 남습니다.'
         ]
       },
       {
@@ -210,6 +238,38 @@
   const params = new URLSearchParams(window.location.search);
   let active = scenarioList.find((item) => item.id === params.get('scenario')) || scenarioList[0];
 
+  const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+
+  function renderChatPreview(item) {
+    if (!item.chatMessages) return '';
+    return `
+      <div class="chat-demo" aria-label="회원관리 운영 대화 샘플">
+        ${item.chatMessages.map((message) => `
+          <div class="chat-line ${message.type}">
+            <span class="chat-meta">${escapeHtml(message.label)}</span>
+            <div class="chat-bubble">${escapeHtml(message.text).replace(/\n/g, '<br>')}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function renderOutput(item, lines = item.output) {
+    output.innerHTML = `
+      ${renderChatPreview(item)}
+      <div class="output-card">
+        <strong>${escapeHtml(item.outputLabel || '우선 액션')}</strong>
+        <ul>${lines.map((line) => `<li>${escapeHtml(line)}</li>`).join('')}</ul>
+      </div>
+    `;
+  }
+
   function renderButtons() {
     list.innerHTML = scenarioList.map((item) => `
       <button class="scenario-btn${item.id === active.id ? ' active' : ''}" type="button" data-scenario="${item.id}">
@@ -227,12 +287,7 @@
     sample.value = item.input;
     outputTitle.textContent = item.outputTitle;
     memberTitle.textContent = item.memberTitle;
-    output.innerHTML = `
-      <div class="output-card">
-        <strong>우선 액션</strong>
-        <ul>${item.output.map((line) => `<li>${line}</li>`).join('')}</ul>
-      </div>
-    `;
+    renderOutput(item);
     memberFlow.innerHTML = item.member.map((line, index) => `
       <div class="flow-row"><b>${index + 1}</b><span>${line}</span></div>
     `).join('');
@@ -244,12 +299,7 @@
     const firstLine = sample.value.trim().split('\n').find(Boolean) || '입력한 내용';
     const baseLines = active.output.slice(0, 2);
     const simulatedLine = `입력값 "${firstLine.slice(0, 34)}${firstLine.length > 34 ? '...' : ''}" 기준으로 우선 액션을 다시 정리했습니다.`;
-    output.innerHTML = `
-      <div class="output-card">
-        <strong>우선 액션</strong>
-        <ul>${[simulatedLine, ...baseLines].map((line) => `<li>${line}</li>`).join('')}</ul>
-      </div>
-    `;
+    renderOutput(active, [simulatedLine, ...baseLines]);
     status.textContent = '샘플 출력만 갱신했습니다. 네트워크 요청은 없습니다.';
   }
 

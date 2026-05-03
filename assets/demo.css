@@ -491,6 +491,75 @@ button {
   line-height: 1.5;
 }
 
+.chat-demo {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-line {
+  display: grid;
+  gap: 6px;
+}
+
+.chat-line.trainer,
+.chat-line.sent {
+  justify-items: end;
+}
+
+.chat-meta {
+  color: var(--ink-mute);
+  font-family: "Archivo", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.chat-bubble {
+  max-width: min(92%, 440px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+.chat-line.system .chat-bubble {
+  border-color: var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.chat-line.member .chat-bubble {
+  background: #F7F3EC;
+}
+
+.chat-line.trainer .chat-bubble {
+  background: var(--ink);
+  color: #fff;
+}
+
+.chat-line.ai .chat-bubble {
+  border-color: rgba(255, 105, 0, 0.32);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.chat-line.sent .chat-meta {
+  color: var(--accent);
+}
+
+.chat-line.sent .chat-bubble {
+  border-color: var(--accent);
+  background: var(--surface);
+  color: var(--ink);
+}
+
 .output-card {
   padding-top: 2px;
 }
