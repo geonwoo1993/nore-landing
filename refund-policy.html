@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>환불 및 청약철회 정책 | NORE</title>
+<meta name="description" content="NORE 서비스의 환불 기준 및 청약철회 정책">
+<meta name="robots" content="index, follow">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap">
+
+<style>
+  :root {
+    --ink: #0A0A0A;
+    --offwhite: #FCFAF5;
+    --orange: #FF6900;
+    --muted: #6B6B6B;
+    --line: rgba(10, 10, 10, 0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--offwhite);
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+  header {
+    margin-bottom: 56px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .logo {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    display: inline-block;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 24px;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  .updated {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  section {
+    margin-bottom: 40px;
+  }
+  h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -0.005em;
+  }
+  p {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .clauses {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .clauses li {
+    font-size: 15px;
+    margin-bottom: 8px;
+    padding-left: 28px;
+    position: relative;
+  }
+  .clauses li:nth-child(1)::before { content: "①"; }
+  .clauses li:nth-child(2)::before { content: "②"; }
+  .clauses li:nth-child(3)::before { content: "③"; }
+  .clauses li::before {
+    position: absolute;
+    left: 0;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .info {
+    list-style: none;
+    margin-top: 4px;
+  }
+  .info li {
+    font-size: 15px;
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .info li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+  footer {
+    margin-top: 96px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 480px) {
+    .container { padding: 48px 20px 72px; }
+    h1 { font-size: 23px; }
+    h2 { font-size: 16px; }
+    p, .clauses li, .info li { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <span class="logo">NORE</span>
+    <h1>환불 및 청약철회 정책</h1>
+    <div class="updated">Last updated · 2026.05.07</div>
+  </header>
+
+  <section>
+    <h2>제1조 (환불 기준)</h2>
+    <p>NORE 서비스의 환불은 다음 기준에 따라 처리됩니다.</p>
+    <ul class="clauses">
+      <li>런칭 전 결제: 100% 환불 (영업일 5일 이내 처리)</li>
+      <li>런칭 후 7일 이내 + 서비스 사용 이력 없음: 100% 환불</li>
+      <li>그 외 (서비스 사용 이력 발생 또는 결제일로부터 7일 경과): 환불 불가</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>제2조 (운영 주체)</h2>
+    <ul class="info">
+      <li>상호: 원알엠</li>
+      <li>사업자등록번호: 161-18-02481</li>
+      <li>통신판매업 신고번호: 제2025-대전서구-2075호</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>제3조 (고객 문의)</h2>
+    <p>환불 신청 및 분쟁 시 아래 연락처로 문의 바랍니다.</p>
+    <ul class="info">
+      <li>전화: 010-9403-3828</li>
+    </ul>
+  </section>
+
+  <footer>
+    © 2026 NORE
+  </footer>
+</div>
+</body>
+</html>
