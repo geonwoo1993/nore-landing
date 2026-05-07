@@ -28,7 +28,7 @@
       <section class="checkout-card">
         <span class="eyebrow">Checkout Link · 결제 시작</span>
         <h1 id="checkout-title">결제하고 시작하기</h1>
-        <p id="checkout-copy">선택한 역할과 요금제를 확인하고 provider-hosted 결제 링크로 이동합니다.</p>
+        <p id="checkout-copy">선택한 역할과 요금제를 확인하고 결제 페이지로 이동합니다.</p>
 
         <div class="checkout-options">
           <div class="plan-box">
@@ -42,7 +42,7 @@
         </div>
 
         <div class="checkout-status" id="checkout-status">
-          실제 PG 결제 URL은 아직 이 repo에 저장되어 있지 않습니다. 보안상 secret key를 넣지 않고, provider-hosted 공개 결제 링크만 연결하는 슬롯으로 분리해두었습니다.
+          결제 버튼을 누르면 토스페이먼츠 결제 페이지로 이동합니다.
         </div>
 
         <div class="checkout-actions">
@@ -56,29 +56,27 @@
 
   <script>
     const CHECKOUT_LINKS = {
-      // Provider-hosted checkout URL만 여기에 연결하세요. Secret key는 절대 넣지 않습니다.
-      // trainer: 'https://provider.example/checkout/trainer-founder-monthly',
-      // operator: 'https://provider.example/checkout/operator-founder-yearly'
+      trainer: 'https://s.tosspayments.com/BngSuw9o776',
+      operator: 'https://s.tosspayments.com/BngSu0pAcBK'
     };
 
     const params = new URLSearchParams(window.location.search);
     const role = params.get('role') === 'operator' ? 'operator' : 'trainer';
-    const plan = params.get('plan') || (role === 'operator' ? 'founder-yearly' : 'founder-monthly');
+    const plan = params.get('plan') || 'founder-yearly';
     const roleLabel = role === 'operator' ? '대표·관리자' : '트레이너';
-    const planLabel = plan.includes('yearly') ? '창립 파트너 1년권' : '창립 파트너 월 이용권';
+    const planLabel = '창립 파트너 1년권';
+    const priceLabel = role === 'operator' ? '478,800원' : '358,800원';
     const landingHref = role === 'operator' ? '/operator/#pilot' : '/trainer/#pilot';
     const demoHref = role === 'operator' ? '/operator/try/' : '/trainer/try/';
 
-    document.getElementById('checkout-title').textContent = `${roleLabel} 결제하고 시작하기`;
-    document.getElementById('checkout-copy').textContent = `${roleLabel}용 ${planLabel} 선택 상태입니다. 실제 결제는 provider-hosted checkout 링크에서만 진행하도록 분리합니다.`;
+    document.getElementById('checkout-title').textContent = roleLabel + ' 결제하고 시작하기';
+    document.getElementById('checkout-copy').textContent = roleLabel + '용 ' + planLabel + ' 선택 상태입니다. 결제 버튼을 누르면 토스페이먼츠 결제 페이지로 이동합니다.';
     document.getElementById('checkout-role').textContent = roleLabel;
     document.getElementById('checkout-role-copy').textContent = role === 'operator'
       ? '센터 운영, 매출/KPI, 직원 계정까지 보는 대표·관리자 흐름입니다.'
       : '회원 관리, 피드백, 브랜딩, 개인 KPI를 쓰는 트레이너 흐름입니다.';
     document.getElementById('checkout-plan').textContent = planLabel;
-    document.getElementById('checkout-plan-copy').textContent = plan.includes('yearly')
-      ? '연간 결제 기준의 창립 파트너 혜택을 적용합니다.'
-      : '첫 달 100원 혜택을 포함한 월 이용권 흐름입니다.';
+    document.getElementById('checkout-plan-copy').textContent = priceLabel + ' (VAT 포함) · 1년 이용 / 창립 파트너가';
     document.getElementById('checkout-demo').href = demoHref;
     document.getElementById('checkout-back').href = landingHref;
 
@@ -88,11 +86,10 @@
 
     if (realLink) {
       checkoutLink.href = realLink;
-      status.textContent = '결제 버튼은 provider-hosted checkout으로 이동합니다. 이 페이지에는 secret key나 결제 처리 코드가 없습니다.';
     } else {
       checkoutLink.addEventListener('click', (event) => {
         event.preventDefault();
-        status.textContent = '아직 실제 PG 결제 링크가 연결되지 않았습니다. 공개 checkout URL이 준비되면 CHECKOUT_LINKS에 역할별 링크만 추가하면 됩니다.';
+        status.textContent = '결제 링크가 일시적으로 비활성화되어 있습니다. 잠시 후 다시 시도해주세요.';
       });
     }
   </script>
