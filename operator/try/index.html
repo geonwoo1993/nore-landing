@@ -559,6 +559,12 @@ a{color:inherit;text-decoration:none}
   .rev-stats{grid-template-columns:1fr}
   .rev-stats > div:last-child{grid-column:auto}
 }
+
+.back-fab{position:fixed;bottom:24px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:13px 20px;background:var(--ink);color:#FCFAF5;border-radius:999px;text-decoration:none;font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:14.5px;font-weight:500;box-shadow:0 6px 20px rgba(0,0,0,0.18),0 2px 4px rgba(0,0,0,0.12);transition:transform 0.15s ease,box-shadow 0.15s ease;letter-spacing:-0.01em;cursor:pointer}
+.back-fab:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.22),0 4px 8px rgba(0,0,0,0.14)}
+.back-fab:active{transform:translateY(0)}
+.back-fab svg{width:16px;height:16px;flex-shrink:0}
+@media (max-width:720px){.back-fab{bottom:16px;right:16px;padding:11px 16px;font-size:13.5px}}
 </style>
 </head>
 <body>
@@ -1551,5 +1557,6 @@ document.getElementById('modal-bd').addEventListener('click', (e) => {
 initCharts();
 refreshAll();
 </script>
+<a href="/operator" class="back-fab" aria-label="operator 페이지로 돌아가기"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>뒤로</span></a>
 </body>
 </html>
