@@ -1,90 +1,1555 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>노어 · 센터 운영 AI 체험판</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/demo.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>노어짐 · 통합 대시보드 (모델하우스 v8)</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#FCFAF5;
+  --surface:#FFFFFF;
+  --surface-soft:#FDFCF8;
+  --surface-received:#F5F4EF;
+  --ink:#0A0A0A;
+  --ink-soft:#4A4744;
+  --ink-mute:#9A968F;
+  --ink-faint:#C5C1BA;
+  --accent:#FF6900;
+  --accent-soft:#FFF1E6;
+  --border:rgba(10,10,10,0.06);
+  --border-strong:rgba(10,10,10,0.12);
+  --neg:#C13B2B;
+  --pos:#3D8B5E;
+  --line-rev:#B5453A;
+  --line-burn:#5C6772;
+  --line-ret:#3D8B5E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Pretendard Variable',Pretendard,sans-serif;font-feature-settings:'tnum';-webkit-font-smoothing:antialiased;letter-spacing:-0.01em}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;letter-spacing:inherit}
+a{color:inherit;text-decoration:none}
+
+.app{display:flex;min-height:100vh}
+
+.mobile-top{display:none}
+.mobile-bottom{display:none}
+
+/* Sidebar */
+.sidebar{
+  width:236px;flex-shrink:0;background:var(--bg);
+  display:flex;flex-direction:column;position:sticky;top:0;height:100vh;
+  border-right:1px solid var(--border);
+}
+.sb-brand{padding:24px 22px 20px;display:flex;align-items:center;gap:11px}
+.sb-logo{
+  width:32px;height:32px;background:var(--ink);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sb-logo .bars{display:flex;gap:2.5px}
+.sb-logo .bars span{width:2px;height:12px;background:#fff;border-radius:1px}
+.sb-brand-text{display:flex;flex-direction:column;gap:1px}
+.sb-brand-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:0.10em;color:var(--ink-mute)}
+.sb-brand-ws{font-size:13px;font-weight:600}
+.sb-bell{margin-left:auto;position:relative;color:var(--ink-soft)}
+.sb-bell svg{width:17px;height:17px;stroke-width:1.6}
+.sb-bell-badge{
+  position:absolute;top:-3px;right:-5px;min-width:15px;height:15px;padding:0 4px;
+  background:var(--ink);color:#fff;border-radius:8px;
+  font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  font-family:'Archivo',sans-serif;
+}
+
+.sb-nav{padding:6px 12px;overflow-y:auto;flex:1}
+.sb-group{margin-bottom:14px}
+.sb-group-label{padding:8px 12px 6px;font-size:11px;font-weight:500;color:var(--ink-mute)}
+.sb-item{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  font-size:13px;color:var(--ink-soft);border-radius:8px;
+  cursor:pointer;position:relative;font-weight:500;
+}
+.sb-item:hover{background:var(--surface-received);color:var(--ink)}
+.sb-item.active{color:var(--ink);font-weight:600;background:var(--surface-received)}
+.sb-item.active::before{
+  content:"";position:absolute;left:-12px;top:50%;transform:translateY(-50%);
+  width:2px;height:18px;background:var(--accent);border-radius:0 2px 2px 0;
+}
+.sb-icon{width:15px;height:15px;flex-shrink:0;color:var(--ink-mute);stroke-width:1.6}
+.sb-item.active .sb-icon{color:var(--ink)}
+.sb-item .badge{
+  margin-left:auto;background:var(--ink);color:#fff;font-size:10px;font-weight:700;
+  padding:1px 6px;border-radius:8px;font-family:'Archivo',sans-serif;
+}
+.sb-group-collapsed .sb-group-head-clickable{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  font-size:13px;font-weight:500;color:var(--ink-soft);
+  border-radius:8px;cursor:pointer;
+}
+.sb-group-collapsed .sb-group-head-clickable:hover{background:var(--surface-received)}
+.sb-group-collapsed .chev{margin-left:auto;color:var(--ink-faint);font-size:10px}
+
+.sb-user{padding:16px 22px;display:flex;align-items:center;gap:10px}
+.sb-user-info{display:flex;flex-direction:column;line-height:1.25}
+.sb-user-name{font-size:13px;font-weight:600}
+.sb-user-role{font-size:11px;color:var(--ink-mute);margin-top:1px}
+.sb-user-logout{margin-left:auto;color:var(--ink-mute)}
+.sb-user-logout svg{width:15px;height:15px;stroke-width:1.6}
+
+/* Main */
+.main{flex:1;min-width:0;padding:32px 44px 80px;max-width:1400px}
+
+.page-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:32px;flex-wrap:wrap;gap:16px;
+}
+.page-title{font-size:24px;font-weight:600;letter-spacing:-0.025em}
+.page-sub{font-size:12.5px;color:var(--ink-mute);margin-top:4px;letter-spacing:-0.005em}
+
+.page-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.month-switcher{
+  display:inline-flex;align-items:center;gap:2px;
+  background:var(--surface);border:1px solid var(--accent);
+  border-radius:999px;padding:4px 6px;
+  position:relative;box-shadow:0 0 0 4px rgba(255,105,0,0.08);
+}
+.month-switcher.with-hint::before{
+  content:"월별로 돌려보기 ↓";
+  position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  font-size:10.5px;color:var(--accent);font-weight:500;
+  white-space:nowrap;opacity:0.85;
+  animation:hint-bob 2.6s ease-in-out infinite;
+  letter-spacing:-0.005em;
+}
+@keyframes hint-bob{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-2px)}
+}
+.month-btn{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-size:14px;font-weight:500;
+  transition:background 0.15s;
+}
+.month-btn:hover{background:var(--accent-soft)}
+.month-btn:disabled{color:var(--ink-faint);cursor:not-allowed}
+.month-btn:disabled:hover{background:none}
+.month-label{
+  font-family:'Archivo',sans-serif;font-weight:600;font-size:14px;
+  padding:0 12px;color:var(--ink);min-width:80px;text-align:center;
+  letter-spacing:0.005em;
+}
+
+.btn-chip{
+  font-size:12.5px;font-weight:500;color:var(--ink-soft);
+  padding:7px 14px;border-radius:999px;
+  transition:all 0.15s;
+}
+.btn-chip:hover{background:var(--surface-received);color:var(--ink)}
+.btn-chip.active{background:var(--ink);color:#fff}
+.month-chip-static{
+  font-family:'Archivo',sans-serif;font-size:12px;font-weight:500;
+  color:var(--ink-mute);padding:0 6px;
+}
+
+.branch-select{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:10px;padding:7px 12px;
+  font-size:12.5px;font-weight:500;color:var(--ink);
+  cursor:pointer;
+}
+.branch-select svg{width:12px;height:12px;color:var(--ink-mute);stroke-width:1.8}
+
+.row-top{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-bottom:18px;align-items:stretch}
+.row-w{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:18px}
+.row-4{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-bottom:18px}
+
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:22px 24px;position:relative;
+}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:10px}
+.card-title{font-size:13.5px;font-weight:600;letter-spacing:-0.012em}
+.card-sub{font-size:11.5px;color:var(--ink-mute);margin-top:3px;letter-spacing:-0.005em}
+.card-right{font-size:11.5px;color:var(--ink-mute);font-weight:500}
+
+/* Revenue Big Card */
+.rev-card{display:flex;flex-direction:column}
+.rev-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.rev-month{font-family:'Archivo',sans-serif;font-size:12px;color:var(--ink-mute);font-weight:500;letter-spacing:0.01em}
+.rev-delta{font-size:12.5px;font-weight:600;font-family:'Archivo',sans-serif}
+.rev-delta.up{color:var(--pos)}
+.rev-delta.down{color:var(--neg)}
+.rev-delta.flat{color:var(--ink-mute)}
+.rev-main{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
+.rev-num{font-family:'Archivo',sans-serif;font-size:46px;font-weight:700;letter-spacing:-0.03em;line-height:1.05}
+.rev-unit{font-size:22px;font-weight:600;color:var(--ink-soft);letter-spacing:-0.02em}
+.rev-sub{font-size:12px;color:var(--ink-mute);margin-bottom:22px;letter-spacing:-0.005em}
+.rev-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;padding-top:18px;border-top:1px solid var(--border)}
+.rev-stat-label{font-size:11.5px;color:var(--ink-mute);display:flex;align-items:center;gap:4px;margin-bottom:5px;font-weight:500}
+.rev-stat-val{font-family:'Archivo',sans-serif;font-size:20px;font-weight:600;letter-spacing:-0.02em}
+.rev-stat-val.neg{color:var(--neg)}
+
+.rev-pay{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)}
+.rev-pay-item{display:flex;align-items:baseline;gap:5px;font-size:11px;color:var(--ink-mute)}
+.rev-pay-item .lbl{color:var(--ink-mute)}
+.rev-pay-item .pct{font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink);font-size:12px}
+.rev-pay-item .val{font-family:'Archivo',sans-serif;color:var(--ink-mute);font-size:10.5px}
+
+.rev-notices{margin-top:18px;padding-top:14px;border-top:1px dashed var(--border)}
+.rev-notice{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.rev-notice:last-child{border-bottom:none}
+.rev-notice-icon{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.rev-notice-icon.alert{background:var(--ink-soft)}
+.rev-notice-icon.risk{background:var(--neg);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+.rev-notice-body{flex:1;min-width:0}
+.rev-notice-title{font-size:12.5px;font-weight:600;letter-spacing:-0.01em}
+.rev-notice-sub{font-size:11px;color:var(--ink-mute);margin-top:1px;letter-spacing:-0.005em}
+.rev-notice-sub .num{font-family:'Archivo',sans-serif;font-weight:700;color:var(--ink)}
+.rev-notice-sub .num.neg{color:var(--neg)}
+.rev-notice-cta{font-size:11.5px;color:var(--ink-mute);font-weight:500;display:flex;align-items:center;gap:2px;cursor:pointer}
+.rev-notice-cta:hover{color:var(--ink)}
+
+/* AI Card */
+.ai-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:22px 24px;position:relative;
+  display:flex;flex-direction:column;
+}
+.ai-head{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.ai-icon{width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0}
+.ai-icon svg{width:14px;height:14px;stroke-width:1.8}
+.ai-title{font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;color:var(--ink)}
+.ai-case-num{font-family:'Archivo',sans-serif;font-size:10.5px;font-weight:500;color:var(--ink-mute);margin-left:auto;letter-spacing:0.04em}
+.ai-diagnosis{font-size:13.5px;font-weight:500;line-height:1.6;letter-spacing:-0.012em;color:var(--ink-soft);margin-bottom:16px}
+.ai-diagnosis .hl{color:var(--ink);font-weight:700}
+.ai-section{margin-bottom:14px}
+.ai-section:last-child{margin-bottom:0;margin-top:auto}
+.ai-section-title{font-size:10.5px;font-weight:600;color:var(--ink-mute);margin-bottom:8px;letter-spacing:0.02em}
+.ai-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ai-list li{font-size:12.5px;color:var(--ink-soft);line-height:1.55;letter-spacing:-0.005em;padding-left:12px;position:relative}
+.ai-list li::before{content:"";position:absolute;left:0;top:8px;width:3px;height:3px;background:var(--ink-faint);border-radius:50%}
+.ai-actions{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.ai-action-btn{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 14px;background:var(--surface-soft);
+  border:1px solid var(--border);border-radius:10px;
+  font-size:12.5px;font-weight:500;letter-spacing:-0.005em;
+  cursor:pointer;transition:all 0.15s;text-align:left;
+}
+.ai-action-btn:hover{border-color:var(--border-strong);background:var(--surface-received)}
+.ai-action-btn .lbl{color:var(--ink)}
+.ai-action-btn .arr{color:var(--ink-mute);font-size:13px}
+.ai-action-btn .count{font-family:'Archivo',sans-serif;font-weight:700;color:var(--ink);font-size:13px;margin-right:6px}
+
+/* Funnel */
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:6px}
+.funnel-step{
+  display:flex;flex-direction:column;gap:5px;
+  padding:14px 18px;cursor:pointer;
+  border-right:1px solid var(--border);
+  transition:background 0.15s;position:relative;
+}
+.funnel-step:last-child{border-right:none}
+.funnel-step:hover{background:var(--surface-soft)}
+.funnel-label{font-size:11.5px;color:var(--ink-mute);display:flex;align-items:center;gap:4px;font-weight:500}
+.funnel-num{font-family:'Archivo',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.02em}
+.funnel-status{font-size:11px;font-weight:500;margin-top:2px;color:var(--ink-mute)}
+.funnel-status.ok{color:var(--pos)}
+.funnel-status.warn{color:var(--ink-soft)}
+.funnel-status.danger{color:var(--neg)}
+.funnel-step .more-hint{position:absolute;top:14px;right:14px;font-size:10px;color:var(--ink-faint);opacity:0;transition:opacity 0.15s}
+.funnel-step:hover .more-hint{opacity:1}
+
+.info{
+  display:inline-flex;width:12px;height:12px;border-radius:50%;
+  background:var(--border-strong);color:var(--ink-mute);
+  align-items:center;justify-content:center;font-size:8.5px;font-weight:700;
+  cursor:help;position:relative;
+}
+.info:hover{background:var(--ink);color:#fff}
+.info::after{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;font-size:11px;font-weight:400;padding:7px 10px;border-radius:6px;
+  white-space:normal;width:max-content;max-width:240px;line-height:1.5;text-align:left;
+  opacity:0;visibility:hidden;transition:opacity 0.15s;pointer-events:none;z-index:10;
+  letter-spacing:-0.005em;
+}
+.info:hover::after{opacity:1;visibility:visible}
+
+/* Trend stack */
+.trend-stack{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:8px 4px 4px;margin-bottom:18px;
+}
+.trend-block{padding:18px 22px 14px;border-bottom:1px solid var(--border)}
+.trend-block:last-child{border-bottom:none}
+.trend-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.trend-title-area{display:flex;align-items:baseline;gap:10px}
+.trend-title{font-size:13.5px;font-weight:600;letter-spacing:-0.012em}
+.trend-context{font-size:11.5px;color:var(--ink-mute);letter-spacing:-0.005em}
+.trend-now{display:flex;align-items:baseline;gap:8px}
+.trend-now-label{font-size:11px;color:var(--ink-mute)}
+.trend-now-val{font-family:'Archivo',sans-serif;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-0.02em}
+.trend-now-delta{font-family:'Archivo',sans-serif;font-size:11.5px;font-weight:600;margin-left:2px}
+.trend-now-delta.up{color:var(--pos)}
+.trend-now-delta.down{color:var(--neg)}
+.trend-canvas-wrap{position:relative;height:170px}
+
+/* Trainer / Branch */
+.tr-head{
+  display:grid;grid-template-columns:28px 1fr 90px 60px 100px 60px;
+  padding:10px 4px;font-size:10.5px;color:var(--ink-mute);font-weight:500;
+  border-bottom:1px solid var(--border);gap:10px;letter-spacing:0.02em;
+}
+.tr-head .a-r{text-align:right}
+.tr-head .a-c{text-align:center}
+.tr-row{
+  display:grid;grid-template-columns:28px 1fr 90px 60px 100px 60px;
+  align-items:center;padding:14px 4px;border-bottom:1px solid var(--border);gap:10px;
+}
+.tr-row:last-child{border-bottom:none}
+.tr-rank{
+  width:24px;height:24px;border-radius:50%;background:var(--surface-received);
+  color:var(--ink-soft);font-family:'Archivo',sans-serif;font-weight:600;font-size:11px;
+  display:flex;align-items:center;justify-content:center;
+}
+.tr-row:nth-child(1) .tr-rank{background:var(--ink);color:#fff}
+.tr-name{font-size:13px;font-weight:600;letter-spacing:-0.01em}
+.tr-role{font-size:10.5px;color:var(--ink-mute);margin-top:1px}
+.tr-num{font-family:'Archivo',sans-serif;font-size:12.5px;font-weight:600;text-align:right}
+.tr-pct{font-family:'Archivo',sans-serif;font-size:12px;color:var(--ink-soft);text-align:right;font-weight:500}
+.tr-status{font-size:10.5px;font-weight:500;text-align:center;letter-spacing:-0.005em}
+.tr-status.warn{color:var(--ink-soft)}
+.tr-status.ok{color:var(--ink-mute)}
+.tr-status.good{color:var(--pos)}
+
+.bh-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 4px;border-bottom:1px solid var(--border);cursor:pointer;gap:10px;
+}
+.bh-row:hover{background:var(--surface-soft)}
+.bh-row:last-child{border-bottom:none}
+.bh-left{display:flex;align-items:center;gap:12px;min-width:0}
+.bh-status{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.bh-status.red{background:var(--neg)}
+.bh-status.green{background:var(--pos)}
+.bh-status.amber{background:var(--ink-soft)}
+.bh-name{font-size:13.5px;font-weight:600;letter-spacing:-0.01em}
+.bh-warn{font-size:10.5px;color:var(--ink-soft);margin-top:2px;font-weight:500}
+.bh-stats{display:flex;gap:18px;align-items:center}
+.bh-stat{display:flex;flex-direction:column;align-items:flex-end;gap:1px}
+.bh-stat-lbl{font-size:10px;color:var(--ink-mute)}
+.bh-stat-val{font-family:'Archivo',sans-serif;font-size:12.5px;font-weight:600}
+.bh-stat-val.up{color:var(--pos)}
+.bh-stat-val.down{color:var(--neg)}
+
+/* Brief */
+.brief-block{display:flex;gap:14px;align-items:flex-start}
+.brief-icon{
+  width:32px;height:32px;background:var(--surface-received);
+  border-radius:9px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:var(--ink-soft);
+}
+.brief-icon svg{width:16px;height:16px;stroke-width:1.6}
+.brief-body{flex:1;min-width:0}
+.brief-title{font-size:13.5px;font-weight:600;margin-bottom:2px;letter-spacing:-0.01em}
+.brief-sub{font-size:11.5px;color:var(--ink-mute);margin-bottom:10px}
+.brief-text{font-size:13px;color:var(--ink-soft);line-height:1.65;letter-spacing:-0.005em}
+
+/* Modal */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(10,10,10,0.40);
+  display:none;align-items:center;justify-content:center;z-index:100;
+  padding:24px;backdrop-filter:blur(2px);
+}
+.modal-backdrop.show{display:flex}
+.modal{
+  background:var(--surface);border-radius:16px;
+  max-width:560px;width:100%;max-height:85vh;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 20px 50px rgba(10,10,10,0.20);
+}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;padding:22px 24px 18px;border-bottom:1px solid var(--border)}
+.modal-head-text{flex:1;min-width:0}
+.modal-title{font-size:15.5px;font-weight:600;letter-spacing:-0.02em}
+.modal-sub{font-size:11.5px;color:var(--ink-mute);margin-top:3px;line-height:1.5}
+.modal-close{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-soft);margin-top:-2px;flex-shrink:0;
+}
+.modal-close:hover{background:var(--surface-received)}
+.modal-close svg{stroke-width:1.8}
+.modal-body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.member-row{
+  display:grid;grid-template-columns:1.2fr 80px 80px 80px;
+  padding:13px 24px;align-items:center;border-bottom:1px solid var(--border);gap:10px;font-size:12.5px;
+}
+.member-row:last-child{border-bottom:none}
+.member-row .nm{font-weight:600;letter-spacing:-0.005em}
+.member-row .meta{color:var(--ink-mute);font-size:11px;margin-top:2px}
+.member-row .v{font-family:'Archivo',sans-serif;font-weight:600;font-size:12px;text-align:right}
+.member-row .v.dim{color:var(--ink-mute);font-family:'Pretendard Variable',sans-serif;font-weight:500;font-size:11.5px}
+.member-row .badge-warn{color:var(--ink-soft);font-weight:500;font-size:11px;text-align:right}
+.member-row .badge-ok{color:var(--pos);font-weight:500;font-size:11px;text-align:right}
+.member-row .badge-neg{color:var(--neg);font-weight:500;font-size:11px;text-align:right}
+
+.fd-body{padding:20px 24px 24px}
+.fd-headline{font-size:32px;font-family:'Archivo',sans-serif;font-weight:700;letter-spacing:-0.03em;line-height:1;margin-bottom:6px}
+.fd-delta{font-size:13px;font-weight:500;margin-bottom:18px}
+.fd-delta.pos{color:var(--pos)}
+.fd-delta.neg{color:var(--neg)}
+.fd-section{margin-bottom:16px}
+.fd-section:last-child{margin-bottom:0}
+.fd-section-title{font-size:11px;font-weight:600;color:var(--ink-mute);margin-bottom:8px;letter-spacing:0.02em}
+.fd-breakdown{display:flex;flex-direction:column;gap:10px;background:var(--surface-soft);border-radius:10px;padding:14px 16px}
+.fd-bar-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;gap:8px}
+.fd-bar-row .lbl{color:var(--ink-soft);letter-spacing:-0.005em}
+.fd-bar-row .v{font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink);white-space:nowrap}
+.fd-bar{height:5px;background:var(--surface-received);border-radius:3px;overflow:hidden;margin-top:5px}
+.fd-bar-fill{height:100%;background:var(--ink);border-radius:3px;transition:width 0.4s}
+.fd-break-row{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;gap:8px}
+.fd-break-row .lbl{color:var(--ink-soft);letter-spacing:-0.005em}
+.fd-break-row .v{font-family:'Archivo',sans-serif;font-weight:600;color:var(--ink);white-space:nowrap}
+.fd-text{font-size:12.5px;color:var(--ink-soft);line-height:1.65;letter-spacing:-0.005em}
+.fd-text .hl{color:var(--ink);font-weight:700}
+
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fade 0.35s ease}
+
+/* Tablet */
+@media(max-width:1100px){
+  .row-top{grid-template-columns:1fr}
+  .row-4{grid-template-columns:1fr}
+  .sidebar{width:210px}
+  .main{padding:24px 22px 60px}
+}
+
+/* Mobile */
+@media(max-width:720px){
+  .app{flex-direction:column}
+  .sidebar{display:none}
+  .mobile-top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 18px;background:var(--bg);
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:50;
+  }
+  .mobile-top-brand{display:flex;align-items:center;gap:10px}
+  .mobile-top .sb-logo{width:28px;height:28px}
+  .mobile-top .sb-logo .bars span{height:10px}
+  .mobile-top-text{display:flex;flex-direction:column;gap:0}
+  .mobile-top-name{font-family:'Archivo',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute)}
+  .mobile-top-ws{font-size:12.5px;font-weight:600}
+  .mobile-top-bell{position:relative;color:var(--ink-soft);width:18px;height:18px}
+  .mobile-top-bell svg{width:18px;height:18px;stroke-width:1.6}
+  .mobile-top-badge{
+    position:absolute;top:-4px;right:-6px;min-width:14px;height:14px;
+    padding:0 3px;background:var(--ink);color:#fff;border-radius:7px;
+    font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;
+    font-family:'Archivo',sans-serif;
+  }
+
+  .main{padding:18px 16px 60px;max-width:100%}
+  .page-head{align-items:flex-start;gap:18px;margin-bottom:24px;flex-direction:column}
+  .page-title{font-size:20px}
+  .page-controls{width:100%;gap:8px;flex-wrap:wrap}
+
+  /* hide hint label on mobile (overlap fix) */
+  .month-switcher{margin-top:0}
+  .month-switcher.with-hint::before{display:none}
+
+  .month-chip-static{display:none}
+  .branch-select{font-size:12px;padding:6px 10px}
+  .btn-chip{font-size:12px;padding:6px 12px}
+
+  .card{padding:18px 18px;border-radius:12px}
+  .rev-num{font-size:38px}
+  .rev-unit{font-size:18px}
+  .rev-stats{grid-template-columns:1fr 1fr;gap:14px 18px}
+  .rev-stats > div:last-child{grid-column:1 / -1}
+  .rev-stat-val{font-size:18px}
+  .rev-pay{gap:10px 14px}
+
+  .ai-card{padding:18px 18px}
+  .ai-diagnosis{font-size:13px}
+
+  .funnel{grid-template-columns:1fr 1fr;gap:0}
+  .funnel-step{border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 14px}
+  .funnel-step:nth-child(2n){border-right:none}
+  .funnel-step:nth-last-child(-n+2){border-bottom:none}
+  .funnel-num{font-size:22px}
+
+  .trend-block{padding:16px 16px 12px}
+  .trend-head{gap:6px}
+  .trend-title{font-size:13px}
+  .trend-context{font-size:11px}
+  .trend-now-val{font-size:15px}
+  .trend-canvas-wrap{height:150px}
+
+  /* Trainer mobile — 비중 hide, 재등록·소화 show */
+  .tr-head, .tr-row{grid-template-columns:24px 1fr 80px 90px;gap:8px}
+  .tr-head span:nth-child(4),
+  .tr-head span:nth-child(6),
+  .tr-row > *:nth-child(4),
+  .tr-row > *:nth-child(6){display:none}
+
+  /* Branch mobile — 4-column grid, centered */
+  .bh-row{flex-direction:column;align-items:stretch;gap:12px;padding:14px 4px}
+  .bh-left{align-items:center}
+  .bh-stats{
+    display:grid;grid-template-columns:repeat(4, 1fr);
+    width:100%;gap:8px;
+  }
+  .bh-stat{align-items:center;text-align:center}
+  .bh-stat-lbl{font-size:10px}
+  .bh-stat-val{font-size:13px}
+
+  .modal-backdrop{padding:0;align-items:flex-end}
+  .modal{max-height:92vh;border-radius:16px 16px 0 0;max-width:100%}
+  .modal-head{padding:18px 20px 14px}
+  .member-row{grid-template-columns:1fr 70px;padding:11px 20px}
+  .member-row .v:not(.dim){display:none}
+  .fd-body{padding:18px 20px 22px}
+  .fd-headline{font-size:28px}
+
+  /* Mobile bottom — PC 최적화 안내 + 월 토글 */
+  .main{padding-bottom:0}
+  .mobile-bottom{
+    display:flex;flex-direction:column;align-items:center;gap:14px;
+    padding:24px 18px 32px;margin:24px -16px 0;
+    background:var(--surface);border-top:1px solid var(--border);
+  }
+  .mobile-bottom-notice{
+    display:flex;align-items:flex-start;gap:10px;
+    background:var(--surface-received);
+    border-radius:10px;padding:14px 16px;
+    width:100%;max-width:480px;
+  }
+  .mobile-bottom-notice-icon{
+    width:20px;height:20px;flex-shrink:0;color:var(--accent);margin-top:1px;
+  }
+  .mobile-bottom-notice-icon svg{width:18px;height:18px;stroke-width:1.8}
+  .mobile-bottom-notice-body{flex:1;min-width:0}
+  .mobile-bottom-notice-title{
+    font-size:12.5px;font-weight:600;color:var(--ink);
+    letter-spacing:-0.01em;margin-bottom:3px;
+  }
+  .mobile-bottom-notice-title strong{color:var(--accent);font-weight:700}
+  .mobile-bottom-notice-text{
+    font-size:11.5px;color:var(--ink-mute);
+    line-height:1.55;letter-spacing:-0.005em;
+  }
+  .mobile-bottom-month-label{
+    font-size:11px;color:var(--ink-mute);font-weight:500;letter-spacing:0.02em;
+  }
+}
+
+@media(max-width:380px){
+  .rev-num{font-size:32px}
+  .rev-unit{font-size:16px}
+  .rev-stats{grid-template-columns:1fr}
+  .rev-stats > div:last-child{grid-column:auto}
+}
+</style>
 </head>
 <body>
-  <div class="demo-shell">
-    <nav class="demo-nav">
-      <a class="brand" href="/operator">
-        <span class="brand-symbol"><span></span><span></span><span></span></span>
-        <span>NORE</span>
-      </a>
-      <div class="nav-links">
-        <a class="nav-link" href="/operator">대표 소개</a>
-        <a class="nav-link" href="/trainer/try/">트레이너 체험</a>
-        <a class="nav-link" href="/checkout/?role=operator&plan=founder-yearly">결제하기</a>
+<div class="app">
+
+  <div class="mobile-top">
+    <div class="mobile-top-brand">
+      <div class="sb-logo"><div class="bars"><span></span><span></span><span></span></div></div>
+      <div class="mobile-top-text">
+        <div class="mobile-top-name">NORE GYM</div>
+        <div class="mobile-top-ws">대표 워크스페이스</div>
+      </div>
+    </div>
+    <button class="mobile-top-bell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      <span class="mobile-top-badge">7</span>
+    </button>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo"><div class="bars"><span></span><span></span><span></span></div></div>
+      <div class="sb-brand-text">
+        <div class="sb-brand-name">NORE GYM</div>
+        <div class="sb-brand-ws">대표 워크스페이스</div>
+      </div>
+      <button class="sb-bell">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="sb-bell-badge">7</span>
+      </button>
+    </div>
+
+    <nav class="sb-nav">
+      <div class="sb-group">
+        <div class="sb-group-label">총괄</div>
+        <div class="sb-item active">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          대시보드
+        </div>
+      </div>
+      <div class="sb-group">
+        <div class="sb-group-label">운영현황</div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+          지점별 상세
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          코호트 / LTV
+        </div>
+      </div>
+      <div class="sb-group">
+        <div class="sb-group-label">매출·재무</div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h6"/></svg>
+          매출 관리 <span class="badge">3</span>
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          매출 분석
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          손익 현황
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          환불 관리
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>
+          분납 / 잔금
+        </div>
+      </div>
+      <div class="sb-group">
+        <div class="sb-group-label">트레이너</div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          트레이너 성과
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          트레이너 KPI 상세
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="14"/></svg>
+          비교 분석
+        </div>
+        <div class="sb-item">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
+          급여 정산
+        </div>
+      </div>
+      <div class="sb-group sb-group-collapsed">
+        <div class="sb-group-head-clickable">
+          <svg class="sb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>회원</span><span class="chev">›</span>
+        </div>
       </div>
     </nav>
 
-    <header class="demo-hero">
+    <div class="sb-user">
+      <div class="sb-user-info">
+        <span class="sb-user-name">이노어</span>
+        <span class="sb-user-role">대표</span>
+      </div>
+      <button class="sb-user-logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="page-head">
       <div>
-        <span class="eyebrow">NORE AI TRIAL · Operator</span>
-        <h1 class="demo-title">매출과 운영 신호를<br><em>오늘 할 일</em>로 바꿉니다.</h1>
-        <p class="demo-lead">대표가 매일 확인해야 하는 매출, 재등록, 트레이너 KPI, 운영 큐를 같은 언어로 정리하는 NORE의 운영 흐름입니다. 실제 API 호출 없이 브라우저 안에서만 바뀌는 정적 체험판입니다.</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="/checkout/?role=operator&plan=founder-yearly">결제하고 시작하기</a>
-          <a class="btn-secondary" href="/operator/#waitlist">문의/대기자 등록</a>
+        <h1 class="page-title">통합 대시보드</h1>
+        <div class="page-sub">매출·운영·트레이너 신호를 한 화면에서 읽습니다.</div>
+      </div>
+      <div class="page-controls">
+        <div class="month-switcher with-hint">
+          <button class="month-btn month-prev" aria-label="이전 달">‹</button>
+          <span class="month-label">2026.04</span>
+          <button class="month-btn month-next" aria-label="다음 달">›</button>
+        </div>
+        <button class="btn-chip" id="chip-this">이번 달</button>
+        <button class="btn-chip active" id="chip-last">지난 달</button>
+        <span class="month-chip-static month-static">2026.04 (지난달)</span>
+        <button class="branch-select">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>전체 지점</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="row-top">
+      <section class="card rev-card">
+        <div class="rev-top">
+          <span class="rev-month" id="rev-month">2026.04 매출</span>
+          <span class="rev-delta up" id="rev-delta">↑ +4.3%</span>
+        </div>
+        <div class="rev-main">
+          <span class="rev-num" id="rev-num">7,200</span>
+          <span class="rev-unit">만원</span>
+        </div>
+        <div class="rev-sub" id="rev-sub">지출 4,900만 · 표면수익률 31.9%</div>
+
+        <div class="rev-stats">
+          <div>
+            <div class="rev-stat-label">지출</div>
+            <div class="rev-stat-val" id="stat-cost">4,900만</div>
+          </div>
+          <div>
+            <div class="rev-stat-label">표면수익률 <span class="info" data-tip="이번 달 매출에서 직접 비용을 뺀 단순 수익률입니다. (매출 − 지출) ÷ 매출.">i</span></div>
+            <div class="rev-stat-val" id="stat-face">31.9%</div>
+          </div>
+          <div>
+            <div class="rev-stat-label">실질수익률 <span class="info" data-tip="현금은 받았지만 아직 진행하지 않은 PT 세션(부채) 증가분을 매출에서 차감한 수익률입니다.">i</span></div>
+            <div class="rev-stat-val neg" id="stat-real">-42.1%</div>
+          </div>
+        </div>
+
+        <div class="rev-pay">
+          <div class="rev-pay-item"><span class="lbl">카드</span><span class="pct">56%</span><span class="val">4,032만</span></div>
+          <div class="rev-pay-item"><span class="lbl">현금</span><span class="pct">29%</span><span class="val">2,088만</span></div>
+          <div class="rev-pay-item"><span class="lbl">계좌</span><span class="pct">16%</span><span class="val">1,152만</span></div>
+          <div class="rev-pay-item"><span class="lbl">미분류</span><span class="pct" style="color:var(--neg)">-1%</span><span class="val">-72만</span></div>
+        </div>
+
+        <div class="rev-notices">
+          <div class="rev-notice">
+            <span class="rev-notice-icon alert"></span>
+            <div class="rev-notice-body">
+              <div class="rev-notice-title">오늘 알림</div>
+              <div class="rev-notice-sub"><span class="num">1</span>건 처리 필요 · <span class="num">6</span>건 특이사항</div>
+            </div>
+            <button class="rev-notice-cta">펼쳐보기 ›</button>
+          </div>
+          <div class="rev-notice" id="risk-card">
+            <span class="rev-notice-icon risk"></span>
+            <div class="rev-notice-body">
+              <div class="rev-notice-title">이탈 위험 회원</div>
+              <div class="rev-notice-sub"><span class="num neg" id="risk-num">28</span>명 · 잔여 5회 이하 + 2주 미방문</div>
+            </div>
+            <button class="rev-notice-cta" id="risk-cta">펼쳐보기 ›</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="ai-card" id="ai-card">
+        <div class="ai-head">
+          <span class="ai-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/></svg>
+          </span>
+          <span class="ai-title">NORE AI</span>
+          <span class="ai-case-num" id="ai-case-tag">CASE A</span>
+        </div>
+
+        <p class="ai-diagnosis" id="ai-diag">재등록률과 트레이너 평균 소화율이 동반 하락하고 있습니다.</p>
+
+        <div class="ai-section">
+          <div class="ai-section-title">체크 항목</div>
+          <ul class="ai-list" id="ai-checks"></ul>
+        </div>
+
+        <div class="ai-section">
+          <div class="ai-section-title">처방</div>
+          <ul class="ai-list" id="ai-rx"></ul>
+        </div>
+
+        <div class="ai-section">
+          <div class="ai-section-title">우선 액션</div>
+          <div class="ai-actions" id="ai-actions"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="row-w">
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">비즈니스 사이클</div>
+            <div class="card-sub" id="funnel-sub">각 단계를 클릭하면 세부 요약을 볼 수 있습니다.</div>
+          </div>
+          <div class="card-right" id="funnel-right">2026.04 기준</div>
+        </div>
+        <div class="funnel">
+          <div class="funnel-step" data-funnel="acq">
+            <span class="more-hint">상세 ›</span>
+            <span class="funnel-label">모객 <span class="info" data-tip="이번 달 신규 상담 인원입니다.">i</span></span>
+            <span class="funnel-num" id="f-acq">19</span>
+            <span class="funnel-status ok" id="f-acq-st">신규 상담</span>
+          </div>
+          <div class="funnel-step" data-funnel="conv">
+            <span class="more-hint">상세 ›</span>
+            <span class="funnel-label">전환 <span class="info" data-tip="상담 후 등록 전환율입니다. 평균 70% 안팎 / 우수 80%↑.">i</span></span>
+            <span class="funnel-num" id="f-conv">68%</span>
+            <span class="funnel-status warn" id="f-conv-st">평균 대비 -2%p</span>
+          </div>
+          <div class="funnel-step" data-funnel="burn">
+            <span class="more-hint">상세 ›</span>
+            <span class="funnel-label">소화 <span class="info" data-tip="이번 달 진행된 수업 비율입니다. 100% 안팎이 균형 상태.">i</span></span>
+            <span class="funnel-num" id="f-burn">84%</span>
+            <span class="funnel-status danger" id="f-burn-st">부채 누적</span>
+          </div>
+          <div class="funnel-step" data-funnel="ret">
+            <span class="more-hint">상세 ›</span>
+            <span class="funnel-label">재등록 <span class="info" data-tip="만료 회원 중 다시 등록한 비율입니다. 목표 70%↑.">i</span></span>
+            <span class="funnel-num" id="f-ret">62%</span>
+            <span class="funnel-status danger" id="f-ret-st">목표 70% 미달</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="trend-stack">
+      <div class="trend-block">
+        <div class="trend-head">
+          <div class="trend-title-area">
+            <span class="trend-title">매출 추이</span>
+            <span class="trend-context">최근 6개월</span>
+          </div>
+          <div class="trend-now">
+            <span class="trend-now-label">현재</span>
+            <span class="trend-now-val" id="t-rev-now">7,200만</span>
+            <span class="trend-now-delta up" id="t-rev-delta">↑ +4.3%</span>
+          </div>
+        </div>
+        <div class="trend-canvas-wrap"><canvas id="chart-rev"></canvas></div>
+      </div>
+
+      <div class="trend-block">
+        <div class="trend-head">
+          <div class="trend-title-area">
+            <span class="trend-title">소화율 추이</span>
+            <span class="trend-context">100% 균형선 안팎</span>
+          </div>
+          <div class="trend-now">
+            <span class="trend-now-label">현재</span>
+            <span class="trend-now-val" id="t-burn-now">84%</span>
+            <span class="trend-now-delta down" id="t-burn-delta">↓ -5%p</span>
+          </div>
+        </div>
+        <div class="trend-canvas-wrap"><canvas id="chart-burn"></canvas></div>
+      </div>
+
+      <div class="trend-block">
+        <div class="trend-head">
+          <div class="trend-title-area">
+            <span class="trend-title">재등록률 추이</span>
+            <span class="trend-context">목표 70%↑</span>
+          </div>
+          <div class="trend-now">
+            <span class="trend-now-label">현재</span>
+            <span class="trend-now-val" id="t-ret-now">62%</span>
+            <span class="trend-now-delta down" id="t-ret-delta">↓ -6%p</span>
+          </div>
+        </div>
+        <div class="trend-canvas-wrap"><canvas id="chart-ret"></canvas></div>
+      </div>
+    </div>
+
+    <div class="row-4">
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">트레이너 성과 (TOP 5)</div>
+            <div class="card-sub" id="tr-sub">2026.04 · 매출 / 비중 / 재등록 · 소화</div>
+          </div>
+          <div class="card-right" style="cursor:pointer">전체 보기 ›</div>
+        </div>
+        <div class="tr-head">
+          <span></span><span>트레이너</span>
+          <span class="a-r">매출</span><span class="a-r">비중</span><span class="a-r">재등록 / 소화</span><span class="a-c">상태</span>
+        </div>
+        <div class="tr-table" id="tr-table"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">지점 건강도</div>
+            <div class="card-sub">매출 · 소화 · 전환 · 재등록</div>
+          </div>
+        </div>
+        <div id="bh-list"></div>
+      </section>
+    </div>
+
+    <div class="row-w">
+      <section class="card">
+        <div class="brief-block">
+          <div class="brief-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="brief-body">
+            <div class="brief-title">전주 브리핑</div>
+            <div class="brief-sub" id="brief-range">4월 21일 ~ 4월 27일 (지난주)</div>
+            <div class="brief-text" id="brief-text">지난주 매출은 직전 주 대비 +6.2% 상승했으나 PT 세션 소화율은 84%에서 81%로 -3%p 하락했습니다. 만료 임박 회원 중 5명이 재등록 의향을 보였고, 3명은 미응답 상태입니다. 압구정점 트레이너 1명의 소화율이 71%로 가장 낮아 회원 배정 조정이 필요합니다.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Mobile bottom — PC 최적화 안내 + 월 토글 -->
+    <div class="mobile-bottom">
+      <div class="mobile-bottom-notice">
+        <span class="mobile-bottom-notice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg>
+        </span>
+        <div class="mobile-bottom-notice-body">
+          <div class="mobile-bottom-notice-title"><strong>PC 화면에 최적화</strong>되어 있습니다</div>
+          <div class="mobile-bottom-notice-text">대표·관리자 대시보드는 매출·트레이너·이탈 신호를 한 화면에서 비교하는 도구입니다. 차트와 상세 분석은 PC에서 확인해주세요.</div>
         </div>
       </div>
-      <aside class="hero-note">
-        <strong>체험판에서 바로 보는 흐름</strong>
-        <p>실제 센터 데이터를 저장하지 않고, 제품이 어떤 방식으로 대표의 운영 판단을 줄여주는지 먼저 보여줍니다.</p>
-        <ul class="hero-points">
-          <li>매출·재등록 흐름을 우선순위로 정리</li>
-          <li>트레이너 KPI를 평가보다 코칭 신호로 분리</li>
-          <li>예약·급여·이탈 위험을 운영 큐로 확인</li>
-        </ul>
-      </aside>
-    </header>
+      <span class="mobile-bottom-month-label">다른 달 시나리오 보기</span>
+      <div class="month-switcher">
+        <button class="month-btn month-prev" aria-label="이전 달">‹</button>
+        <span class="month-label">2026.04</span>
+        <button class="month-btn month-next" aria-label="다음 달">›</button>
+      </div>
+    </div>
 
-    <main class="demo-stage">
-      <aside class="scenario-panel">
-        <span class="panel-label">Scenarios</span>
-        <div class="scenario-list" id="scenario-list"></div>
-        <button class="btn-primary random-btn" id="random-scenario" type="button">랜덤 시나리오</button>
-      </aside>
+  </main>
+</div>
 
-      <section class="workspace">
-        <article class="result-panel">
-          <span class="scenario-tag" id="scenario-tag"></span>
-          <h2 class="scenario-title" id="scenario-title"></h2>
-          <p class="scenario-lead" id="scenario-lead"></p>
-
-          <div class="demo-grid">
-            <div class="input-panel">
-              <h3 id="input-title"></h3>
-              <textarea class="sample-input" id="sample-input" aria-label="샘플 입력"></textarea>
-              <div class="input-actions">
-                <button class="btn-secondary" id="simulate-demo" type="button">샘플 출력 갱신</button>
-                <span class="safe-note" id="demo-status"></span>
-              </div>
-            </div>
-
-            <div class="preview-panel">
-              <h3 id="output-title"></h3>
-              <div id="scenario-output"></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="preview-panel">
-          <h3 id="member-title">현장에 남는 변화</h3>
-          <div class="member-flow" id="member-flow"></div>
-        </article>
-      </section>
-    </main>
+<div class="modal-backdrop" id="modal-bd">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-head-text">
+        <div class="modal-title" id="modal-title">제목</div>
+        <div class="modal-sub" id="modal-sub">서브</div>
+      </div>
+      <button class="modal-close" id="modal-close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
   </div>
+</div>
 
-  <script>window.NORE_DEMO_CONFIG = { role: 'operator' };</script>
-  <script src="../../assets/demo.js"></script>
+<script>
+const MONTHS = [
+  { key:"2025.12", label:"2025.12", revenue:6200, prev:0,    cost:4300, face:30.6, real:-48.5, burn:94,  ret:71, acq:14, conv:58, risk:14, casename:"B" },
+  { key:"2026.01", label:"2026.01", revenue:8400, prev:35.5, cost:5800, face:30.9, real:-38.2, burn:105, ret:72, acq:27, conv:76, risk:18, casename:"F" },
+  { key:"2026.02", label:"2026.02", revenue:7800, prev:-7.1, cost:5100, face:34.6, real:-35.8, burn:102, ret:73, acq:22, conv:72, risk:21, casename:"E" },
+  { key:"2026.03", label:"2026.03", revenue:6900, prev:-11.5,cost:4700, face:31.9, real:-44.9, burn:89,  ret:68, acq:24, conv:74, risk:25, casename:"D" },
+  { key:"2026.04", label:"2026.04", revenue:7200, prev:4.3,  cost:4900, face:31.9, real:-42.1, burn:84,  ret:62, acq:19, conv:68, risk:28, casename:"A" },
+  { key:"2026.05", label:"2026.05", revenue:6800, prev:-5.6, cost:4500, face:33.8, real:-39.4, burn:93,  ret:65, acq:17, conv:70, risk:32, casename:"C" }
+];
+const DEFAULT_IDX = 4;
+let currentIdx = DEFAULT_IDX;
+
+const TRAINERS_BASE = [
+  { name:"김도현", role:"트레이너", revenue:1580, share:21.9, ret:74, burn:88, status:"good", statusLabel:"우수" },
+  { name:"박서연", role:"트레이너", revenue:1240, share:17.2, ret:68, burn:92, status:"ok",   statusLabel:"안정" },
+  { name:"정민재", role:"트레이너", revenue:1150, share:16.0, ret:64, burn:85, status:"ok",   statusLabel:"안정" },
+  { name:"윤지우", role:"트레이너", revenue:980,  share:13.6, ret:58, burn:79, status:"warn", statusLabel:"주의" },
+  { name:"최예준", role:"트레이너", revenue:720,  share:10.0, ret:51, burn:71, status:"warn", statusLabel:"주의" }
+];
+
+const CASES = {
+  A: {
+    diagnosis:'재등록률 <span class="hl">62%</span> (목표 70% 대비 -8%p, 전월 -6%p)와 트레이너 평균 소화율 <span class="hl">84%</span> (-5%p)이 동반 하락하고 있습니다.',
+    checks:["트레이너별 소화율 편차 — 정민재·최예준 90% 미만 (각 85%·71%)","만료 임박 회원 18명 중 12명 재등록 의향 미확인","압구정점 소화율 81% — 한남점(88%) 대비 -7%p"],
+    rx:["만료 임박 회원 12명, 트레이너별 분배 후 일주일 내 컨택","정민재·최예준 회원 배정 검토 (편중 가능성)"],
+    actions:[{ label:"만료 임박 12명 명단", count:12, type:"expiring" },{ label:"트레이너 소화율 상세", count:5, type:"trainers" }]
+  },
+  B: {
+    diagnosis:'체험 신청 <span class="hl">32건</span>, 등록 전환은 <span class="hl">58%</span> (평균 70% 대비 -12%p). 상담 단계에서 막히고 있습니다.',
+    checks:["체험 후 상담 미전환 13명 — 평균 11일 경과","주말 상담 전환율 41% vs 평일 62% — 시간대 편차","평균 등록 단가 142만원 — 가격 검토 단계 이탈 신호"],
+    rx:["상담 미전환 13명 재연락 — 주중 오전 시간대 우선","상담 스크립트 가격 제시 단계 점검"],
+    actions:[{ label:"재연락 13명 명단", count:13, type:"recall" },{ label:"시간대별 전환율 보기", count:0, type:"slots" }]
+  },
+  C: {
+    diagnosis:'잔여 5회 이하 + 최근 2주 미방문 회원이 <span class="hl">32명</span>. 전월 28명 대비 +4명, 누적 증가 추세입니다.',
+    checks:["출석 저조 14명 · 신규 위험 11명 · 만료 임박 7명","최근 7일 미방문 19명 — 알림톡 미발송","윤지우 담당 회원 5명 집중"],
+    rx:["만료 임박 → 출석 저조 → 신규 위험 순 우선 컨택","윤지우 회원 배정 패턴 검토"],
+    actions:[{ label:"이탈 위험 32명 전체", count:32, type:"churn" },{ label:"카테고리별 분류 보기", count:3, type:"churn-cat" }]
+  },
+  D: {
+    diagnosis:'PT 판매 <span class="hl">+18%</span>이나 수업 소화율 <span class="hl">89%</span>로 균형선 -11%p. 미소화 세션 누적 중입니다.',
+    checks:["판매 +540회 vs 진행 +380회 — 차이 160회","신규 등록 22명 중 14명 첫 수업 미예약","압구정점 부채 누적이 한남점의 2.3배"],
+    rx:["이번 달 KPI는 매출 확장이 아닌 수업 소화율 집중","미소화 회원 38명 스케줄 예약 푸시"],
+    actions:[{ label:"미소화 회원 38명", count:38, type:"unburn" },{ label:"지점별 부채 비교", count:2, type:"branch-debt" }]
+  },
+  E: {
+    diagnosis:'재등록률은 안정권이나 회원 평균 수업 빈도가 주 <span class="hl">1.4회</span>. 월 6회 미만 회원 비율 <span class="hl">64%</span>.',
+    checks:["월 6회 미만 47명 — 신규 회원 비중 68%","주 1회 이하 회원의 다음 분기 재등록률 평균 48%","박서연·정민재 담당 회원 빈도가 가장 낮음"],
+    rx:["빈도 부족 47명 트레이너별 분배, 스케줄 푸시","신규 회원 첫 달 주 2회 정착 캠페인"],
+    actions:[{ label:"빈도 부족 47명", count:47, type:"lowfreq" },{ label:"신규 회원 정착률", count:0, type:"newretain" }]
+  },
+  F: {
+    diagnosis:'트레이너 매출 격차 1위 vs 5위 <span class="hl">약 2.2배</span>. 재등록 격차 23%p, 신년 신규 회원이 1·2위에 78% 집중.',
+    checks:["최예준 담당 12명 중 7명 평균 빈도 1회 미만","윤지우 재등록 58% — 평균 65% 대비 -7%p","1·2위 트레이너에 신규 회원 78% 집중"],
+    rx:["1위 김도현 노하우 월간 코칭 세션","하위 2명 담당 23명 재배정 후보 검토"],
+    actions:[{ label:"재배정 후보 23명", count:23, type:"reassign" },{ label:"신규 회원 배정 비중", count:0, type:"new-distrib" }]
+  }
+};
+
+const MEMBER_LISTS = {
+  expiring: { title:"만료 임박 회원 12명", sub:"재등록 의향 미확인 / 일주일 내 컨택 필요",
+    items:[
+      { nm:"김민수", meta:"잔여 2회 · 마지막 방문 5/8", v1:"-", v2:"수업 26회", b:"warn", bt:"의향 미확인" },
+      { nm:"이수아", meta:"잔여 1회 · 마지막 방문 5/6", v1:"-", v2:"수업 18회", b:"warn", bt:"의향 미확인" },
+      { nm:"박지훈", meta:"잔여 3회 · 마지막 방문 5/10", v1:"-", v2:"수업 32회", b:"warn", bt:"의향 미확인" },
+      { nm:"정하늘", meta:"잔여 0회 · 마지막 방문 5/4", v1:"-", v2:"수업 24회", b:"neg", bt:"긴급" },
+      { nm:"황서윤", meta:"잔여 2회 · 마지막 방문 5/9", v1:"-", v2:"수업 30회", b:"warn", bt:"의향 미확인" },
+      { nm:"송지호", meta:"잔여 1회 · 마지막 방문 5/3", v1:"-", v2:"수업 16회", b:"warn", bt:"의향 미확인" },
+      { nm:"강민지", meta:"잔여 3회 · 마지막 방문 5/11", v1:"-", v2:"수업 28회", b:"warn", bt:"의향 미확인" },
+      { nm:"조은우", meta:"잔여 0회 · 마지막 방문 4/30", v1:"-", v2:"수업 12회", b:"neg", bt:"긴급" },
+      { nm:"임채원", meta:"잔여 2회 · 마지막 방문 5/7", v1:"-", v2:"수업 22회", b:"warn", bt:"의향 미확인" },
+      { nm:"한도윤", meta:"잔여 1회 · 마지막 방문 5/2", v1:"-", v2:"수업 14회", b:"warn", bt:"의향 미확인" },
+      { nm:"윤서진", meta:"잔여 3회 · 마지막 방문 5/12", v1:"-", v2:"수업 36회", b:"warn", bt:"의향 미확인" },
+      { nm:"백다인", meta:"잔여 0회 · 마지막 방문 5/5", v1:"-", v2:"수업 20회", b:"neg", bt:"긴급" }
+    ]},
+  recall: { title:"재연락 대상 13명", sub:"체험 후 상담 미전환 / 마지막 컨택 평균 11일 경과",
+    items:[
+      { nm:"이지원", meta:"체험 4/22 · 마지막 컨택 4/25", v1:"-", v2:"30대 여성", b:"warn", bt:"가격 검토중" },
+      { nm:"김태현", meta:"체험 4/24 · 마지막 컨택 4/26", v1:"-", v2:"40대 남성", b:"warn", bt:"무응답" },
+      { nm:"박소영", meta:"체험 4/27 · 마지막 컨택 4/29", v1:"-", v2:"30대 여성", b:"warn", bt:"비교 검토" },
+      { nm:"정유진", meta:"체험 4/28 · 마지막 컨택 5/1", v1:"-", v2:"30대 여성", b:"warn", bt:"가격 검토중" },
+      { nm:"최승호", meta:"체험 4/30 · 마지막 컨택 5/2", v1:"-", v2:"50대 남성", b:"warn", bt:"무응답" },
+      { nm:"오현지", meta:"체험 5/2 · 마지막 컨택 5/4", v1:"-", v2:"30대 여성", b:"warn", bt:"무응답" },
+      { nm:"홍준영", meta:"체험 5/3 · 마지막 컨택 5/5", v1:"-", v2:"40대 남성", b:"warn", bt:"가격 검토중" },
+      { nm:"권나래", meta:"체험 5/5 · 마지막 컨택 5/7", v1:"-", v2:"20대 여성", b:"warn", bt:"무응답" }
+    ]},
+  churn: { title:"이탈 위험 회원", sub:"잔여 5회 이하 + 최근 2주 미방문",
+    items:[
+      { nm:"김민수", meta:"잔여 2회 · 14일 미방문", v1:"-", v2:"만료 임박", b:"neg", bt:"긴급" },
+      { nm:"이수아", meta:"잔여 1회 · 12일 미방문", v1:"-", v2:"만료 임박", b:"neg", bt:"긴급" },
+      { nm:"신예린", meta:"잔여 4회 · 16일 미방문", v1:"-", v2:"출석 저조", b:"warn", bt:"주의" },
+      { nm:"문지혁", meta:"잔여 5회 · 14일 미방문", v1:"-", v2:"신규 위험", b:"warn", bt:"주의" },
+      { nm:"안주은", meta:"잔여 3회 · 18일 미방문", v1:"-", v2:"출석 저조", b:"warn", bt:"주의" }
+    ]},
+  unburn: { title:"미소화 회원 38명", sub:"누적 미소화 세션 8회 이상",
+    items:[
+      { nm:"서지안", meta:"미소화 12회 · 최근 방문 4/20", v1:"-", v2:"소화율 41%", b:"warn", bt:"부채 누적" },
+      { nm:"노아인", meta:"미소화 10회 · 최근 방문 4/25", v1:"-", v2:"소화율 52%", b:"warn", bt:"부채 누적" }
+    ]},
+  lowfreq: { title:"빈도 부족 회원 47명", sub:"월 6회 미만 / 신규 회원 비중 68%",
+    items:[
+      { nm:"전유나", meta:"월 3회 · 신규", v1:"-", v2:"주 0.8회", b:"warn", bt:"정착 약함" },
+      { nm:"손하영", meta:"월 4회 · 신규", v1:"-", v2:"주 1.0회", b:"warn", bt:"정착 약함" }
+    ]},
+  reassign: { title:"재배정 후보 23명", sub:"하위 트레이너 담당 · 빈도 신호 약함",
+    items:[{ nm:"양세호", meta:"담당 최예준 · 월 2회", v1:"-", v2:"빈도 부족", b:"warn", bt:"검토" }]},
+  trainers: { title:"트레이너 소화율 상세", sub:"5명 · 2026.04 기준",
+    items:[
+      { nm:"김도현", meta:"담당 32명", v1:"88%", v2:"매출 1,580만", b:"ok", bt:"우수" },
+      { nm:"박서연", meta:"담당 28명", v1:"92%", v2:"매출 1,240만", b:"ok", bt:"안정" },
+      { nm:"정민재", meta:"담당 26명", v1:"85%", v2:"매출 1,150만", b:"ok", bt:"안정" },
+      { nm:"윤지우", meta:"담당 22명", v1:"79%", v2:"매출 980만", b:"warn", bt:"주의" },
+      { nm:"최예준", meta:"담당 18명", v1:"71%", v2:"매출 720만", b:"warn", bt:"주의" }
+    ]}
+};
+
+function funnelDetail(metric, m){
+  if (metric === 'acq') {
+    return {
+      title:"모객 — 신규 상담",
+      sub:`${m.label} · 신규로 상담을 받은 잠재 회원`,
+      headline:m.acq + '명',
+      delta:(m.acq - 22 >= 0 ? '+' : '') + (m.acq - 22) + '명 (전월 22명 대비)',
+      deltaClass: (m.acq - 22) >= 0 ? 'pos':'neg',
+      sections:[
+        { title:"채널별 유입",
+          rows:[
+            { lbl:"인스타그램 광고", v: Math.round(m.acq*0.42)+"명", pct:42 },
+            { lbl:"워크인 (방문)", v: Math.round(m.acq*0.32)+"명", pct:32 },
+            { lbl:"지인 추천", v: Math.round(m.acq*0.21)+"명", pct:21 },
+            { lbl:"기타", v: Math.round(m.acq*0.05)+"명", pct:5 }
+          ]},
+        { title:"읽기",
+          text:`${m.label} 모객은 평일 저녁(19~21시) 시간대에 ${Math.round(m.acq*0.45)}명이 몰렸습니다. 인스타그램 유입이 가장 큰 비중이나, 상담 후 등록 전환은 다음 단계에서 막히고 있습니다.` }
+      ]
+    };
+  }
+  if (metric === 'conv') {
+    return {
+      title:"전환 — 상담 → 등록",
+      sub:`${m.label} · 상담 후 등록 전환 비율 (평균 70% 안팎)`,
+      headline:m.conv + '%',
+      delta: m.conv >= 75 ? '우수 · 평균 70% 대비 +' + (m.conv-70) + '%p' : (m.conv >= 70 ? '평균 수준' : '평균 대비 -' + (70-m.conv) + '%p'),
+      deltaClass: m.conv >= 70 ? 'pos' : 'neg',
+      sections:[
+        { title:"세부 흐름",
+          rows:[
+            { lbl:"상담 진행", v: m.acq+"건", pct:100 },
+            { lbl:"등록 결정", v: Math.round(m.acq*m.conv/100)+"건", pct: m.conv },
+            { lbl:"평균 등록 단가", v:"148만원", pct:0, hideBar:true }
+          ]},
+        { title:"읽기",
+          text: m.conv >= 75
+            ? `${m.label} 전환율 ${m.conv}%는 우수 수준입니다. 트레이너 김도현 담당 상담의 전환율이 84%로 가장 높아 스크립트 공유가 권장됩니다.`
+            : m.conv >= 70
+              ? `${m.label} 전환율 ${m.conv}%는 평균 수준입니다. 단가 148만원도 정상 범위이나, 30대 후반 여성 회원군 전환율이 61%로 가장 낮습니다.`
+              : `${m.label} 전환율 ${m.conv}%는 평균 70% 대비 -${70-m.conv}%p 부족합니다. 주말 상담(41%) vs 평일(62%) 편차와 가격 제시 단계 점검이 권장됩니다.`
+        }
+      ]
+    };
+  }
+  if (metric === 'burn') {
+    return {
+      title:"소화 — 수업 진행률",
+      sub:`${m.label} · 100% 균형선 안팎 변동`,
+      headline:m.burn + '%',
+      delta:m.burn >= 100 ? '균형 ↑ (소화 잘됨)' : (m.burn>=95 ? '균형 근접' : (m.burn>=90 ? '하락 추세' : '부채 누적')),
+      deltaClass: m.burn >= 100 ? 'pos' : 'neg',
+      sections:[
+        { title:"세부 흐름",
+          rows:[
+            { lbl:"이번 달 판매 세션", v: Math.round(m.revenue*0.06)+"회", pct:100 },
+            { lbl:"이번 달 진행 세션", v: Math.round(m.revenue*0.06*m.burn/100)+"회", pct: m.burn },
+            { lbl:"미소화 누적 가치 추정", v:"약 940만원", pct:0, hideBar:true }
+          ]},
+        { title:"읽기",
+          text: m.burn >= 100
+            ? `${m.label} 소화율 ${m.burn}%는 균형선 위로, 판매한 세션이 잘 소화되고 있습니다. 과거 누적 부채도 일부 해소 중입니다.`
+            : `${m.label} 소화율 ${m.burn}%는 균형선 -${100-m.burn}%p로, 판매는 늘었으나 실제 진행이 따라가지 못해 미소화 세션이 누적되고 있습니다. 이번 달 KPI는 매출 확장보다 수업 진행 푸시에 집중하는 게 정합입니다.`
+        }
+      ]
+    };
+  }
+  if (metric === 'ret') {
+    const expired = Math.round(m.acq*1.4);
+    const rejoined = Math.round(expired * m.ret/100);
+    const terminated = expired - rejoined;
+    return {
+      title:"재등록 — 만료 회원의 재가입",
+      sub:`${m.label} · 만료 회원 중 다시 등록한 비율 (목표 70%↑)`,
+      headline:m.ret + '%',
+      delta: m.ret>=70 ? '목표 달성' : '목표 70% 대비 -' + (70-m.ret) + '%p',
+      deltaClass: m.ret>=70 ? 'pos' : 'neg',
+      sections:[
+        { title:"세부 흐름",
+          rows:[
+            { lbl:"이번 달 만료 회원", v: expired+"명", pct:100 },
+            { lbl:"재등록 회원", v: rejoined+"명", pct:m.ret },
+            { lbl:"종료 회원", v: terminated+"명", pct:0, hideBar:true }
+          ]},
+        { title:"읽기",
+          text: m.ret >= 70
+            ? `${m.label} 재등록률 ${m.ret}%는 목표를 달성한 수준입니다. 트레이너별 재등록 격차(상위 74% vs 하위 51%)는 별도 검토가 필요합니다.`
+            : `${m.label} 재등록률 ${m.ret}%는 목표 70% 대비 -${70-m.ret}%p. 종료 회원 ${terminated}명 중 다수가 만료 직전 컨택이 부족했습니다.`
+        }
+      ]
+    };
+  }
+}
+
+function renderHeader(){
+  const m = MONTHS[currentIdx];
+  document.querySelectorAll('.month-label').forEach(el => el.textContent = m.label);
+  document.querySelectorAll('.month-static').forEach(el => el.textContent = m.label + ' (지난달)');
+  document.getElementById('rev-month').textContent = m.label + ' 매출';
+  document.getElementById('rev-num').textContent = m.revenue.toLocaleString();
+  const dEl = document.getElementById('rev-delta');
+  if (m.prev === 0) { dEl.textContent = '— 첫 달'; dEl.className = 'rev-delta flat'; }
+  else if (m.prev > 0) { dEl.textContent = '↑ +' + m.prev.toFixed(1) + '%'; dEl.className = 'rev-delta up'; }
+  else { dEl.textContent = '↓ ' + m.prev.toFixed(1) + '%'; dEl.className = 'rev-delta down'; }
+  document.getElementById('rev-sub').textContent = '지출 ' + m.cost.toLocaleString() + '만 · 표면수익률 ' + m.face.toFixed(1) + '%';
+  document.getElementById('stat-cost').textContent = m.cost.toLocaleString() + '만';
+  document.getElementById('stat-face').textContent = m.face.toFixed(1) + '%';
+  document.getElementById('stat-real').textContent = m.real.toFixed(1) + '%';
+  document.getElementById('funnel-right').textContent = m.label + ' 기준';
+
+  document.querySelectorAll('.month-prev').forEach(b => b.disabled = (currentIdx === 0));
+  document.querySelectorAll('.month-next').forEach(b => b.disabled = (currentIdx === MONTHS.length - 1));
+
+  document.getElementById('t-rev-now').textContent = m.revenue.toLocaleString() + '만';
+  const trd = document.getElementById('t-rev-delta');
+  if (m.prev === 0) { trd.textContent = '— 첫 달'; trd.className='trend-now-delta'; }
+  else if (m.prev > 0) { trd.textContent = '↑ +'+m.prev.toFixed(1)+'%'; trd.className='trend-now-delta up'; }
+  else { trd.textContent = '↓ '+m.prev.toFixed(1)+'%'; trd.className='trend-now-delta down'; }
+
+  const prevBurn = currentIdx > 0 ? MONTHS[currentIdx-1].burn : m.burn;
+  const burnDiff = m.burn - prevBurn;
+  document.getElementById('t-burn-now').textContent = m.burn + '%';
+  const tbd = document.getElementById('t-burn-delta');
+  if (burnDiff === 0) { tbd.textContent='유지'; tbd.className='trend-now-delta'; }
+  else if (burnDiff > 0) { tbd.textContent = '↑ +'+burnDiff+'%p'; tbd.className='trend-now-delta up'; }
+  else { tbd.textContent = '↓ '+burnDiff+'%p'; tbd.className='trend-now-delta down'; }
+
+  const prevRet = currentIdx > 0 ? MONTHS[currentIdx-1].ret : m.ret;
+  const retDiff = m.ret - prevRet;
+  document.getElementById('t-ret-now').textContent = m.ret + '%';
+  const trtd = document.getElementById('t-ret-delta');
+  if (retDiff === 0) { trtd.textContent='유지'; trtd.className='trend-now-delta'; }
+  else if (retDiff > 0) { trtd.textContent = '↑ +'+retDiff+'%p'; trtd.className='trend-now-delta up'; }
+  else { trtd.textContent = '↓ '+retDiff+'%p'; trtd.className='trend-now-delta down'; }
+}
+
+function renderFunnel(){
+  const m = MONTHS[currentIdx];
+  document.getElementById('f-acq').textContent = m.acq;
+  document.getElementById('f-conv').textContent = m.conv + '%';
+  document.getElementById('f-burn').textContent = m.burn + '%';
+  document.getElementById('f-ret').textContent = m.ret + '%';
+
+  let s2 = document.getElementById('f-conv-st');
+  if (m.conv >= 75) { s2.className='funnel-status ok'; s2.textContent='우수 (+'+(m.conv-70)+'%p)'; }
+  else if (m.conv >= 70) { s2.className='funnel-status ok'; s2.textContent='평균 수준'; }
+  else if (m.conv >= 65) { s2.className='funnel-status warn'; s2.textContent='평균 대비 -'+(70-m.conv)+'%p'; }
+  else { s2.className='funnel-status danger'; s2.textContent='평균 대비 -'+(70-m.conv)+'%p'; }
+
+  let s3 = document.getElementById('f-burn-st');
+  if (m.burn >= 100) { s3.className='funnel-status ok'; s3.textContent='균형'; }
+  else if (m.burn >= 95) { s3.className='funnel-status ok'; s3.textContent='균형 근접'; }
+  else if (m.burn >= 90) { s3.className='funnel-status warn'; s3.textContent='하락 추세'; }
+  else { s3.className='funnel-status danger'; s3.textContent='부채 누적'; }
+
+  let s4 = document.getElementById('f-ret-st');
+  if (m.ret >= 70) { s4.className='funnel-status ok'; s4.textContent='목표 달성'; }
+  else if (m.ret >= 65) { s4.className='funnel-status warn'; s4.textContent='목표 -'+(70-m.ret)+'%p'; }
+  else { s4.className='funnel-status danger'; s4.textContent='목표 70% 미달'; }
+}
+
+function renderRisk(){
+  document.getElementById('risk-num').textContent = MONTHS[currentIdx].risk;
+}
+
+function renderAI(){
+  const m = MONTHS[currentIdx];
+  const c = CASES[m.casename];
+  document.getElementById('ai-case-tag').textContent = 'CASE ' + m.casename;
+  document.getElementById('ai-diag').innerHTML = c.diagnosis;
+  document.getElementById('ai-checks').innerHTML = c.checks.map(x => '<li>'+x+'</li>').join('');
+  document.getElementById('ai-rx').innerHTML = c.rx.map(x => '<li>'+x+'</li>').join('');
+  document.getElementById('ai-actions').innerHTML = c.actions.map(a => `
+    <button class="ai-action-btn" data-action="${a.type}">
+      <span class="lbl">${a.label}</span>
+      <span><span class="count">${a.count > 0 ? a.count : ''}</span><span class="arr">→</span></span>
+    </button>
+  `).join('');
+  document.querySelectorAll('.ai-action-btn').forEach(b => {
+    b.addEventListener('click', () => openListModal(b.dataset.action));
+  });
+}
+
+function renderTrainers(){
+  const factor = [0.85, 1.15, 1.05, 0.95, 1.0, 0.92][currentIdx];
+  const tr = TRAINERS_BASE.map(t => ({...t, revenue: Math.round(t.revenue * factor), share: (t.share * factor).toFixed(1)}));
+  document.getElementById('tr-table').innerHTML = tr.map((t,i) => `
+    <div class="tr-row">
+      <span class="tr-rank">${i+1}</span>
+      <div>
+        <div class="tr-name">${t.name}</div>
+        <div class="tr-role">${t.role}</div>
+      </div>
+      <span class="tr-num">${t.revenue.toLocaleString()}만</span>
+      <span class="tr-pct">${t.share}%</span>
+      <span class="tr-pct">${t.ret}% / ${t.burn}%</span>
+      <span class="tr-status ${t.status}">${t.statusLabel}</span>
+    </div>
+  `).join('');
+  document.getElementById('tr-sub').textContent = MONTHS[currentIdx].label + ' · 매출 / 비중 / 재등록 · 소화';
+}
+
+function renderBranches(){
+  const m = MONTHS[currentIdx];
+  const a = Math.round(m.revenue * 0.583);
+  const b = m.revenue - a;
+  const aBurn = Math.max(60, m.burn - 5);
+  const bBurn = Math.min(110, m.burn + 6);
+  const aRet  = Math.max(40, m.ret - 4);
+  const bRet  = Math.min(85, m.ret + 6);
+  const aConv = Math.max(55, m.conv - 4);
+  const bConv = Math.min(85, m.conv + 5);
+  const aStat = aBurn < 85 ? 'red' : (aBurn < 95 ? 'amber' : 'green');
+  const bStat = bBurn < 85 ? 'red' : (bBurn < 95 ? 'amber' : 'green');
+  const aWarn = aBurn < 85 ? '소화율 부족' : (aRet < 60 ? '재등록 주의' : '');
+  const bWarn = bBurn < 85 ? '소화율 부족' : '';
+
+  document.getElementById('bh-list').innerHTML = `
+    <div class="bh-row">
+      <div class="bh-left">
+        <span class="bh-status ${aStat}"></span>
+        <div>
+          <div class="bh-name">압구정점</div>
+          ${aWarn ? `<div class="bh-warn">${aWarn}</div>` : ''}
+        </div>
+      </div>
+      <div class="bh-stats">
+        <div class="bh-stat"><span class="bh-stat-lbl">매출</span><span class="bh-stat-val">${a.toLocaleString()}만</span></div>
+        <div class="bh-stat"><span class="bh-stat-lbl">소화</span><span class="bh-stat-val ${aBurn<90?'down':''}">${aBurn}%</span></div>
+        <div class="bh-stat"><span class="bh-stat-lbl">전환</span><span class="bh-stat-val">${aConv}%</span></div>
+        <div class="bh-stat"><span class="bh-stat-lbl">재등록</span><span class="bh-stat-val ${aRet<60?'down':''}">${aRet}%</span></div>
+      </div>
+    </div>
+    <div class="bh-row">
+      <div class="bh-left">
+        <span class="bh-status ${bStat}"></span>
+        <div>
+          <div class="bh-name">한남점</div>
+          ${bWarn ? `<div class="bh-warn">${bWarn}</div>` : ''}
+        </div>
+      </div>
+      <div class="bh-stats">
+        <div class="bh-stat"><span class="bh-stat-lbl">매출</span><span class="bh-stat-val">${b.toLocaleString()}만</span></div>
+        <div class="bh-stat"><span class="bh-stat-lbl">소화</span><span class="bh-stat-val ${bBurn>=100?'up':''}">${bBurn}%</span></div>
+        <div class="bh-stat"><span class="bh-stat-lbl">전환</span><span class="bh-stat-val">${bConv}%</span></div>
+        <div class="bh-stat"><span class="bh-stat-lbl">재등록</span><span class="bh-stat-val">${bRet}%</span></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderBrief(){
+  const m = MONTHS[currentIdx];
+  const c = CASES[m.casename];
+  const labels = {
+    "2025.12":"12월 22일 ~ 12월 28일","2026.01":"1월 26일 ~ 2월 1일","2026.02":"2월 23일 ~ 3월 1일",
+    "2026.03":"3월 23일 ~ 3월 29일","2026.04":"4월 21일 ~ 4월 27일","2026.05":"5월 4일 ~ 5월 10일"
+  };
+  document.getElementById('brief-range').textContent = labels[m.key] + ' (지난주)';
+  const burnDir = m.burn >= 100 ? '소화율이 균형 상태' : '소화율이 ' + m.burn + '% 수준';
+  const retDir  = m.ret >= 70 ? '재등록률이 목표 달성' : '재등록률이 ' + m.ret + '%로 목표 미달';
+  document.getElementById('brief-text').textContent =
+    `지난주는 ${burnDir}, ${retDir} 흐름이 함께 관측됐습니다. ` + c.checks[0] + '. ' + c.rx[0] + '를 권장합니다.';
+}
+
+/* Charts — refined: 꺾은선(tension 0), 컴팩트 툴팁, 매출 redwood */
+Chart.defaults.font.family = "'Pretendard Variable', Pretendard, sans-serif";
+Chart.defaults.color = '#9A968F';
+Chart.defaults.font.size = 11;
+
+let chartRev, chartBurn, chartRet;
+
+function chartLabels(){ return MONTHS.map(m => m.label.split('.')[1] + '월'); }
+
+function makeTrendChart(ctx, data, lineColor, fillAlpha, yMin, yMax, baselineY, baselineLabel, baselineColor, hoverFormatter){
+  return new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: chartLabels(),
+      datasets:[{
+        data,
+        borderColor:lineColor,
+        backgroundColor:`rgba(${lineColor.replace('#','').match(/.{2}/g).map(h=>parseInt(h,16)).join(',')}, ${fillAlpha})`,
+        borderWidth:1.5, fill:true, tension:0,
+        pointBackgroundColor:lineColor, pointBorderColor:lineColor,
+        pointRadius:3, pointBorderWidth:0,
+        pointHoverRadius:5, pointHoverBorderWidth:2, pointHoverBorderColor:'#fff'
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:14, bottom:8, left:12, right:12}},
+      interaction:{mode:'index', intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#0A0A0A',
+          padding:{top:6, bottom:6, left:9, right:9},
+          displayColors:false,
+          titleFont:{size:10, weight:'500'}, bodyFont:{size:11.5, weight:'600'},
+          titleColor:'#C5C1BA', bodyColor:'#fff',
+          caretSize:4, cornerRadius:6,
+          callbacks:{
+            title:(items)=> items[0].label,
+            label:(c)=> hoverFormatter(c.parsed.y, c.dataIndex)
+          }
+        }
+      },
+      scales:{
+        y:{ display:false, suggestedMin:yMin, suggestedMax:yMax },
+        x:{ grid:{display:false}, ticks:{font:{size:11}, color:'#9A968F'}, border:{display:false} }
+      }
+    },
+    plugins: baselineY != null ? [{
+      id:'baseline',
+      beforeDraw:(chart)=>{
+        const y = chart.scales.y.getPixelForValue(baselineY);
+        const c = chart.ctx;
+        c.save();
+        c.strokeStyle = baselineColor; c.setLineDash([3,4]);
+        c.beginPath(); c.moveTo(chart.chartArea.left, y); c.lineTo(chart.chartArea.right, y); c.stroke();
+        c.fillStyle = baselineColor;
+        c.font = "10px 'Archivo'";
+        const textW = c.measureText(baselineLabel).width;
+        c.fillText(baselineLabel, chart.chartArea.right - textW - 4, y - 4);
+        c.restore();
+      }
+    }] : []
+  });
+}
+
+function initCharts(){
+  const revVals = MONTHS.map(m => m.revenue);
+  const burnVals = MONTHS.map(m => m.burn);
+  const retVals = MONTHS.map(m => m.ret);
+
+  chartRev = makeTrendChart(
+    document.getElementById('chart-rev').getContext('2d'),
+    revVals, '#B5453A', 0.07,
+    Math.min(...revVals)*0.85, Math.max(...revVals)*1.08,
+    null, null, null,
+    (v, i)=> {
+      const prev = i>0 ? revVals[i-1] : null;
+      const pct = prev ? ((v - prev)/prev*100) : null;
+      const pctStr = pct === null ? '' : (pct >= 0 ? '  +'+pct.toFixed(1)+'%' : '  '+pct.toFixed(1)+'%');
+      return v.toLocaleString() + '만원' + pctStr;
+    }
+  );
+
+  chartBurn = makeTrendChart(
+    document.getElementById('chart-burn').getContext('2d'),
+    burnVals, '#5C6772', 0.05,
+    70, 115,
+    100, '100% 균형', 'rgba(10,10,10,0.30)',
+    (v, i)=> {
+      const status = v >= 100 ? '균형↑' : (v >= 95 ? '균형 근접' : (v >= 90 ? '주의' : '부채 누적'));
+      const prev = i>0 ? burnVals[i-1] : null;
+      const diff = prev !== null ? (v - prev) : null;
+      const diffStr = diff === null ? '' : (diff >= 0 ? '  +'+diff+'%p' : '  '+diff+'%p');
+      return v + '%  ' + status + diffStr;
+    }
+  );
+
+  chartRet = makeTrendChart(
+    document.getElementById('chart-ret').getContext('2d'),
+    retVals, '#3D8B5E', 0.06,
+    55, 80,
+    70, '목표 70%', 'rgba(61,139,94,0.45)',
+    (v, i)=> {
+      const status = v >= 70 ? '목표 달성' : '목표 미달';
+      const prev = i>0 ? retVals[i-1] : null;
+      const diff = prev !== null ? (v - prev) : null;
+      const diffStr = diff === null ? '' : (diff >= 0 ? '  +'+diff+'%p' : '  '+diff+'%p');
+      return v + '%  ' + status + diffStr;
+    }
+  );
+}
+
+function refreshCharts(){
+  chartRev.update();
+  chartBurn.update();
+  chartRet.update();
+}
+
+function fadeAI(){
+  const el = document.getElementById('ai-card');
+  el.classList.remove('fade-in'); void el.offsetWidth; el.classList.add('fade-in');
+}
+
+function openListModal(type){
+  const data = MEMBER_LISTS[type];
+  if (!data) {
+    document.getElementById('modal-title').textContent = '상세 데이터 준비 중';
+    document.getElementById('modal-sub').textContent = '실 데이터 연동 시 표시됩니다.';
+    document.getElementById('modal-body').innerHTML = '<div style="padding:48px 24px;text-align:center;color:var(--ink-mute);font-size:13px">이 항목의 상세 화면은 실 데이터 연동 후 표시됩니다.</div>';
+  } else {
+    document.getElementById('modal-title').textContent = data.title;
+    document.getElementById('modal-sub').textContent = data.sub;
+    document.getElementById('modal-body').innerHTML = data.items.map(it => `
+      <div class="member-row">
+        <div>
+          <div class="nm">${it.nm}</div>
+          <div class="meta">${it.meta}</div>
+        </div>
+        <div class="v">${it.v1 || ''}</div>
+        <div class="v dim">${it.v2 || ''}</div>
+        <div class="badge-${it.b}">${it.bt || ''}</div>
+      </div>
+    `).join('');
+  }
+  document.getElementById('modal-bd').classList.add('show');
+}
+
+function openFunnelModal(metric){
+  const m = MONTHS[currentIdx];
+  const d = funnelDetail(metric, m);
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-sub').textContent = d.sub;
+  let html = `<div class="fd-body">
+    <div class="fd-headline">${d.headline}</div>
+    <div class="fd-delta ${d.deltaClass}">${d.delta}</div>`;
+  d.sections.forEach(s => {
+    html += `<div class="fd-section"><div class="fd-section-title">${s.title}</div>`;
+    if (s.rows) {
+      html += '<div class="fd-breakdown">';
+      s.rows.forEach(r => {
+        if (r.hideBar) {
+          html += `<div class="fd-break-row"><span class="lbl">${r.lbl}</span><span class="v">${r.v}</span></div>`;
+        } else {
+          html += `<div>
+            <div class="fd-bar-row"><span class="lbl">${r.lbl}</span><span class="v">${r.v}</span></div>
+            <div class="fd-bar"><div class="fd-bar-fill" style="width:${r.pct}%"></div></div>
+          </div>`;
+        }
+      });
+      html += '</div>';
+    }
+    if (s.text) {
+      html += `<div class="fd-text">${s.text}</div>`;
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal-bd').classList.add('show');
+}
+
+function closeModal(){
+  document.getElementById('modal-bd').classList.remove('show');
+}
+
+function refreshAll(){
+  renderHeader();
+  renderFunnel();
+  renderRisk();
+  renderAI();
+  renderTrainers();
+  renderBranches();
+  renderBrief();
+  refreshCharts();
+  fadeAI();
+}
+
+document.querySelectorAll('.month-prev').forEach(btn => {
+  btn.addEventListener('click', () => { if (currentIdx > 0) { currentIdx--; refreshAll(); } });
+});
+document.querySelectorAll('.month-next').forEach(btn => {
+  btn.addEventListener('click', () => { if (currentIdx < MONTHS.length - 1) { currentIdx++; refreshAll(); } });
+});
+
+document.getElementById('chip-this').addEventListener('click', () => {
+  document.getElementById('chip-this').classList.add('active');
+  document.getElementById('chip-last').classList.remove('active');
+});
+document.getElementById('chip-last').addEventListener('click', () => {
+  document.getElementById('chip-last').classList.add('active');
+  document.getElementById('chip-this').classList.remove('active');
+});
+
+document.getElementById('risk-cta').addEventListener('click', (e) => { e.stopPropagation(); openListModal('churn'); });
+document.getElementById('risk-card').addEventListener('click', () => openListModal('churn'));
+
+document.querySelectorAll('.funnel-step').forEach(s => {
+  s.addEventListener('click', () => openFunnelModal(s.dataset.funnel));
+});
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-bd').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-bd') closeModal();
+});
+
+initCharts();
+refreshAll();
+</script>
 </body>
 </html>
