@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>트레이너 마케팅 자동화 · 노어 미리보기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap">
+<style>
+:root{
+  --bg:#FCFAF5;
+  --card:#FFFFFF;
+  --soft:#F5F4EF;
+  --ink:#0A0A0A;
+  --ink-soft:#3D3D3D;
+  --ink-mute:#7A7A7A;
+  --ink-faint:#A8A8A8;
+  --line:#E8E5DC;
+  --line-soft:#F0EDE3;
+  --orange:#FF6900;
+  --orange-soft:#FFF1E5;
+  --orange-softer:#FFF8F0;
+  --orange-hover:#E55F00;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Pretendard Variable',Pretendard,sans-serif;font-feature-settings:'ss06';-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+.top-bar{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:32px;height:32px;background:var(--ink);color:var(--bg);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Archivo';font-weight:700;font-size:16px;letter-spacing:0.02em}
+.brand-name{font-family:'Archivo';font-weight:700;font-size:14px;letter-spacing:0.10em}
+.brand-sub{font-size:11.5px;color:var(--ink-mute);margin-top:1px}
+.back-btn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600}
+.back-btn:hover{background:var(--ink-soft)}
+.back-btn svg{width:14px;height:14px}
+
+.shell{max-width:960px;margin:0 auto;padding:48px 24px 96px}
+
+.hero{padding:24px 0 48px;border-bottom:1px solid var(--line);margin-bottom:48px}
+.hero-eyebrow{font-family:'Archivo';font-weight:700;font-size:12px;letter-spacing:0.18em;color:var(--orange);margin-bottom:14px}
+.hero-num{font-family:'Archivo';font-weight:700;font-size:80px;color:var(--orange);line-height:1;margin-bottom:12px;letter-spacing:-0.03em}
+.hero-title{font-size:36px;font-weight:700;letter-spacing:-0.025em;line-height:1.25;margin-bottom:16px}
+.hero-desc{font-size:16px;line-height:1.7;color:var(--ink-soft);max-width:680px}
+.hero-desc b{color:var(--ink);font-weight:700}
+
+.steps{display:flex;flex-direction:column;gap:32px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:center}
+.step-left{min-width:0}
+.step-num{font-family:'Archivo';font-weight:700;font-size:13px;letter-spacing:0.18em;color:var(--orange);margin-bottom:12px}
+.step-title{font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.35;margin-bottom:12px}
+.step-desc{font-size:14.5px;line-height:1.7;color:var(--ink-soft)}
+.step-desc b{color:var(--ink);font-weight:600}
+.step-hint{margin-top:14px;font-size:12.5px;color:var(--ink-mute);display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:var(--soft);border-radius:6px}
+.step-right{display:flex;justify-content:center;align-items:center}
+
+/* Q&A 박스 (Step 02) — 아코디언 */
+.qa-box{margin-top:16px;padding:14px 16px;background:var(--orange-softer);border:1px solid var(--orange-soft);border-left:3px solid var(--orange);border-radius:8px}
+.qa-box summary{cursor:pointer;list-style:none;outline:none}
+.qa-box summary::-webkit-details-marker{display:none}
+.qa-q{font-size:13px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px}
+.qa-q .qa-icon{width:14px;height:14px;color:var(--orange);flex-shrink:0}
+.qa-q .qa-text{flex:1}
+.qa-q .qa-chevron{width:14px;height:14px;color:var(--ink-mute);flex-shrink:0;transition:transform 0.25s ease}
+.qa-box[open] .qa-chevron{transform:rotate(180deg)}
+.qa-box[open] .qa-a{margin-top:12px;padding-top:12px;border-top:1px solid var(--orange-soft)}
+.qa-a{font-size:12.5px;line-height:1.7;color:var(--ink-soft)}
+.qa-a b{color:var(--orange);font-weight:700;font-family:'Archivo';font-size:11.5px;letter-spacing:0.06em;margin-right:3px}
+.qa-a-row{margin-bottom:5px}
+.qa-a-row:last-child{margin-bottom:0}
+
+/* App mock — 모바일 폭 */
+.mock{width:100%;max-width:380px;background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 8px 24px rgba(10,10,10,0.04)}
+.mock-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line-soft);margin-bottom:12px}
+.mock-head-title{font-size:12.5px;font-weight:600;color:var(--ink)}
+.mock-head-icon{width:24px;height:24px;background:var(--soft);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--ink-mute)}
+.mock-head-icon svg{width:14px;height:14px}
+
+.mock-label{font-size:11px;color:var(--ink-mute);margin-bottom:6px;font-weight:500}
+.mock-input{width:100%;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:7px;background:var(--card);font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center}
+.mock-input.placeholder{color:var(--ink-faint)}
+.mock-textarea{width:100%;min-height:64px;padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--card);font-size:12px;color:var(--ink-faint);line-height:1.5}
+.mock-row{margin-bottom:12px}
+.mock-row:last-child{margin-bottom:0}
+
+.mock-btn{width:100%;height:38px;background:var(--ink);color:#fff;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.mock-btn svg{width:14px;height:14px}
+.mock-btn.outline{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.mock-btn.outline:hover{background:var(--soft)}
+
+/* Step 1 - branding 디테일 */
+.brand-section-head{display:flex;align-items:center;justify-content:space-between;padding:6px 0 10px;border-bottom:1px solid var(--line-soft);margin-bottom:12px;font-size:11.5px;font-weight:600;color:var(--ink)}
+.brand-section-head .badge{font-size:10px;color:var(--orange);background:var(--orange-soft);padding:3px 7px;border-radius:6px;font-weight:600}
+.brand-row{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.brand-result{margin-top:10px;padding:10px 12px;background:var(--card);border:1px solid var(--line-soft);border-radius:8px}
+.brand-result-label{font-size:10.5px;font-weight:600;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.brand-result-label .dot{width:5px;height:5px;border-radius:50%;background:var(--orange)}
+.brand-result-text{font-size:11px;line-height:1.6;color:var(--ink-mute);white-space:pre-wrap}
+
+/* Step 2 - mode select */
+.select-head{text-align:center;font-size:11.5px;color:var(--ink-mute);margin-bottom:10px}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode-card{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;border:2px solid var(--line);border-radius:11px;background:var(--card);transition:all 0.18s ease;cursor:pointer}
+.mode-card:hover,.mode-card.active{border-color:var(--orange);background:var(--orange-soft)}
+.mode-card svg{width:22px;height:22px;color:var(--orange)}
+.mode-card-title{font-size:13px;font-weight:600;color:var(--ink)}
+.mode-card-sub{font-size:10.5px;color:var(--ink-mute);text-align:center;line-height:1.4}
+
+/* Step 3 - input form */
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.suggest-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;margin-bottom:14px}
+.suggest-chip{font-size:11px;padding:5px 10px;background:var(--soft);color:var(--ink-soft);border-radius:999px;border:1px solid var(--line-soft);cursor:pointer}
+.suggest-chip:hover{background:var(--line-soft)}
+.detail-row{padding:10px 0;border-top:1px solid var(--line-soft);display:grid;grid-template-columns:60px 1fr;gap:10px;align-items:center}
+.detail-row .mock-label{margin-bottom:0}
+
+/* Step 4 - generation */
+.gen-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 12px;text-align:center;background:linear-gradient(180deg,var(--orange-soft) 0%,var(--card) 100%);border-radius:10px}
+.gen-spark{width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:12px;animation:pulse 2s ease infinite}
+.gen-spark svg{width:18px;height:18px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.85;transform:scale(0.96)}}
+.gen-title{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.gen-sub{font-size:11.5px;color:var(--ink-mute);line-height:1.55;max-width:240px}
+.gen-progress{margin-top:14px;display:flex;flex-direction:column;gap:5px;width:100%}
+.gen-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink-soft);padding:6px 10px;background:var(--card);border-radius:6px;border:1px solid var(--line-soft)}
+.gen-item svg{width:11px;height:11px;color:var(--orange);flex-shrink:0}
+.gen-item.done{color:var(--ink-mute)}
+.gen-item.done svg{color:var(--ink-faint)}
+
+/* CTA — 라이트 톤으로 교체 */
+.cta{margin-top:64px;padding:42px 36px;background:linear-gradient(135deg,var(--orange-soft) 0%,var(--card) 100%);border:1px solid var(--orange-soft);border-radius:16px;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,105,0,0.08) 0%,transparent 70%);pointer-events:none}
+.cta-eyebrow{font-family:'Archivo';font-weight:700;font-size:11.5px;letter-spacing:0.18em;color:var(--orange);margin-bottom:14px;position:relative}
+.cta-title{font-size:26px;font-weight:700;letter-spacing:-0.025em;line-height:1.35;margin-bottom:12px;color:var(--ink);position:relative}
+.cta-title em{font-style:normal;color:var(--orange)}
+.cta-sub{font-size:14.5px;color:var(--ink-soft);margin-bottom:24px;line-height:1.65;position:relative;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-flex;align-items:center;gap:6px;padding:13px 24px;background:var(--ink);color:#fff;border-radius:999px;font-size:14px;font-weight:600;position:relative;transition:background 0.18s ease}
+.cta-btn:hover{background:var(--orange)}
+.cta-btn svg{width:14px;height:14px}
+
+@media (max-width:760px){
+  .shell{padding:32px 16px 72px}
+  .hero-title{font-size:28px}
+  .hero-num{font-size:60px}
+  .step{grid-template-columns:1fr;padding:24px;gap:24px}
+  .step-right{order:-1}
+  .mock{max-width:340px}
+  .cta{padding:32px 22px}
+  .cta-title{font-size:21px}
+}
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="brand">
+    <div class="brand-mark">N</div>
+    <div>
+      <div class="brand-name">NORE</div>
+      <div class="brand-sub">AI · 미리보기</div>
+    </div>
+  </div>
+  <a href="/operator" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    뒤로
+  </a>
+</header>
+
+<main class="shell">
+
+  <section class="hero">
+    <div class="hero-eyebrow">04 · MARKETING AUTOMATION</div>
+    <div class="hero-num">04</div>
+    <h1 class="hero-title">트레이너 마케팅 자동화</h1>
+    <p class="hero-desc">트레이너 블로그를 <b>SEO·GEO에 맞게 AI가 자동 작성</b>.<br/>검색에서 먼저 발견되는 트레이너가,<br/><b>센터 매출로 이어집니다.</b></p>
+  </section>
+
+  <div class="steps">
+
+    <!-- STEP 01 — 브랜딩 (디테일) -->
+    <section class="step">
+      <div class="step-left">
+        <div class="step-num">STEP 01</div>
+        <h2 class="step-title">한 번만 — 브랜드 톤 세팅</h2>
+        <p class="step-desc">트레이너의 <b>블로그·인스타 링크</b>를 각각 넣으면 AI가 <b>채널별로 따로</b> 톤·말투·자주 쓰는 표현을 분석해 저장합니다. 블로그 톤은 가이드글에, 인스타 톤은 스토리글에 반영돼 <b>채널별 문법</b>이 그대로 살아납니다.</p>
+        <span class="step-hint">⏱ 처음 한 번 약 30초 · 이후 자동 반영</span>
+      </div>
+      <div class="step-right">
+        <div class="mock">
+          <div class="mock-head">
+            <div class="mock-head-title">브랜드 톤 설정</div>
+            <div class="mock-head-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </div>
+          </div>
+          <div class="brand-section-head">
+            <span>참고 링크</span>
+            <span class="badge">링크 있음</span>
+          </div>
+          <div class="brand-row">
+            <div>
+              <div class="mock-label">블로그</div>
+              <div class="mock-input">blog.naver.com/mytrainer</div>
+            </div>
+            <div>
+              <div class="mock-label">인스타</div>
+              <div class="mock-input">@mytrainer_fit</div>
+            </div>
+          </div>
+          <button class="mock-btn outline" style="margin-bottom:10px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+            링크에서 톤 가져오기
+          </button>
+          <div class="brand-result">
+            <div class="brand-result-label"><span class="dot"></span>블로그 요약</div>
+            <div class="brand-result-text">친근체 + 운동 과학 근거 인용. 회원 사례를 본문 중후반에 배치하는 패턴. 평균 글 길이 1,200~1,800자.</div>
+          </div>
+          <div class="brand-result">
+            <div class="brand-result-label"><span class="dot"></span>인스타그램 요약 · 회원 사례 중심</div>
+            <div class="brand-result-text">짧은 단락 + 회원 변화 캡션. 이모지 절제, 첫 줄에 변화 키워드 노출.</div>
+          </div>
+          <button class="mock-btn" style="margin-top:12px">브랜딩 저장</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 02 — 모드 선택 + Q&A -->
+    <section class="step">
+      <div class="step-left">
+        <div class="step-num">STEP 02</div>
+        <h2 class="step-title">글 종류 선택 — 검색용? 신뢰용?</h2>
+        <p class="step-desc"><b>전문 가이드글</b>은 SEO·GEO·AEO에 맞춰 작성돼 <b>검색 노출</b>에 강합니다. <b>스토리글</b>은 회원 에피소드 기반으로 <b>신뢰 구축</b>에 강합니다. 목적에 맞게 한 번에 한 종류.</p>
+        <details class="qa-box">
+          <summary class="qa-q">
+            <svg class="qa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            <span class="qa-text">SEO·GEO·AEO가 뭔가요?</span>
+            <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <div class="qa-a">
+            <div class="qa-a-row"><b>SEO</b>구글·네이버 검색에서 발견되게 — 키워드·제목·목차 최적화.</div>
+            <div class="qa-a-row"><b>GEO</b>ChatGPT·Perplexity 같은 AI 답변에 인용되게 — 출처로 잡히는 구조.</div>
+            <div class="qa-a-row"><b>AEO</b>검색 결과 답변 박스에 직접 노출되게 — 질문·답 포맷.</div>
+          </div>
+        </details>
+      </div>
+      <div class="step-right">
+        <div class="mock">
+          <div class="mock-head">
+            <div class="mock-head-title">NoreAI · 글 생성</div>
+            <div class="mock-head-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+            </div>
+          </div>
+          <div class="select-head">어떤 글을 쓸까요?</div>
+          <div class="mode-grid">
+            <button class="mode-card active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              <div class="mode-card-title">전문 가이드글</div>
+              <div class="mode-card-sub">SEO/GEO/AEO 구조<br/>검색과 답변에 강함</div>
+            </button>
+            <button class="mode-card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <div class="mode-card-title">스토리글</div>
+              <div class="mode-card-sub">회원과의 에피소드<br/>신뢰 구축에 강함</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 03 — 입력 -->
+    <section class="step">
+      <div class="step-left">
+        <div class="step-num">STEP 03</div>
+        <h2 class="step-title">주제·세팅 입력 — 1분이면 끝</h2>
+        <p class="step-desc">주제 한 줄과 타겟·키워드만 넣으면 끝. AI가 <b>추천 주제 3개</b>를 미리 띄워주고, 글 설정은 펼쳐서 세밀하게 조정합니다. 처음엔 기본값 그대로 써도 충분합니다.</p>
+      </div>
+      <div class="step-right">
+        <div class="mock">
+          <div class="mock-head">
+            <div class="mock-head-title" style="display:flex;align-items:center;gap:6px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF6900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+              전문 가이드글
+            </div>
+            <div class="mock-head-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="mock-row">
+              <div class="mock-label">주제</div>
+              <div class="mock-input placeholder">예: 스쿼트 무릎 통증 원인과 해결법</div>
+            </div>
+            <div class="suggest-row">
+              <button class="suggest-chip">+ 직장인 점심시간 15분 운동</button>
+              <button class="suggest-chip">+ 거북목 교정 자세 5가지</button>
+              <button class="suggest-chip">+ 단백질 섭취 타이밍</button>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0 4px;border-top:1px solid var(--line-soft);font-size:12px;font-weight:600;color:var(--ink)">
+              <span>글 설정</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--ink-mute)"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+            <div class="detail-row">
+              <div class="mock-label">타겟</div>
+              <div class="mock-input placeholder">예: 20-30대 직장인</div>
+            </div>
+            <div class="detail-row">
+              <div class="mock-label">키워드</div>
+              <div class="mock-input placeholder">스쿼트, 무릎통증, 자세교정</div>
+            </div>
+            <div class="detail-row">
+              <div class="mock-label">추가 요청</div>
+              <div class="mock-textarea">특별히 포함하고 싶은 내용이나 스타일</div>
+            </div>
+          </div>
+          <button class="mock-btn" style="margin-top:12px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+            글 생성
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 04 — 생성 -->
+    <section class="step">
+      <div class="step-left">
+        <div class="step-num">STEP 04</div>
+        <h2 class="step-title">AI가 작성 — 트레이너는 검토만</h2>
+        <p class="step-desc">저장된 브랜드 톤으로 <b>SEO·GEO·AEO 구조에 맞게 자동 작성</b>됩니다. 트레이너는 결과를 검토하고 한 줄 수정만. 발행 후 검색 노출은 며칠 안에 시작됩니다.</p>
+        <span class="step-hint">⚡ 생성 시간 약 40초</span>
+      </div>
+      <div class="step-right">
+        <div class="mock">
+          <div class="mock-head">
+            <div class="mock-head-title">글 생성 중</div>
+            <div class="mock-head-icon" style="background:var(--orange-soft);color:var(--orange)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+            </div>
+          </div>
+          <div class="gen-state">
+            <div class="gen-spark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+            </div>
+            <div class="gen-title">SEO·GEO 구조로 작성 중</div>
+            <div class="gen-sub">브랜드 톤 · 키워드 · 검색 의도 분석 반영</div>
+            <div class="gen-progress">
+              <div class="gen-item done">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                키워드 검색 의도 분석
+              </div>
+              <div class="gen-item done">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                목차 · H1·H2 구조 생성
+              </div>
+              <div class="gen-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                본문 작성 중…
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="cta">
+    <div class="cta-eyebrow">FOUNDING PARTNER</div>
+    <h3 class="cta-title">새로운 피트니스 AI의 시작을<br/>함께하는 <em>500명</em></h3>
+    <p class="cta-sub">2026년 5월 정식 출시 전, 선착순 500명의 대표·트레이너가 창립 파트너로 합류합니다. 피트니스의 현장을 먼저 바꿀 분들에게만 드리는 혜택을 확인해 보세요.</p>
+    <a href="/operator#founders" class="cta-btn">
+      창립 파트너 알아보기
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </section>
+
+</main>
+
+</body></html>
