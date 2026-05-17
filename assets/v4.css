@@ -1241,6 +1241,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
 .plan-name { font-size: 15px; font-weight: 600; color: var(--ink); }
 .plan-discount { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 4px 9px; border-radius: 999px; }
+.plan-discount-stack { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.plan-chip-promo, .plan-chip-perm {
+  font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.06em; padding: 5px 10px; border-radius: 999px;
+}
+.plan-chip-promo { background: var(--accent); color: #fff; }
+.plan-chip-perm { background: var(--accent-soft); color: var(--accent); border: 1px solid #F4C997; }
+.plan-chip-plus { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--ink-mute); font-weight: 600; }
 .plan-price-row { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
 .plan-price { font-family: 'Archivo', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
 .plan-suffix { font-family: 'Pretendard Variable', sans-serif; font-size: 14px; color: var(--ink-mute); }
