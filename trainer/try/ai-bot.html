@@ -239,8 +239,51 @@ body[data-mode="member"] .member-shell{display:flex}
 .tr-msg-tag.ai{background:var(--orange-soft);color:var(--orange)}
 .tr-msg-tag.alert{background:#FEE6E6;color:var(--red)}
 
+/* 트레이너 채팅 — 3-way (회원↔AI↔트레이너) */
+.tr-chat-header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--received);border-radius:12px;border:1px solid var(--line-soft);margin-bottom:12px;flex-shrink:0}
+.tr-chat-avatar-lg{width:42px;height:42px;background:var(--orange-soft);color:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.tr-chat-name{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-0.01em}
+.tr-chat-meta{font-size:11.5px;color:var(--ink-mute);margin-top:2px;line-height:1.5}
+.tr-chat-status-pill{margin-left:auto;font-size:10.5px;color:var(--green);display:flex;align-items:center;gap:4px;flex-shrink:0}
+.tr-chat-status-pill::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%}
+
+.tr-chat-thread{flex:1;overflow-y:auto;padding:8px 4px 0;display:flex;flex-direction:column;gap:10px;background:var(--card)}
+.tr-chat-divider{align-self:center;font-size:10.5px;color:var(--ink-mute);background:var(--received);padding:4px 11px;border-radius:999px;margin:10px 0 2px;font-family:'Archivo';letter-spacing:0.04em}
+
+.tr-chat-msg{display:flex;gap:8px;max-width:78%;animation:fadeIn 0.3s ease}
+.tr-chat-msg.member{align-self:flex-start}
+.tr-chat-msg.ai{align-self:flex-start}
+.tr-chat-msg.trainer{align-self:flex-end;flex-direction:row-reverse}
+.tr-chat-avatar-sm{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;align-self:flex-end}
+.tr-chat-avatar-sm.member{background:var(--orange-soft);color:var(--orange)}
+.tr-chat-avatar-sm.ai{background:var(--ink);color:#fff;font-family:'Archivo'}
+.tr-chat-avatar-sm.trainer{background:var(--orange);color:#fff}
+.tr-chat-msg-body{display:flex;flex-direction:column;gap:3px;min-width:0}
+.tr-chat-msg.trainer .tr-chat-msg-body{align-items:flex-end}
+.tr-chat-bubble{padding:9px 13px;font-size:13px;line-height:1.55;letter-spacing:-0.005em;border-radius:14px;white-space:pre-wrap}
+.tr-chat-msg.member .tr-chat-bubble{background:var(--received);color:var(--ink);border-top-left-radius:4px}
+.tr-chat-msg.ai .tr-chat-bubble{background:var(--ink);color:#fff;border-top-left-radius:4px}
+.tr-chat-msg.trainer .tr-chat-bubble{background:var(--sent);color:var(--ink);border-top-right-radius:4px;border-right:3px solid var(--orange);padding-right:11px}
+.tr-chat-time{font-size:10px;color:var(--ink-faint);padding:0 4px}
+.tr-chat-img{margin-top:5px;padding:14px 16px;background:rgba(0,0,0,0.05);border-radius:10px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-mute)}
+.tr-chat-img-emoji{font-size:24px}
+
+.tr-chat-card{align-self:center;width:100%;max-width:420px;padding:11px 14px;background:var(--orange-soft);border:1px solid #FFD9B8;border-left:3px solid var(--orange);border-radius:11px;animation:fadeIn 0.3s ease}
+.tr-chat-card.alert{background:#FFEEEE;border-color:#FBC2BC;border-left-color:var(--red)}
+.tr-chat-card-tag{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:0.04em;margin-bottom:6px;text-transform:uppercase;font-family:'Archivo'}
+.tr-chat-card.alert .tr-chat-card-tag{color:var(--red)}
+.tr-chat-card-body{font-size:12px;color:var(--ink);line-height:1.55}
+.tr-chat-card-body b{font-weight:600;font-feature-settings:'tnum'}
+.tr-chat-card-warn{margin-top:5px;font-size:11px;color:var(--red);font-weight:500}
+
+.tr-chat-input-area{margin-top:10px;flex-shrink:0}
+.tr-chat-input-row{display:flex;gap:8px;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:999px}
+.tr-chat-input{flex:1;border:none;background:none;outline:none;font-size:13px;color:var(--ink);font-family:inherit;cursor:default}
+.tr-chat-input::placeholder{color:var(--ink-faint)}
+.tr-chat-send-btn{width:30px;height:30px;background:var(--orange);color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;cursor:default}
+
 @media (max-width:1100px){.admin-shell{grid-template-columns:200px 1fr 380px}.member-intro{max-width:260px}}
-@media (max-width:900px){.admin-shell{grid-template-columns:1fr;height:auto}.admin-side,.admin-main{display:none}.member-shell{flex-direction:column;gap:24px}}
+@media (max-width:900px){.admin-shell{grid-template-columns:1fr;height:auto}.admin-side{display:none}.admin-main{order:1;min-height:auto}.ai-panel{order:2;min-height:560px;max-height:80vh}.member-shell{flex-direction:column;gap:24px}}
 @media (max-width:720px){.back-fab{bottom:16px;right:16px;padding:11px 16px;font-size:13px}.top-bar{padding:12px 16px;flex-wrap:wrap;gap:12px}.mode-btn{padding:8px 14px;font-size:12.5px}.shell{padding:16px 14px 100px}.mobile-frame{width:100%;max-width:368px;height:680px}.member-shell{padding:16px}}
 </style></head>
 <body data-mode="trainer">
@@ -293,56 +336,116 @@ body[data-mode="member"] .member-shell{display:flex}
     </aside>
 
     <main class="admin-main">
-      <div class="admin-main-head">
-        <div>
-          <div class="admin-main-title">김민지 회원 상세</div>
-          <div class="admin-main-sub">우측 NORE AI가 이 회원 데이터에 답합니다 →</div>
+      <div class="tr-chat-header">
+        <div class="tr-chat-avatar-lg">김</div>
+        <div style="min-width:0">
+          <div class="tr-chat-name">김민지 회원</div>
+          <div class="tr-chat-meta">PT 12/30 · 출석 92% · 체중 -2.4kg · 컨디션 3.2/5 · 다음 PT 5/19 19:00</div>
         </div>
-        <div class="admin-main-date">PT 12/30 · 26세 · 다이어트</div>
+        <div class="tr-chat-status-pill">앱 접속 중</div>
       </div>
 
-      <div class="tr-detail">
-        <div class="tr-detail-head">
-          <div>
-            <div class="tr-detail-name">김민지</div>
-            <div class="tr-detail-name-sub">5월 등록 · 주 2회 · 다음 PT 5/19 (월) 19:00</div>
+      <div class="tr-chat-thread">
+        <div class="tr-chat-divider">5/17 (어제) 21:40</div>
+
+        <div class="tr-chat-msg member">
+          <div class="tr-chat-avatar-sm member">김</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">정민재 쌤, 내일 PT 가야하는데 컨디션 3/5예요. 잠을 5시간밖에 못 잤어요 😢</div>
+            <div class="tr-chat-time">21:40</div>
           </div>
-          <div class="tr-detail-badge">PROGRESS GOOD</div>
         </div>
-        <div class="tr-detail-grid">
-          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">출석</div><div class="tr-detail-cell-num">92%</div><div class="tr-detail-cell-hint">11/12회</div></div>
-          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">체중 ↓</div><div class="tr-detail-cell-num">-2.4kg</div><div class="tr-detail-cell-hint">4주 누적</div></div>
-          <div class="tr-detail-cell"><div class="tr-detail-cell-label">식단 기록</div><div class="tr-detail-cell-num">18일</div><div class="tr-detail-cell-hint">최근 21일 중</div></div>
-          <div class="tr-detail-cell warn"><div class="tr-detail-cell-label">컨디션</div><div class="tr-detail-cell-num">3.2/5</div><div class="tr-detail-cell-hint">평소 4.1</div></div>
+
+        <div class="tr-chat-card alert">
+          <div class="tr-chat-card-tag">🚨 트레이너님께 알림 전송</div>
+          <div class="tr-chat-card-body">컨디션 <b>3/5</b> + 수면 <b>5h</b> → 강도 80% 권장 또는 일정 조정 필요. AI가 회원에게 1차 안내 후 트레이너 답변 대기 중.</div>
+        </div>
+
+        <div class="tr-chat-msg ai">
+          <div class="tr-chat-avatar-sm ai">N</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">컨디션 안 좋으신 거 정민재 쌤께 알려드렸어요 💪 답변 오시면 즉시 전달드릴게요. 오늘은 푹 쉬시고 23시 전 취침 권장드려요!</div>
+            <div class="tr-chat-time">21:40 · AI 자동 응답</div>
+          </div>
+        </div>
+
+        <div class="tr-chat-msg trainer">
+          <div class="tr-chat-avatar-sm trainer">정</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">민지님 컨디션 보고 받았어요. 내일 PT는 80% 강도로 가고 데드리프트는 다음 주로 미룰게요. 푹 주무세요 🙌</div>
+            <div class="tr-chat-time">22:15 · 정민재 트레이너</div>
+          </div>
+        </div>
+
+        <div class="tr-chat-divider">오늘 · 5/18 13:05</div>
+
+        <div class="tr-chat-msg member">
+          <div class="tr-chat-avatar-sm member">김</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">오늘 점심이에요!<div class="tr-chat-img"><span class="tr-chat-img-emoji">🍙</span><span>참치 김밥 1줄 · 사진 전송</span></div></div>
+            <div class="tr-chat-time">13:05</div>
+          </div>
+        </div>
+
+        <div class="tr-chat-card">
+          <div class="tr-chat-card-tag">✅ AI 식단 자동 분석</div>
+          <div class="tr-chat-card-body">참치 김밥 1줄 · <b>520kcal</b> · 단백질 <b>16g</b> · 탄수 <b>72g</b> · 지방 <b>18g</b><div class="tr-chat-card-warn">⚠ 단백질 부족 — 오늘 목표 80g 중 점심까지 48g</div></div>
+        </div>
+
+        <div class="tr-chat-msg ai">
+          <div class="tr-chat-avatar-sm ai">N</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">점심 분석 완료 ✅
+참치 김밥 520kcal · 단백질 16g 들어왔어요.
+
+오늘 단백질 목표(80g) 중 현재 48g 채움. 저녁에 32g+ 필요해요.
+
+💡 보강 옵션
+• 닭가슴살 100g 추가 (단백 25g) — 5분 컷
+• 두부 200g + 계란 2개 저녁 — 한 끼로 해결</div>
+            <div class="tr-chat-time">13:05 · AI 자동 응답</div>
+          </div>
+        </div>
+
+        <div class="tr-chat-msg member">
+          <div class="tr-chat-avatar-sm member">김</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">감사해요! 저녁에 닭가슴살 추가할게요 🙏</div>
+            <div class="tr-chat-time">13:06</div>
+          </div>
+        </div>
+
+        <div class="tr-chat-divider">5/18 16:20</div>
+
+        <div class="tr-chat-msg member">
+          <div class="tr-chat-avatar-sm member">김</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">쌤, 다이어트 정체기인 거 같아요. 체중이 2주째 거의 안 빠져요 😭</div>
+            <div class="tr-chat-time">16:20</div>
+          </div>
+        </div>
+
+        <div class="tr-chat-card">
+          <div class="tr-chat-card-tag">📊 AI 진단</div>
+          <div class="tr-chat-card-body">체중 변화: <b>-1.9kg/2주</b> (4/20~5/4) → <b>-0.5kg/2주</b> (5/4~5/18) · 정체 확인.<br>원인 추정: 칼로리 적응(가장 가능성↑) · 단백질 마지노선(78g) · 수면 평균 6.1h<br>옵션 3가지를 트레이너님께 의견 요청 보냈습니다.</div>
+        </div>
+
+        <div class="tr-chat-msg ai">
+          <div class="tr-chat-avatar-sm ai">N</div>
+          <div class="tr-chat-msg-body">
+            <div class="tr-chat-bubble">기록 확인해봤어요. 정체기 맞아요. 다만 자연스러운 과정이에요 💪
+
+정민재 쌤께 3가지 옵션(칼로리↓ / 단백질↑ / 리피드 데이) 의견 요청 보냈고, 답변 받으면 바로 안내드릴게요. 그동안은 평소 식단·운동 그대로 유지하세요!</div>
+            <div class="tr-chat-time">16:20 · AI 자동 응답</div>
+          </div>
         </div>
       </div>
 
-      <div class="tr-section">
-        <div class="tr-section-title"><b>최근 식단 — AI 자동 분석</b><span>오늘 5/18</span></div>
-        <div class="tr-meal-card">
-          <div class="tr-meal-thumb">🥗</div>
-          <div class="tr-meal-body">
-            <div class="tr-meal-head"><div class="tr-meal-name">아침 — 닭가슴살 샐러드</div><div class="tr-meal-time">08:20</div></div>
-            <div class="tr-meal-macro">약 <b>320kcal</b> · 단백질 <b>32g</b> · 탄수 <b>12g</b> · 지방 <b>14g</b></div>
-          </div>
+      <div class="tr-chat-input-area">
+        <div class="tr-chat-input-row">
+          <input class="tr-chat-input" placeholder="민지님께 메시지 보내기..." readonly>
+          <button class="tr-chat-send-btn" tabindex="-1" aria-hidden="true">↑</button>
         </div>
-        <div class="tr-meal-card">
-          <div class="tr-meal-thumb">🍙</div>
-          <div class="tr-meal-body">
-            <div class="tr-meal-head"><div class="tr-meal-name">점심 — 참치 김밥 1줄</div><div class="tr-meal-time">13:05</div></div>
-            <div class="tr-meal-macro">약 <b>520kcal</b> · 단백질 <b>16g</b> · 탄수 <b>72g</b> · 지방 <b>18g</b></div>
-            <div class="tr-meal-note">⚠ 단백질 부족 — AI가 회원에게 자동 보강 안내함</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tr-section">
-        <div class="tr-section-title"><b>이번 주 회원 메시지</b><span>5/12 ~ 5/18</span></div>
-        <div class="tr-msg-row head"><div>시간</div><div>내용</div><div style="text-align:right">처리</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">5/18 13:06</div><div class="tr-msg-text">"점심 김밥 단백질 부족하다고 알려줘서 닭가슴살 추가했어요"</div><div class="tr-msg-tag ai">AI 처리</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">5/17 21:40</div><div class="tr-msg-text">"내일 PT 가야하는데 컨디션 3/5. 갈까 말까요?" → AI가 1차 조언 후 트레이너 알림</div><div class="tr-msg-tag alert">알림</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">5/16 10:12</div><div class="tr-msg-text">"운동 강도 좀 낮춰서 짜주세요" → AI가 80% 강도 루틴 제안</div><div class="tr-msg-tag ai">AI 처리</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">5/15 19:30</div><div class="tr-msg-text">"다이어트 정체기인 거 같아요. 식단 그대로 두는 게 맞나요?"</div><div class="tr-msg-tag ai">AI 처리</div></div>
       </div>
     </main>
 
