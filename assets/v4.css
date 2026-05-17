@@ -634,16 +634,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .demo-after-cta { margin-top: 28px; gap: 12px; }
 }
 
-/* Demo bridge — slot 6 메인 head (mech 3카드 제거 후) */
-.demo-bridge { margin-top: 32px; text-align: center; }
-.demo-bridge .eyebrow { justify-content: center; display: inline-flex; }
-.demo-bridge-head {
-  margin: 18px auto 0;
-  font-size: 44px; font-weight: 600;
-  letter-spacing: -0.024em; line-height: 1.16;
-  color: var(--ink); max-width: 780px;
-}
-.demo-bridge-head em { font-style: normal; color: var(--accent); }
+/* (demo-bridge 제거됨 — mechanism-head가 slot 6 메인 head 역할) */
 
 /* Checklist 결과 박스 밖 AI봇 라이브 체험 CTA */
 .checklist-ai-cta {
@@ -698,8 +689,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* Slot 6 (id=demo) 모바일 — 임베드 엣지-투-엣지 꽉 채움 */
 @media (max-width: 720px) {
-  .demo-bridge { margin-top: 12px; }
-  .demo-bridge-head { font-size: 28px; line-height: 1.24; }
   .demo-tabs { margin-top: 24px; }
   .demo-tabs-nav { gap: 8px; margin-bottom: 18px; padding: 0 14px; }
   .demo-tab-btn { padding: 11px 14px; font-size: 13px; gap: 6px; flex: 1 1 calc(50% - 4px); justify-content: center; }
@@ -916,10 +905,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* === v4 — 메커니즘 슬롯 (Slot 6) — operator 우선 === */
 .mechanism { padding: 96px 40px; background: var(--bg); }
-.mechanism-head { font-size: 36px; font-weight: 600; letter-spacing: -0.022em; max-width: 720px; margin-top: 16px; line-height: 1.24; color: var(--ink); }
+.mechanism-head { font-size: 40px; font-weight: 600; letter-spacing: -0.022em; max-width: 760px; margin-top: 16px; line-height: 1.22; color: var(--ink); }
 .mechanism-head em { font-style: normal; color: var(--accent); }
 .mechanism-sub { margin-top: 18px; max-width: 720px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); letter-spacing: -0.005em; }
 .mechanism-sub strong { color: var(--ink); font-weight: 600; }
+/* 데모 탭/CTA 가운데 정렬 — slot 6 mech 3카드 제거 후 head/sub도 같이 가운데 */
+.mechanism-centered { text-align: center; }
+.mechanism-centered .eyebrow { display: inline-flex; }
+.mechanism-centered .mechanism-head,
+.mechanism-centered .mechanism-sub { margin-left: auto; margin-right: auto; }
 .mechanism-flow {
   margin-top: 56px;
   display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr;
