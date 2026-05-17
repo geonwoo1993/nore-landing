@@ -190,7 +190,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .back-fab:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.2)}
 .back-fab svg{width:16px;height:16px}
 
-body[data-mode="trainer"] .admin-shell{display:grid}
+body[data-mode="trainer"] .admin-shell{display:flex;justify-content:center;height:auto;grid-template-columns:none}
+body[data-mode="trainer"] .admin-side,
+body[data-mode="trainer"] .admin-main{display:none}
+body[data-mode="trainer"] .ai-panel{width:100%;max-width:560px;min-height:680px}
 body[data-mode="member"] .admin-shell{display:none}
 body[data-mode="member"] .member-shell{display:flex}
 
