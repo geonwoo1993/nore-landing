@@ -10,6 +10,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/demo.css">
+  <style>
+    /* 추천인 코드 블록 — 결제 진입 시 코드 입력/표시 */
+    .ref-block { margin-top: 28px; padding: 20px 22px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg); }
+    .ref-block.is-applied { background: #ECF8EE; border-color: #B8E0BE; }
+    .ref-block.is-error { background: #FFF1F0; border-color: #F4C2BD; }
+    .ref-eyebrow { display: block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 10px; }
+    .ref-block.is-applied .ref-eyebrow { color: #2E7D32; }
+    .ref-block.is-error .ref-eyebrow { color: #C0392B; }
+    .ref-msg { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+    .ref-msg strong { color: var(--ink); font-weight: 600; }
+    .ref-input-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+    .ref-input { flex: 1 1 200px; min-width: 0; padding: 12px 14px; border: 1px solid var(--border-strong); border-radius: 10px; background: #fff; color: var(--ink); font-size: 15px; font-family: inherit; letter-spacing: 0.04em; text-transform: uppercase; }
+    .ref-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .ref-apply-btn { padding: 12px 22px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font-size: 14.5px; font-weight: 600; font-family: inherit; cursor: pointer; letter-spacing: 0.02em; }
+    .ref-apply-btn:hover { background: var(--accent); }
+    .ref-skip { margin-top: 10px; font-size: 13px; color: var(--ink-mute); }
+    .ref-clear { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
+    .price-strike { color: var(--ink-mute); text-decoration: line-through; margin-right: 8px; font-weight: 400; }
+  </style>
 </head>
 <body>
   <div class="checkout-shell">
@@ -41,6 +60,17 @@
           </div>
         </div>
 
+        <!-- 추천인 코드 블록 -->
+        <div class="ref-block" id="ref-block">
+          <span class="ref-eyebrow" id="ref-eyebrow">Referral · 추천인 코드</span>
+          <div class="ref-msg" id="ref-msg">제휴 파트너에서 발급받은 코드가 있다면 입력해주세요. 할인이 자동 적용됩니다.</div>
+          <div class="ref-input-row" id="ref-input-row">
+            <input class="ref-input" id="ref-input" type="text" placeholder="추천인 코드 입력" autocomplete="off" maxlength="20">
+            <button class="ref-apply-btn" id="ref-apply-btn" type="button">적용</button>
+          </div>
+          <div class="ref-skip">코드가 없으면 그대로 결제 진행하시면 됩니다.</div>
+        </div>
+
         <div class="checkout-status" id="checkout-status">
           결제 버튼을 누르면 토스페이먼츠 결제 페이지로 이동합니다.
         </div>
@@ -55,18 +85,74 @@
   </div>
 
   <script>
-    const CHECKOUT_LINKS = {
-      trainer: 'https://s.tosspayments.com/BngSuw9o776',
-      'trainer-add': 'https://s.tosspayments.com/BngSurP08sK',
-      operator: 'https://s.tosspayments.com/BngSu0pAcBK'
+    // === 기본(파트너 없음) 결제 링크 ===
+    const STANDARD_LINKS = {
+      trainer:       'https://s.tosspayments.com/BngSuw9o776',  // 358,800원
+      'trainer-add': 'https://s.tosspayments.com/BngSurP08sK',  // 238,800원
+      operator:      'https://s.tosspayments.com/BngSu0pAcBK'   // 478,800원
     };
 
+    const STANDARD_PRICE = {
+      trainer: 358800,
+      'trainer-add': 238800,
+      operator: 478800
+    };
+
+    // === 추천인 코드 → 파트너 매핑 ===
+    // landingPath 있으면 코드 입력 시 해당 파트너 페이지로 redirect.
+    const REFERRAL_PARTNERS = {
+      // EAL 프로 — 20% 할인 (한정)
+      EALPRO: {
+        label: 'EAL 제휴 회원',
+        discountLabel: '20% 할인',
+        landingPath: '/partners/eal-pro/',
+        links: {
+          operator:      'https://s.tosspayments.com/Bnje0EugYW4', // 운영자 383,040원
+          trainer:       'https://s.tosspayments.com/Bnje0K9YXIT', // 트레이너 287,040원
+          'trainer-add': 'https://s.tosspayments.com/Bnje0QQASGm'  // 트레이너 추가 191,040원
+        },
+        priceOverride: {
+          operator: 383040,
+          trainer: 287040,
+          'trainer-add': 191040
+        }
+      },
+      // EAL 일반 제휴 — 5% 할인 (영구)
+      EAL5: {
+        label: 'EAL 제휴 회원',
+        discountLabel: '5% 할인',
+        landingPath: '/partners/eal-5/',
+        links: {
+          operator:      'https://s.tosspayments.com/Bnje0hkkb4M', // 운영자 454,860원
+          trainer:       'https://s.tosspayments.com/Bnje0ceENYr', // 트레이너 340,860원
+          'trainer-add': 'https://s.tosspayments.com/Bnje0X1gzoZ'  // 트레이너 추가 226,860원
+        },
+        priceOverride: {
+          operator: 454860,
+          trainer: 340860,
+          'trainer-add': 226860
+        }
+      }
+    };
+
+    // === 파라미터 파싱 ===
     const params = new URLSearchParams(window.location.search);
     const role = ['operator', 'trainer', 'trainer-add'].includes(params.get('role')) ? params.get('role') : 'trainer';
-    const plan = params.get('plan') || 'founder-yearly';
+    const refRaw = (params.get('ref') || '').trim().toUpperCase();
+    const partner = REFERRAL_PARTNERS[refRaw];
+    const partnerLinkReady = partner && partner.links[role];
+
+    // === 가격/링크 결정 ===
+    const standardPrice = STANDARD_PRICE[role];
+    const finalPrice = partnerLinkReady ? partner.priceOverride[role] : standardPrice;
+    const finalLink = partnerLinkReady ? partner.links[role] : STANDARD_LINKS[role];
+
+    // === 카피 ===
     const roleLabel = role === 'operator' ? '대표·관리자' : role === 'trainer-add' ? '트레이너 추가 인원' : '트레이너';
     const planLabel = '창립 파트너 1년권';
-    const priceLabel = role === 'operator' ? '478,800원' : role === 'trainer-add' ? '238,800원' : '358,800원';
+    const priceLabel = partnerLinkReady
+      ? '<span class="price-strike">' + standardPrice.toLocaleString() + '원</span>' + finalPrice.toLocaleString() + '원'
+      : finalPrice.toLocaleString() + '원';
     const landingHref = role === 'operator' ? '/operator/#pilot' : '/trainer/#pilot';
     const demoHref = role === 'operator' ? '/operator/try/' : '/trainer/try/';
 
@@ -77,16 +163,74 @@
       ? '센터 운영, 매출/KPI, 직원 계정까지 보는 대표·관리자 흐름입니다.'
       : '회원 관리, 피드백, 브랜딩, 개인 KPI를 쓰는 트레이너 흐름입니다.';
     document.getElementById('checkout-plan').textContent = planLabel;
-    document.getElementById('checkout-plan-copy').textContent = priceLabel + ' (VAT 포함) · 1년 이용 / 창립 파트너가';
+    document.getElementById('checkout-plan-copy').innerHTML = priceLabel + ' (VAT 포함) · 1년 이용';
     document.getElementById('checkout-demo').href = demoHref;
     document.getElementById('checkout-back').href = landingHref;
 
+    // === 추천인 블록 렌더 ===
+    const refBlock = document.getElementById('ref-block');
+    const refEyebrow = document.getElementById('ref-eyebrow');
+    const refMsg = document.getElementById('ref-msg');
+    const refInputRow = document.getElementById('ref-input-row');
+    const refInput = document.getElementById('ref-input');
+    const refApplyBtn = document.getElementById('ref-apply-btn');
+    const refSkip = refBlock.querySelector('.ref-skip');
+
+    function renderRef() {
+      if (partnerLinkReady) {
+        refBlock.classList.add('is-applied');
+        refEyebrow.textContent = '✓ ' + partner.label + ' ' + partner.discountLabel + ' 적용';
+        refMsg.innerHTML = '<strong>' + refRaw + '</strong> 코드가 적용되었습니다. ' + standardPrice.toLocaleString() + '원 → <strong>' + finalPrice.toLocaleString() + '원</strong>';
+        refInputRow.style.display = 'none';
+        refSkip.innerHTML = '<a class="ref-clear" id="ref-clear">다른 코드로 변경</a>';
+        document.getElementById('ref-clear').addEventListener('click', clearRef);
+      } else if (refRaw && partner && !partnerLinkReady) {
+        refBlock.classList.add('is-error');
+        refEyebrow.textContent = '⚠️ 결제 링크 준비 중';
+        refMsg.innerHTML = '<strong>' + refRaw + '</strong> 코드는 인식되었지만, 해당 역할의 결제 링크가 아직 준비되지 않았습니다. 일반 결제로 진행됩니다.';
+        refInputRow.style.display = 'none';
+        refSkip.innerHTML = '<a class="ref-clear" id="ref-clear">다른 코드 입력</a>';
+        document.getElementById('ref-clear').addEventListener('click', clearRef);
+      } else if (refRaw && !partner) {
+        refBlock.classList.add('is-error');
+        refEyebrow.textContent = '⚠️ 유효하지 않은 코드';
+        refMsg.innerHTML = '<strong>' + refRaw + '</strong>는 등록된 코드가 아닙니다. 코드를 다시 확인해주세요.';
+        refInput.value = refRaw;
+      }
+    }
+
+    function applyCode() {
+      const code = (refInput.value || '').trim().toUpperCase();
+      if (!code) return;
+      const target = REFERRAL_PARTNERS[code];
+      // 유효 코드 + landingPath 있으면 파트너 페이지로 redirect (역할 유지)
+      if (target && target.landingPath) {
+        window.location.href = target.landingPath + '?role=' + role;
+        return;
+      }
+      // 무효 코드는 기존 동작(ref 파라미터 붙여 reload → renderRef가 에러 표시)
+      const next = new URLSearchParams(window.location.search);
+      next.set('ref', code);
+      window.location.search = next.toString();
+    }
+
+    function clearRef() {
+      const next = new URLSearchParams(window.location.search);
+      next.delete('ref');
+      const qs = next.toString();
+      window.location.search = qs ? qs : '';
+    }
+
+    refApplyBtn.addEventListener('click', applyCode);
+    refInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyCode(); });
+    renderRef();
+
+    // === 결제 버튼 ===
     const checkoutLink = document.getElementById('checkout-link');
     const status = document.getElementById('checkout-status');
-    const realLink = CHECKOUT_LINKS[role];
 
-    if (realLink) {
-      checkoutLink.href = realLink;
+    if (finalLink) {
+      checkoutLink.href = finalLink;
     } else {
       checkoutLink.addEventListener('click', (event) => {
         event.preventDefault();

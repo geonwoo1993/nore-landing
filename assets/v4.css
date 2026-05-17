@@ -266,6 +266,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .am-title { margin-top: 16px; font-size: 24px; font-weight: 500; color: #FCFAF5; max-width: 600px; line-height: 1.4; }
 .am-sub { margin-top: 14px; font-size: 13px; color: #8A8680; font-family: 'Archivo', sans-serif; letter-spacing: 0.08em; }
 
+/* Arcade embed wrapper — fills .arcade-mock spot, swaps in iframe when data-arcade-src is set */
+.arcade-embed { margin: 48px auto 0; max-width: 1080px; position: relative; }
+.arcade-embed .arcade-mock { margin: 0; }
+.arcade-embed .arcade-frame {
+  width: 100%; aspect-ratio: 16/9;
+  border: 1px solid var(--border-strong); border-radius: 22px;
+  background: #0A0A0A; color-scheme: light;
+}
+
 /* Hide old pain-grid (kept for back-compat but unused in v3) */
 .pain-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
 .pain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 14px; text-align: center; }
@@ -1237,6 +1246,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .plan-suffix { font-family: 'Pretendard Variable', sans-serif; font-size: 14px; color: var(--ink-mute); }
 .plan-period { font-size: 13px; color: var(--ink-soft); }
 .plan-desc { margin-top: 14px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; padding-top: 14px; border-top: 1px solid var(--border); }
+.plan-cta {
+  margin-top: 18px; display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 20px; border-radius: 12px;
+  background: var(--ink); color: #fff !important;
+  font-size: 14.5px; font-weight: 600; letter-spacing: -0.005em;
+  text-decoration: none;
+  transition: background 220ms ease, transform 220ms ease;
+}
+.plan-cta:hover { background: var(--accent); transform: translateY(-1px); }
+.plan-cta .arr { margin-left: 8px; transition: transform 220ms ease; }
+.plan-cta:hover .arr { transform: translateX(4px); }
+.plan-featured .plan-cta { background: var(--accent); }
+.plan-featured .plan-cta:hover { background: var(--accent-hover); }
+.plan-note {
+  margin-top: 18px; padding: 12px 14px;
+  border-radius: 10px; background: var(--bg-deep);
+  font-size: 12.5px; color: var(--ink-mute); line-height: 1.55;
+}
+.plan-ref-applied {
+  margin-top: 10px; display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Archivo', sans-serif; font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent);
+}
+.plan-ref-applied::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.plan-price-strike { color: var(--ink-mute); text-decoration: line-through; font-family: 'Archivo', sans-serif; font-size: 16px; font-weight: 500; margin-right: 8px; }
 @media (max-width: 860px) { .pricing { grid-template-columns: 1fr; } }
 
 /* Urgency (Slot 11) */

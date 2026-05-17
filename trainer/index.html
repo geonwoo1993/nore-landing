@@ -363,11 +363,15 @@
     <div class="container">
       <span class="eyebrow">See It Working</span>
       <h2 class="demo-head" style="font-size:42px;">@노어 호출,<br><em style="color:var(--accent); font-style:normal;">실제로 이렇게 작동합니다.</em></h2>
-      <div class="arcade-mock">
-        <div class="am-inner">
-          <span class="am-label">▶ Arcade Demo</span>
-          <p class="am-title">식단 사진 → @노어 호출<br>→ AI 분석 → 피드백 초안</p>
-          <span class="am-sub">CLICK TO START</span>
+      <!-- Arcade 녹화 후 data-arcade-src에 share URL 박으면 자동 활성화 -->
+      <div class="arcade-embed" data-arcade-src="">
+        <iframe class="arcade-frame" src="about:blank" loading="lazy" allowfullscreen allow="clipboard-write" hidden></iframe>
+        <div class="arcade-mock">
+          <div class="am-inner">
+            <span class="am-label">▶ Arcade Demo</span>
+            <p class="am-title">식단 사진 → @노어 호출<br>→ AI 분석 → 피드백 초안</p>
+            <span class="am-sub">녹화 준비 중 · COMING SOON</span>
+          </div>
         </div>
       </div>
     </div>
@@ -425,6 +429,7 @@
           </div>
           <div class="plan-period">월 29,900원 · 12개월 일괄</div>
           <p class="plan-desc">트레이너 전체 기능 사용.</p>
+          <a class="plan-cta checkout-link" href="/checkout/?role=trainer" data-role="trainer">결제하고 시작하기 <span class="arr">→</span></a>
         </div>
         <div class="plan">
           <div class="plan-head">
@@ -436,6 +441,7 @@
           </div>
           <div class="plan-period">언제든 해지</div>
           <p class="plan-desc">먼저 써보는 트레이너용. <strong style="color:var(--accent);">창립 파트너 첫 달 100원</strong>.</p>
+          <p class="plan-note">월 이용권은 별도 안내 후 결제 진행됩니다. 1년권으로 시작하시면 즉시 결제 가능합니다.</p>
         </div>
       </div>
     </div>
@@ -492,5 +498,52 @@
     <span class="sfm-copy">© 2026 NORE</span>
   </footer>
 
+  <script>
+    // Arcade hydration: data-arcade-src 채워지면 iframe 활성화, 비어 있으면 mock 유지
+    document.querySelectorAll('.arcade-embed[data-arcade-src]').forEach(el => {
+      const src = el.getAttribute('data-arcade-src');
+      if (!src) return;
+      const frame = el.querySelector('.arcade-frame');
+      const mock = el.querySelector('.arcade-mock');
+      if (frame) { frame.src = src; frame.hidden = false; }
+      if (mock) mock.style.display = 'none';
+    });
+
+    // ?ref= 전파 + plan 카드 할인 가격 표시
+    (function(){
+      const REF_DISCOUNTS = {
+        EALPRO: { label: 'EAL 20% 할인', rate: 0.20 },
+        EAL5:   { label: 'EAL 5% 할인',  rate: 0.05 }
+      };
+      const params = new URLSearchParams(window.location.search);
+      const ref = (params.get('ref') || '').trim().toUpperCase();
+      const partner = REF_DISCOUNTS[ref];
+
+      if (ref) {
+        document.querySelectorAll('.checkout-link').forEach(a => {
+          const u = new URL(a.getAttribute('href'), window.location.origin);
+          u.searchParams.set('ref', ref);
+          a.setAttribute('href', u.pathname + u.search);
+        });
+      }
+
+      if (partner) {
+        document.querySelectorAll('.plan').forEach(card => {
+          const cta = card.querySelector('.checkout-link');
+          if (!cta) return;
+          const priceEl = card.querySelector('.plan-price');
+          if (!priceEl) return;
+          const original = parseInt(priceEl.textContent.replace(/[^\d]/g, ''), 10);
+          if (!original) return;
+          const discounted = Math.round(original * (1 - partner.rate));
+          priceEl.innerHTML = '<span class="plan-price-strike">' + original.toLocaleString() + '</span>' + discounted.toLocaleString();
+          const badge = document.createElement('span');
+          badge.className = 'plan-ref-applied';
+          badge.textContent = '✓ ' + partner.label + ' 적용';
+          card.insertBefore(badge, cta);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
