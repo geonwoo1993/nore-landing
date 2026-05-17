@@ -338,22 +338,31 @@
     <!-- 06 제거됨 (피트니스 전용 AI = 메커니즘 중복) -->
   </section>
 
-  <!-- SLOT 7: Demo — Arcade -->
-  <section class="demo" id="demo" style="position:relative; padding: 96px 40px; background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <!-- SLOT 7: Demo — Arcade (식단 피드백 실제 체험) -->
+  <section class="demo" id="demo" style="position:relative; padding: 96px 24px; background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <span class="slot-label">07 · Show — Arcade</span>
-    <div class="container">
-      <span class="eyebrow">See It Working</span>
-      <h2 class="demo-head" style="font-size:42px;">@노어 호출,<br><em style="color:var(--accent); font-style:normal;">실제로 이렇게 작동합니다.</em></h2>
-      <!-- Arcade 녹화 후 data-arcade-src에 share URL 박으면 자동 활성화 -->
-      <div class="arcade-embed" data-arcade-src="">
-        <iframe class="arcade-frame" src="about:blank" loading="lazy" allowfullscreen allow="clipboard-write; fullscreen" hidden></iframe>
-        <div class="arcade-mock">
-          <div class="am-inner">
-            <span class="am-label">▶ Arcade Demo</span>
-            <p class="am-title">식단 사진 → @노어 호출<br>→ AI 분석 → 피드백 초안</p>
-            <span class="am-sub">녹화 준비 중 · COMING SOON</span>
-          </div>
+    <div class="container" style="text-align:center;">
+      <span class="eyebrow" style="justify-content:center;">See It Working</span>
+      <h2 class="demo-head" style="font-size:42px; margin-top:16px;">@노어 호출,<br><em style="color:var(--accent); font-style:normal;">실제로 이렇게 작동합니다.</em></h2>
+      <p class="demo-sub" style="margin-top:14px; font-size:16px; color:var(--ink-soft); line-height:1.6;">
+        실제 회원과 주고받는 식단 피드백 흐름.<br>
+        클릭으로 직접 체험해보세요 · 약 1분
+      </p>
+
+      <div class="trainer-arcade-wrap">
+        <div style="position: relative; max-height: calc(41px + 80vh); aspect-ratio: 0.622665 / 1; margin: 0 auto;">
+          <iframe src="https://demo.arcade.software/AYVFEleNHG7OUOdkhoi8?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+            title="식단 기록 및 피드백 보내기"
+            frameborder="0" loading="lazy"
+            webkitallowfullscreen mozallowfullscreen allowfullscreen
+            allow="clipboard-write"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 18px;">
+          </iframe>
         </div>
+      </div>
+
+      <div class="demo-after-cta" style="margin-top:36px;">
+        <a class="btn-primary" href="#cta">체험 후 시작하기 <span class="arr">→</span></a>
       </div>
     </div>
   </section>
