@@ -1455,4 +1455,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   /* slot-label (개발용 라벨) 모바일에서 숨김 */
   .slot-label { display: none !important; }
+
+  /* Arcade mock — 모바일 16:9 카드 안에서 텍스트 안 넘치게 */
+  .arcade-mock { aspect-ratio: 4/3 !important; }
+  .am-inner { padding: 0 20px !important; }
+  .am-title { font-size: 16px !important; line-height: 1.4 !important; margin-top: 10px !important; }
+  .am-label { font-size: 10px !important; letter-spacing: 0.18em !important; }
+  .am-sub { font-size: 11px !important; margin-top: 10px !important; }
+  .arcade-embed .arcade-frame { border-radius: 16px !important; }
+
+  /* Chat shot header (트레이너 hero) — 정렬 깨짐 방지 */
+  .cs-header { gap: 8px !important; padding-bottom: 10px !important; flex-wrap: nowrap !important; }
+  .cs-header .cs-name { font-size: 12px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .cs-header .cs-status { font-size: 9.5px !important; letter-spacing: 0.04em !important; white-space: nowrap; flex-shrink: 0; }
 }
