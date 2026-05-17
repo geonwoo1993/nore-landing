@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NORE AI · 미리보기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap">
+<style>
+:root{
+  --bg:#FCFAF5;
+  --card:#FFFFFF;
+  --received:#F5F4EF;
+  --sent:#FDFCF8;
+  --ink:#0A0A0A;--ink-soft:#3D3D3D;--ink-mute:#7A7A7A;--ink-faint:#A8A8A8;
+  --slate:#5C6772;
+  --line:#E8E5DC;--line-soft:#F0EDE3;
+  --orange:#FF6900;--orange-soft:#FFF1E5;--orange-hover:#E55F00;
+  --green:#3D8B5E;--red:#B5453A
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:'Pretendard Variable',Pretendard,sans-serif;font-feature-settings:'tnum';-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;font-size:15px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+.top-bar{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:32px;height:32px;background:var(--ink);color:var(--bg);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Archivo';font-weight:700;font-size:13px;letter-spacing:0.05em}
+.brand-name{font-family:'Archivo';font-weight:700;font-size:14px;letter-spacing:0.10em}
+.brand-sub{font-size:11.5px;color:var(--ink-mute);margin-top:1px}
+
+.mode-toggle{margin-left:auto;display:inline-flex;background:var(--line-soft);border-radius:999px;padding:4px}
+.mode-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink-mute);transition:all 0.2s ease}
+.mode-btn svg{width:14px;height:14px;opacity:0.7;transition:opacity 0.2s ease}
+.mode-btn.active{background:var(--ink);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+.mode-btn.active svg{opacity:1}
+
+.shell{padding:22px 28px 100px;max-width:1480px;margin:0 auto}
+
+/* 관리자 모드 */
+.admin-shell{display:grid;grid-template-columns:230px 1fr 460px;gap:16px;height:calc(100vh - 130px);min-height:680px}
+.admin-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 12px;overflow-y:auto}
+.admin-side-ws{display:flex;align-items:center;gap:10px;padding:6px 6px 14px;border-bottom:1px solid var(--line-soft);margin-bottom:8px}
+.admin-side-ws-mark{width:28px;height:28px;background:var(--ink);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Archivo';font-weight:700;font-size:11px}
+.admin-side-ws-name{font-size:13.5px;font-weight:600;line-height:1.2}
+.admin-side-ws-sub{font-size:11.5px;color:var(--ink-mute);margin-top:2px}
+.admin-side-group{padding:10px 8px 4px;font-size:11px;color:var(--ink-mute);font-weight:500}
+.admin-side-item{display:flex;align-items:center;gap:10px;padding:9px 10px;font-size:13.5px;color:var(--ink-soft);border-radius:8px}
+.admin-side-item.active{background:var(--ink);color:#fff}
+.admin-side-item .ic{font-size:13px;width:14px;text-align:center;opacity:0.7}
+
+.admin-main{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.admin-main-head{display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
+.admin-main-title{font-size:21px;font-weight:600;letter-spacing:-0.025em}
+.admin-main-sub{font-size:12.5px;color:var(--ink-mute);margin-top:5px}
+.admin-main-date{font-size:11.5px;color:var(--ink-mute);background:var(--received);padding:5px 10px;border-radius:999px}
+
+.dash-revenue{padding:18px 20px;background:var(--received);border-radius:12px;border:1px solid var(--line-soft)}
+.dash-revenue-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dash-revenue-label{font-size:11.5px;color:var(--ink-mute);font-weight:500}
+.dash-revenue-trend{font-size:11.5px;color:var(--green);font-weight:600}
+.dash-revenue-main{display:flex;align-items:baseline;gap:6px;margin-bottom:14px}
+.dash-revenue-num{font-size:34px;font-weight:700;letter-spacing:-0.03em;line-height:1}
+.dash-revenue-unit{font-size:14px;color:var(--ink-soft);font-weight:500}
+.dash-revenue-pay{display:flex;gap:18px;padding-top:12px;border-top:1px dashed var(--line)}
+.dash-revenue-pay-item{display:flex;align-items:baseline;gap:5px;font-size:11.5px;color:var(--ink-mute)}
+.dash-revenue-pay-item b{color:var(--ink);font-weight:600;font-size:12.5px}
+
+.dash-cycle{padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.dash-cycle-title{font-size:12.5px;color:var(--ink-mute);font-weight:500;margin-bottom:12px;display:flex;justify-content:space-between}
+.dash-cycle-title b{color:var(--ink);font-weight:600;font-size:13.5px}
+.dash-cycle-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.dash-cycle-cell{padding:10px 12px;border:1px solid var(--line-soft);border-radius:8px}
+.dash-cycle-cell-label{font-size:10.5px;color:var(--ink-mute);margin-bottom:4px}
+.dash-cycle-cell-num{font-size:20px;font-weight:600;letter-spacing:-0.02em}
+.dash-cycle-cell-hint{font-size:10px;color:var(--ink-faint);margin-top:2px}
+.dash-cycle-cell.warn .dash-cycle-cell-num{color:var(--red)}
+.dash-cycle-cell.warn .dash-cycle-cell-hint{color:var(--red)}
+
+.dash-trainer{padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.dash-trainer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dash-trainer-title{font-size:13.5px;font-weight:600}
+.dash-trainer-sub{font-size:11px;color:var(--ink-mute)}
+.dash-trainer-row{display:grid;grid-template-columns:24px 1fr 70px 60px 60px;gap:10px;align-items:center;padding:8px 4px;font-size:12px;border-top:1px solid var(--line-soft)}
+.dash-trainer-row.head{font-size:10.5px;color:var(--ink-mute);font-weight:500;letter-spacing:0.03em;border-top:none}
+.dash-trainer-rank{font-family:'Archivo';font-weight:700;font-size:11px;color:var(--ink-mute);text-align:center}
+.dash-trainer-name{font-weight:600;color:var(--ink)}
+.dash-trainer-num{text-align:right;font-weight:500;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.dash-trainer-num.warn{color:var(--red)}
+.dash-trainer-num.good{color:var(--green)}
+
+/* AI 패널 */
+.ai-panel{background:var(--card);border:1px solid var(--orange);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 32px rgba(255,105,0,0.18)}
+.ai-panel-head{padding:16px 20px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:10px;background:var(--received)}
+.ai-panel-head-text{display:flex;flex-direction:column;gap:3px}
+.ai-icon{width:22px;height:22px;flex-shrink:0;color:var(--orange)}
+.ai-icon-sm{width:18px;height:18px;flex-shrink:0;color:var(--orange)}
+.ai-panel-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--ink);letter-spacing:0.01em}
+.ai-panel-title-tag{font-size:10px;padding:2px 7px;background:var(--slate);color:#fff;border-radius:4px;letter-spacing:0.02em;font-weight:500}
+.ai-panel-sub{font-size:11.5px;color:var(--ink-mute)}
+
+/* Welcome 화면 */
+.welcome{flex:1;padding:32px 22px 18px;display:flex;flex-direction:column;gap:18px;overflow-y:auto}
+.welcome.hidden{display:none}
+.welcome-greeting{font-size:13px;color:var(--ink-mute);font-weight:500;letter-spacing:-0.005em}
+.welcome-headline{font-size:24px;font-weight:600;letter-spacing:-0.025em;line-height:1.35;color:var(--ink)}
+.welcome-sub{font-size:12.5px;color:var(--ink-mute);line-height:1.55;margin-top:-8px}
+.welcome-chips{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.welcome-chip{text-align:left;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;font-size:12.5px;color:var(--ink);background:var(--sent);line-height:1.5;transition:all 0.15s ease;font-weight:500}
+.welcome-chip:hover{background:#fff;border-left-color:var(--orange-hover)}
+
+.chat-body{flex:1;padding:18px 20px;overflow-y:auto;flex-direction:column;gap:14px;display:none}
+.chat-body.show{display:flex}
+.msg{display:flex;animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.msg-wrap{display:flex;flex-direction:column;gap:4px;max-width:84%}
+.msg.user{justify-content:flex-end}
+.msg.user .msg-wrap{align-items:flex-end}
+.msg-bubble{padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.6;letter-spacing:-0.005em;white-space:pre-wrap}
+.msg.ai .msg-bubble{background:var(--received);color:var(--ink);border-top-left-radius:4px}
+.msg.user .msg-bubble{background:var(--sent);color:var(--ink);border-top-right-radius:4px;border-left:3px solid var(--orange);padding-left:11px}
+.msg-meta{font-size:10.5px;color:var(--ink-faint);padding:0 4px}
+.typing-cursor{display:inline-block;width:1.5px;height:1em;background:var(--ink);vertical-align:text-bottom;animation:blink 1s step-end infinite;margin-left:1px}
+@keyframes blink{50%{opacity:0}}
+
+.followup-row{display:flex;flex-direction:column;gap:6px;padding:2px 0 0 6px;animation:fadeIn 0.3s ease}
+.followup-label{font-size:11px;color:var(--ink-mute);font-weight:500;margin-bottom:2px;letter-spacing:0.01em}
+.followup-chip{align-self:flex-start;padding:9px 13px;border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:11px;font-size:12.5px;color:var(--ink);background:var(--sent);transition:all 0.15s ease;line-height:1.45;text-align:left;max-width:90%}
+.followup-chip:hover{background:#fff;border-left-color:var(--orange-hover)}
+.followup-chip .mention{color:var(--orange);font-weight:600;margin-right:4px}
+
+/* 입력창 */
+.input-area{background:#fff;border-top:1px solid var(--line-soft)}
+.chat-input-row{padding:12px 16px 14px;display:flex;align-items:center;gap:8px;background:#fff}
+.chat-attach{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-mute);font-size:15px;flex-shrink:0;cursor:default;background:#fff}
+.chat-input{flex:1;padding:11px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:13px;color:var(--ink);font-family:inherit;outline:none;cursor:default}
+.chat-input::placeholder{color:var(--ink-faint)}
+.chat-send{width:36px;height:36px;background:var(--orange);border:none;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;cursor:default}
+
+/* 회원 모드 */
+.member-shell{display:none;justify-content:center;padding:32px 28px;min-height:680px;gap:48px;align-items:center}
+.member-intro{max-width:320px}
+.member-intro-eyebrow{font-size:11px;color:var(--orange);font-weight:700;letter-spacing:0.08em;margin-bottom:10px}
+.member-intro-title{font-size:26px;font-weight:600;letter-spacing:-0.025em;line-height:1.3;margin-bottom:12px}
+.member-intro-body{font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.member-intro-list{margin-top:16px;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--ink-mute)}
+.member-intro-list-item{display:flex;align-items:flex-start;gap:8px}
+.member-intro-list-item::before{content:"●";color:var(--orange);font-size:8px;margin-top:6px;flex-shrink:0}
+
+/* 모바일 프레임 */
+.mobile-frame{width:368px;height:752px;background:var(--bg);border-radius:54px;overflow:hidden;display:flex;flex-direction:column;position:relative;outline:6px solid #1F1B17;box-shadow:0 28px 64px -16px rgba(60,40,20,0.18),0 8px 24px -8px rgba(60,40,20,0.08)}
+.mobile-notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:108px;height:30px;background:#1F1B17;border-radius:18px;z-index:10}
+.mobile-statusbar{height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 8px;font-size:13px;font-weight:600;color:var(--ink);flex-shrink:0}
+.mobile-head{padding:12px 18px 12px;border-bottom:1px solid var(--line-soft);background:var(--bg);display:flex;align-items:center;gap:9px;flex-shrink:0}
+.mobile-head-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mobile-head-title{font-size:14.5px;font-weight:700;line-height:1.2;color:var(--ink);letter-spacing:0.01em}
+.mobile-head-sub{font-size:11.5px;color:var(--ink-mute)}
+.mobile-head-status{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--green)}
+.mobile-head-status::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%}
+
+/* 회원 welcome */
+.mobile-welcome{flex:1;padding:28px 18px 14px;display:flex;flex-direction:column;gap:14px;background:var(--bg);overflow-y:auto}
+.mobile-welcome.hidden{display:none}
+.mobile-welcome-greeting{font-size:12px;color:var(--ink-mute);font-weight:500}
+.mobile-welcome-headline{font-size:18px;font-weight:600;letter-spacing:-0.02em;line-height:1.35;color:var(--ink)}
+.mobile-welcome-sub{font-size:11.5px;color:var(--ink-mute);line-height:1.5;margin-top:-6px}
+.mobile-welcome-chips{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.mobile-welcome-chip{text-align:left;padding:10px 12px;border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:10px;font-size:11.5px;color:var(--ink);background:var(--sent);line-height:1.45;font-weight:500}
+
+.mobile-chat-body{flex:1;padding:14px 14px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.mobile-chat-body .msg-bubble{font-size:13px;padding:9px 13px}
+.mobile-chat-body .msg.user .msg-bubble{padding-left:10px}
+.mobile-chat-body .followup-chip{font-size:11.5px;padding:8px 11px;border-radius:10px}
+.mobile-chat-body .followup-label{font-size:10px}
+
+.mobile-input-area{background:var(--bg);border-top:1px solid var(--line-soft);flex-shrink:0}
+.mobile-input-row{padding:8px 10px 10px;display:flex;align-items:center;gap:6px}
+.mobile-attach{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-mute);font-size:13px;flex-shrink:0;background:#fff;cursor:default}
+.mobile-input{flex:1;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12.5px;color:var(--ink);font-family:inherit;outline:none;cursor:default}
+.mobile-input::placeholder{color:var(--ink-faint)}
+.mobile-send{width:32px;height:32px;background:var(--orange);border:none;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;cursor:default}
+
+.mobile-home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:120px;height:4px;background:#1F1B17;border-radius:2px;opacity:0.5;z-index:10}
+
+.reset-btn{margin-left:8px;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-mute);background:#fff;cursor:pointer;transition:all 0.15s;flex-shrink:0}
+.reset-btn:hover{border-color:var(--ink);color:var(--ink)}
+.reset-btn svg{width:13px;height:13px}
+.ai-panel-head-text{flex:1;min-width:0}
+.mobile-head-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+
+.back-fab{position:fixed;bottom:24px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:13px 20px;background:var(--ink);color:var(--bg);border-radius:999px;font-size:14px;font-weight:500;box-shadow:0 6px 20px rgba(0,0,0,0.15);transition:all 0.15s ease;letter-spacing:-0.01em}
+.back-fab:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,0.2)}
+.back-fab svg{width:16px;height:16px}
+
+body[data-mode="trainer"] .admin-shell{display:grid}
+body[data-mode="member"] .admin-shell{display:none}
+body[data-mode="member"] .member-shell{display:flex}
+
+/* 트레이너 회원 카드 */
+.tr-member-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;cursor:default}
+.tr-member-row.active{background:var(--ink);color:#fff}
+.tr-member-avatar{width:26px;height:26px;background:var(--orange-soft);color:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.tr-member-row.active .tr-member-avatar{background:rgba(255,255,255,0.15);color:#fff}
+.tr-member-name{font-weight:600}
+.tr-member-meta{margin-left:auto;font-size:10.5px;color:var(--ink-mute);font-family:'Archivo'}
+.tr-member-row.active .tr-member-meta{color:rgba(255,255,255,0.7)}
+
+.tr-detail{padding:18px 20px;background:var(--received);border-radius:12px;border:1px solid var(--line-soft)}
+.tr-detail-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.tr-detail-name{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+.tr-detail-name-sub{font-size:11.5px;color:var(--ink-mute);font-weight:500;margin-top:2px}
+.tr-detail-badge{font-size:10.5px;padding:4px 9px;background:var(--orange);color:#fff;border-radius:999px;font-weight:600;letter-spacing:0.02em}
+.tr-detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tr-detail-cell{padding:10px 12px;background:#fff;border:1px solid var(--line-soft);border-radius:8px}
+.tr-detail-cell-label{font-size:10.5px;color:var(--ink-mute);margin-bottom:4px}
+.tr-detail-cell-num{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+.tr-detail-cell-hint{font-size:10px;color:var(--ink-faint);margin-top:2px}
+.tr-detail-cell.warn .tr-detail-cell-num{color:var(--red)}
+.tr-detail-cell.warn .tr-detail-cell-hint{color:var(--red)}
+.tr-detail-cell.good .tr-detail-cell-num{color:var(--green)}
+
+.tr-section{padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.tr-section-title{font-size:12.5px;color:var(--ink-mute);font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.tr-section-title b{color:var(--ink);font-weight:700;font-size:13.5px}
+.tr-meal-card{display:flex;gap:12px;padding:10px;border:1px solid var(--line-soft);border-radius:9px;margin-bottom:8px}
+.tr-meal-thumb{width:60px;height:60px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--orange-soft)}
+.tr-meal-body{flex:1;min-width:0}
+.tr-meal-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.tr-meal-time{font-size:10.5px;color:var(--ink-mute);font-family:'Archivo'}
+.tr-meal-name{font-size:13px;font-weight:600;color:var(--ink)}
+.tr-meal-macro{font-size:11px;color:var(--ink-soft);line-height:1.5}
+.tr-meal-macro b{color:var(--ink);font-weight:600;font-feature-settings:'tnum'}
+.tr-meal-note{margin-top:4px;font-size:10.5px;color:var(--orange);font-weight:500}
+
+.tr-msg-row{display:grid;grid-template-columns:46px 1fr 60px;gap:10px;align-items:start;padding:9px 4px;font-size:12px;border-top:1px solid var(--line-soft)}
+.tr-msg-row.head{font-size:10.5px;color:var(--ink-mute);font-weight:500;border-top:none}
+.tr-msg-time{color:var(--ink-mute);font-family:'Archivo';font-size:10.5px;padding-top:1px}
+.tr-msg-text{color:var(--ink-soft);line-height:1.5}
+.tr-msg-text b{color:var(--ink);font-weight:600}
+.tr-msg-tag{font-size:10px;padding:2px 7px;border-radius:999px;font-weight:600;text-align:center;background:var(--received);color:var(--ink-soft);align-self:start;margin-top:1px}
+.tr-msg-tag.ai{background:var(--orange-soft);color:var(--orange)}
+.tr-msg-tag.alert{background:#FEE6E6;color:var(--red)}
+
+@media (max-width:1100px){.admin-shell{grid-template-columns:200px 1fr 380px}.member-intro{max-width:260px}}
+@media (max-width:900px){.admin-shell{grid-template-columns:1fr;height:auto}.admin-side,.admin-main{display:none}.member-shell{flex-direction:column;gap:24px}}
+@media (max-width:720px){.back-fab{bottom:16px;right:16px;padding:11px 16px;font-size:13px}.top-bar{padding:12px 16px;flex-wrap:wrap;gap:12px}.mode-btn{padding:8px 14px;font-size:12.5px}.shell{padding:16px 14px 100px}.mobile-frame{width:100%;max-width:368px;height:680px}.member-shell{padding:16px}}
+</style></head>
+<body data-mode="trainer">
+
+<div class="top-bar">
+  <div class="brand">
+    <div class="brand-mark">N</div>
+    <div>
+      <div class="brand-name">NORE</div>
+      <div class="brand-sub">AI · 미리보기</div>
+    </div>
+  </div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="trainer">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8Z" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 14C2.5 11.5 4.5 9.5 8 9.5C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      트레이너 AI
+    </button>
+    <button class="mode-btn" data-mode="member">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M4 12L4 4L8 4L12 8L12 12L4 12Z M4 8L9 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      회원 AI
+    </button>
+  </div>
+</div>
+
+<div class="shell">
+
+  <div class="admin-shell">
+    <aside class="admin-side">
+      <div class="admin-side-ws">
+        <div class="admin-side-ws-mark">정</div>
+        <div>
+          <div class="admin-side-ws-name">정민재 트레이너</div>
+          <div class="admin-side-ws-sub">노어짐 한남점</div>
+        </div>
+      </div>
+      <div class="admin-side-group">담당 회원 8명</div>
+      <div class="tr-member-row active"><div class="tr-member-avatar">김</div><div class="tr-member-name">김민지</div><div class="tr-member-meta">12/30</div></div>
+      <div class="tr-member-row"><div class="tr-member-avatar">박</div><div class="tr-member-name">박수현</div><div class="tr-member-meta">8/20</div></div>
+      <div class="tr-member-row"><div class="tr-member-avatar">이</div><div class="tr-member-name">이재훈</div><div class="tr-member-meta">3/30</div></div>
+      <div class="tr-member-row"><div class="tr-member-avatar">최</div><div class="tr-member-name">최예린</div><div class="tr-member-meta">17/20</div></div>
+      <div class="tr-member-row"><div class="tr-member-avatar">윤</div><div class="tr-member-name">윤도현</div><div class="tr-member-meta">5/10</div></div>
+      <div class="admin-side-group">케어 도구</div>
+      <div class="admin-side-item"><span class="ic">◍</span>식단 분석</div>
+      <div class="admin-side-item"><span class="ic">↗</span>운동 처방</div>
+      <div class="admin-side-item"><span class="ic">◎</span>컨디션 체크</div>
+      <div class="admin-side-item"><span class="ic">⌁</span>회원 카톡 응답</div>
+      <div class="admin-side-group">매출·블로그</div>
+      <div class="admin-side-item"><span class="ic">⊙</span>내 매출</div>
+      <div class="admin-side-item"><span class="ic">▤</span>블로그 자동 작성</div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-main-head">
+        <div>
+          <div class="admin-main-title">김민지 회원 상세</div>
+          <div class="admin-main-sub">우측 NORE AI가 이 회원 데이터에 답합니다 →</div>
+        </div>
+        <div class="admin-main-date">PT 12/30 · 26세 · 다이어트</div>
+      </div>
+
+      <div class="tr-detail">
+        <div class="tr-detail-head">
+          <div>
+            <div class="tr-detail-name">김민지</div>
+            <div class="tr-detail-name-sub">5월 등록 · 주 2회 · 다음 PT 5/19 (월) 19:00</div>
+          </div>
+          <div class="tr-detail-badge">PROGRESS GOOD</div>
+        </div>
+        <div class="tr-detail-grid">
+          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">출석</div><div class="tr-detail-cell-num">92%</div><div class="tr-detail-cell-hint">11/12회</div></div>
+          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">체중 ↓</div><div class="tr-detail-cell-num">-2.4kg</div><div class="tr-detail-cell-hint">4주 누적</div></div>
+          <div class="tr-detail-cell"><div class="tr-detail-cell-label">식단 기록</div><div class="tr-detail-cell-num">18일</div><div class="tr-detail-cell-hint">최근 21일 중</div></div>
+          <div class="tr-detail-cell warn"><div class="tr-detail-cell-label">컨디션</div><div class="tr-detail-cell-num">3.2/5</div><div class="tr-detail-cell-hint">평소 4.1</div></div>
+        </div>
+      </div>
+
+      <div class="tr-section">
+        <div class="tr-section-title"><b>최근 식단 — AI 자동 분석</b><span>오늘 5/18</span></div>
+        <div class="tr-meal-card">
+          <div class="tr-meal-thumb">🥗</div>
+          <div class="tr-meal-body">
+            <div class="tr-meal-head"><div class="tr-meal-name">아침 — 닭가슴살 샐러드</div><div class="tr-meal-time">08:20</div></div>
+            <div class="tr-meal-macro">약 <b>320kcal</b> · 단백질 <b>32g</b> · 탄수 <b>12g</b> · 지방 <b>14g</b></div>
+          </div>
+        </div>
+        <div class="tr-meal-card">
+          <div class="tr-meal-thumb">🍙</div>
+          <div class="tr-meal-body">
+            <div class="tr-meal-head"><div class="tr-meal-name">점심 — 참치 김밥 1줄</div><div class="tr-meal-time">13:05</div></div>
+            <div class="tr-meal-macro">약 <b>520kcal</b> · 단백질 <b>16g</b> · 탄수 <b>72g</b> · 지방 <b>18g</b></div>
+            <div class="tr-meal-note">⚠ 단백질 부족 — AI가 회원에게 자동 보강 안내함</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tr-section">
+        <div class="tr-section-title"><b>이번 주 회원 메시지</b><span>5/12 ~ 5/18</span></div>
+        <div class="tr-msg-row head"><div>시간</div><div>내용</div><div style="text-align:right">처리</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">5/18 13:06</div><div class="tr-msg-text">"점심 김밥 단백질 부족하다고 알려줘서 닭가슴살 추가했어요"</div><div class="tr-msg-tag ai">AI 처리</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">5/17 21:40</div><div class="tr-msg-text">"내일 PT 가야하는데 컨디션 3/5. 갈까 말까요?" → AI가 1차 조언 후 트레이너 알림</div><div class="tr-msg-tag alert">알림</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">5/16 10:12</div><div class="tr-msg-text">"운동 강도 좀 낮춰서 짜주세요" → AI가 80% 강도 루틴 제안</div><div class="tr-msg-tag ai">AI 처리</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">5/15 19:30</div><div class="tr-msg-text">"다이어트 정체기인 거 같아요. 식단 그대로 두는 게 맞나요?"</div><div class="tr-msg-tag ai">AI 처리</div></div>
+      </div>
+    </main>
+
+    <aside class="ai-panel">
+      <div class="ai-panel-head">
+        <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.5"/>
+          <line x1="12" y1="2.5" x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="21.5"/>
+          <line x1="2.5" y1="12" x2="5" y2="12"/>
+          <line x1="19" y1="12" x2="21.5" y2="12"/>
+          <line x1="5.2" y1="5.2" x2="6.95" y2="6.95"/>
+          <line x1="17.05" y1="17.05" x2="18.8" y2="18.8"/>
+          <line x1="5.2" y1="18.8" x2="6.95" y2="17.05"/>
+          <line x1="17.05" y1="6.95" x2="18.8" y2="5.2"/>
+        </svg>
+        <div class="ai-panel-head-text">
+          <div class="ai-panel-title">NORE AI <span class="ai-panel-title-tag">트레이너</span></div>
+        </div>
+        <button class="reset-btn" id="adminReset" title="새 대화" aria-label="새 대화">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/>
+            <polyline points="13.5,2 13.5,5 10.5,5"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="welcome" id="adminWelcome">
+        <div class="welcome-greeting">정민재 트레이너님,</div>
+        <div class="welcome-headline">담당 회원에 대해<br>무엇이든 물어봐주세요.</div>
+        <div class="welcome-sub">NORE AI가 회원 식단·운동·컨디션 데이터를 기억하고 답해드립니다.</div>
+        <div class="welcome-chips" id="adminWelcomeChips"></div>
+      </div>
+
+      <div class="chat-body" id="adminChat"></div>
+
+      <div class="input-area">
+        <div class="chat-input-row">
+          <button class="chat-attach" tabindex="-1" aria-hidden="true">📎</button>
+          <input class="chat-input" placeholder="NORE AI에게 물어보기..." readonly tabindex="-1">
+          <button class="chat-send" tabindex="-1" aria-hidden="true">↑</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="member-shell">
+    <div class="member-intro">
+      <div class="member-intro-eyebrow">회원용 AI</div>
+      <div class="member-intro-title">회원이 트레이너 없이도<br>식단·운동에 답을 받습니다</div>
+      <div class="member-intro-body">회원이 식단 사진을 보내면 칼로리·단탄지 자동 분석. 컨디션·운동 강도 질문에 트레이너님 처방 톤 그대로 24시간 응답합니다. 위급 신호는 트레이너님께 알림.</div>
+      <div class="member-intro-list">
+        <div class="member-intro-list-item">회원 카톡 응답 부담 -70%</div>
+        <div class="member-intro-list-item">식단 사진 분석 자동</div>
+        <div class="member-intro-list-item">컨디션 위험 신호 → 자동 알림</div>
+      </div>
+    </div>
+    <div class="mobile-frame">
+      <div class="mobile-notch"></div>
+      <div class="mobile-statusbar"><span>9:41</span><span></span></div>
+      <div class="mobile-head">
+        <svg class="ai-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.5"/>
+          <line x1="12" y1="2.5" x2="12" y2="5"/>
+          <line x1="12" y1="19" x2="12" y2="21.5"/>
+          <line x1="2.5" y1="12" x2="5" y2="12"/>
+          <line x1="19" y1="12" x2="21.5" y2="12"/>
+          <line x1="5.2" y1="5.2" x2="6.95" y2="6.95"/>
+          <line x1="17.05" y1="17.05" x2="18.8" y2="18.8"/>
+          <line x1="5.2" y1="18.8" x2="6.95" y2="17.05"/>
+          <line x1="17.05" y1="6.95" x2="18.8" y2="5.2"/>
+        </svg>
+        <div class="mobile-head-text">
+          <div class="mobile-head-title">NORE AI</div>
+          <div class="mobile-head-sub">정민재 트레이너 · 김민지님 전담</div>
+        </div>
+        <div class="mobile-head-status">온라인</div>
+        <button class="reset-btn" id="memberReset" title="새 대화" aria-label="새 대화">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/>
+            <polyline points="13.5,2 13.5,5 10.5,5"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mobile-chat-body" id="memberChat"></div>
+
+      <div class="mobile-input-area">
+        <div class="mobile-input-row">
+          <button class="mobile-attach" tabindex="-1" aria-hidden="true">📎</button>
+          <input class="mobile-input" placeholder="NORE AI에게 물어보기..." readonly tabindex="-1">
+          <button class="mobile-send" tabindex="-1" aria-hidden="true">↑</button>
+        </div>
+      </div>
+      <div class="mobile-home-indicator"></div>
+    </div>
+  </div>
+
+</div>
+
+<a href="/trainer" class="back-fab">
+  <svg viewBox="0 0 16 16" fill="none"><path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span>뒤로</span>
+</a>
+
+<script>
+const HELLO={
+  member:'안녕하세요 김민지님 💪 정민재 트레이너님 처방 데이터랑 식단 기록 다 기억하고 있어요. 식단 사진이나 운동 질문, 편하게 보내주세요!'
+};
+
+const SUGG={
+  trainer:[
+    {key:'t1',text:'김민지 회원 이번 주 식단·컨디션 정리해줘'},
+    {key:'t2',text:'다음 PT에서 강도 조절 필요한 회원 누구야?'},
+    {key:'t3',text:'담당 회원 중 재등록 위험한 사람 있어?'}
+  ],
+  member:[
+    {key:'m1',text:'방금 먹은 점심 사진 분석해줘'},
+    {key:'m2',text:'다이어트 정체기 같아요. 어떻게 해야 해요?'},
+    {key:'m3',text:'허리 살짝 아픈데 오늘 PT 가도 돼요?'}
+  ]
+};
+
+const QA={
+  t1:{q:'김민지 회원 이번 주 식단·컨디션 정리해줘',a:'김민지 회원 5/12 ~ 5/18 정리입니다.\n\n📊 식단 (기록 7/7일)\n• 평균 1,420kcal · 단백질 78g · 탄수 165g · 지방 48g\n• 단백질 목표(80g) 거의 충족, 탄수 적절 (다이어트 단계)\n• 외식 2회 (참치 김밥 / 일식 우동) — AI가 자동 보강 안내함\n\n💪 운동\n• PT 2회 + 자가 운동 3회 (총 5회)\n• 스쿼트 50kg → 55kg 진행 (4주 +5kg)\n• 데드리프트는 컨디션 보고 다음 주로 연기 권장\n\n🧠 컨디션\n• 5/17 "컨디션 3/5" 보고 — 수면 부족(5h)·생리 2일차\n• 평소 평균 4.1/5 대비 -0.9 (단순 일시적 저하)\n\n다음 PT 액션 추천:\n① 스쿼트 55kg 유지, 데드리프트는 60% 강도\n② 5/20 컨디션 다시 확인 후 강도 결정',fups:['t1a','t1b']},
+  t1a:{q:'정체기 들어선 거 같아. 식단 어떻게 조정할까?',a:'김민지 회원 체중 그래프:\n• 4/20: 62.4kg → 5/4: 60.5kg (-1.9kg, 2주)\n• 5/4: 60.5kg → 5/18: 60.0kg (-0.5kg, 2주) ⚠ 정체\n\n원인 추정 3가지:\n① 칼로리 적응 (TDEE 하향) — 가장 흔함\n② 단백질 부족 가능성 — 80g 목표 중 평균 78g, 마지노선\n③ 탄수 일관성 부족 — 외식날 165g·운동날 110g 진동\n\n조정안 (트레이너님 판단으로):\n• 단백질 80g → 95g (체중×1.6)\n• 탄수 평일 130g·운동일 180g로 차등\n• 토요일 리피드 데이 1회 (탄수 200g+) 적용\n\n2주 적용 후 체중·근육량 변화 다시 보고 드릴게요.',fups:[]},
+  t1b:{q:'오늘 PT에서 컨디션 어떻게 확인하면 좋을까?',a:'5/18 PT 전 체크 추천 (회원 부담 없게):\n\n📝 체크리스트\n1. 어제 잠 몇 시간? (5h 미만이면 강도 80%로)\n2. 어디 통증 있어요? 1~10 척도로\n3. 오늘 첫 식사 뭐 드셨어요? (저혈당 방지)\n\n🎯 강도 결정 가이드\n• 컨디션 4~5: 평소 강도 (스쿼트 55kg)\n• 컨디션 3: 80% 강도 (스쿼트 45kg, 데드 생략)\n• 컨디션 2 이하: 가벼운 모빌리티 + 짧은 유산소로 전환\n\n💡 이번 회원은 자기 컨디션 정직하게 말하는 타입이에요. 그대로 받아주시면 신뢰 올라갑니다.',fups:[]},
+  t2:{q:'다음 PT에서 강도 조절 필요한 회원 누구야?',a:'다음 7일 PT 일정 + 강도 조정 권장:\n\n⚠ 강도 ↓ 필요\n• 김민지 (5/19 19시) — 어제 컨디션 3/5, 생리 2일차. 80% 강도 권장\n• 윤도현 (5/20 07시) — 무릎 통증 어제 보고. 하체 day 변경 또는 상체로 전환\n\n→ 평상 강도\n• 박수현 (5/19 11시) — 컨디션 4.2/5, 체중 -3.4kg 진행 중\n• 최예린 (5/21 19시) — PT 17/20 마무리 단계, 강도 유지\n\n⚡ 강도 ↑ 가능\n• 이재훈 (5/22 20시) — 컨디션 4.8/5, 식단 기록 100%, 데드리프트 80kg 도전 적기\n\nAI가 각 회원에게 컨디션 사전 체크 메시지 보낼까요?',fups:['t2a']},
+  t2a:{q:'응 보내줘. 답변 받으면 알려줄 수 있어?',a:'5명 회원에게 컨디션 체크 메시지 발송 완료.\n\n📩 발송 내용 (회원별 맞춤)\n"안녕하세요 ○○님 💪 내일 PT 전에 컨디션 1~5점으로 알려주세요. 통증 있는 부위도 함께 알려주시면 강도 맞춰드릴게요."\n\n📬 답변 도착 시 알림 방식\n• 트레이너님 카톡으로 즉시 전달\n• 컨디션 3 이하 OR 통증 보고 → 별도 알림\n• 모든 답변은 회원 카드에 자동 기록\n\n오늘 19시까지 답변 안 오면 한 번 더 리마인드 보낼게요.',fups:[]},
+  t3:{q:'담당 회원 중 재등록 위험한 사람 있어?',a:'담당 8명 중 재등록 위험 신호 3명입니다.\n\n🔴 1순위 — 이재훈 (3/30회 잔여, 5/28 만료)\n• 출석률 60% (평소 85% 대비 하락)\n• 최근 2주 식단 기록 없음\n• 카톡 응답 평균 12시간 (이전 2시간)\n→ 직접 카톡 권장. AI 자동 안내는 이미 1회 보냄.\n\n🟠 2순위 — 윤도현 (5/10회, 6/5 만료)\n• 무릎 통증 보고 후 운동 의욕 저하\n• 회원이 "재등록 할지 고민 중" 직접 발언함\n→ 다음 PT(5/20)에서 통증 관리 PT로 신뢰 회복\n\n🟡 3순위 — 박수현 (8/20회, 6/20 만료)\n• 체중 감량 잘 진행 중이지만 직장 야근으로 PT 미루는 빈도 증가\n• 시간대 조정 가능한지 물어볼 시점\n\n위 3명 미리 잡으면 이번 분기 재등록률 80%+ 가능합니다.',fups:[]},
+
+  m1:{q:'방금 먹은 점심 사진 분석해줘 📷',a:'점심 사진 분석 완료 ✅\n\n📸 인식 결과 — 참치 김밥 1줄 + 단무지\n\n🔬 영양 분석\n• 약 520kcal\n• 단백질 16g · 탄수 72g · 지방 18g\n\n⚠ 단백질 부족\n오늘 목표 단백질 80g 중 현재 48g 채움. 점심에서 16g만 들어와서 저녁에 32g+ 필요해요.\n\n💡 보강 옵션\n• 닭가슴살 100g 추가 (단백 25g) — 5분 컷\n• 그릭요거트 + 단백질 셰이크 — 운동 후 추천\n• 두부 200g + 계란 2개 저녁 — 한 끼로 해결\n\n트레이너님께 점심 기록 자동 보내드릴게요.',fups:['m1a','m1b']},
+  m1a:{q:'저녁에 닭가슴살 추가하면 칼로리 너무 많지 않아요?',a:'걱정 마세요. 칼로리 정확히 계산해드릴게요.\n\n📊 김민지님 오늘 칼로리 (다이어트 목표 1,400kcal)\n• 아침 320 (샐러드) + 점심 520 (김밥) = 840\n• 남은 칼로리 = 560\n\n🍗 저녁 옵션 (560kcal 안에서)\n① 닭가슴살 100g + 현미밥 1/2공기 + 야채\n  → 320kcal · 단백 36g (목표 도달 ✓)\n② 두부 부침 200g + 야채볶음\n  → 280kcal · 단백 22g (칼로리 여유 ✓)\n\n①번이 단백질 목표 정확히 채워요. 추천!',fups:[]},
+  m1b:{q:'외식해야 하는데 뭐 시키는 게 좋아요?',a:'어떤 곳이에요? 옵션 보고 골라드릴게요. 일단 다이어트 외식 추천 TOP 3:\n\n🥇 1순위 — 회덮밥\n• 단백 40g · 탄수 60g · 지방 12g\n• 김민지님 단백질 보강에 최적\n• 밥 1/2공만 드시면 칼로리 OK\n\n🥈 2순위 — 닭갈비 (소스 적게)\n• 단백 35g · 탄수 30g · 지방 18g\n• 양배추 많이 추가하시면 포만감 ↑\n\n🥉 3순위 — 쌀국수 (반미 X)\n• 단백 20g · 탄수 75g · 지방 8g\n• 양지·해산물 토핑 추가하시면 단백 30g까지\n\n❌ 피하기: 마라탕(나트륨 폭격), 떡볶이(탄수 과잉), 치킨(지방)',fups:[]},
+  m2:{q:'다이어트 정체기 같아요. 어떻게 해야 해요?',a:'기록 확인해봤어요. 정체기 맞아요.\n\n📊 김민지님 체중 변화\n• 4/20 → 5/4: -1.9kg (2주, 빠름)\n• 5/4 → 5/18: -0.5kg (2주, 정체)\n\n원인 진단 (가장 흔한 순):\n① 칼로리 적응 — 몸이 1,400kcal에 익숙해짐 (가장 가능성 높음)\n② 단백질 부족 — 평균 78g, 마지노선 (체중×1.6 = 96g 추천)\n③ 수면 부족 — 최근 7일 평균 6.1시간\n\n💡 정체기 깨는 3가지 옵션 (트레이너님과 상의 후 적용):\n• [A] 칼로리 ↓: 1,400 → 1,250kcal (단기 충격)\n• [B] 단백질 ↑: 78 → 95g (근육 보존, 추천)\n• [C] 리피드 데이: 토요일 1회 200g 탄수 (호르몬 리셋)\n\n트레이너님께 의견 요청 메시지 보낼까요?',fups:['m2a','m2b']},
+  m2a:{q:'네 보내주세요',a:'정민재 트레이너님께 메시지 전송 완료 ✅\n\n📩 전달 내용\n"김민지님 정체기 진입 (-0.5kg/2주, 이전 -1.9kg/2주 대비 둔화).\nAI 진단: 칼로리 적응 + 단백질 마지노선(78g).\n옵션 A·B·C 중 어느 쪽으로 갈지 트레이너님 판단 요청드립니다.\n다음 PT(5/19) 때 결정 → 김민지님께 안내 예정."\n\n트레이너님이 답변 주시면 회원님께도 알려드릴게요. 보통 12시간 이내에 답변 오세요.\n\n그동안은 평소 식단·운동 그대로 유지하시면 돼요. 정체기는 자연스러운 과정이에요.',fups:[]},
+  m2b:{q:'운동을 더 많이 해야 할까요?',a:'운동 추가는 마지막 카드예요. 식단 먼저!\n\n이유:\n• 운동 추가로 -0.5kg 더 빼려면 주 200분 추가 유산소 필요\n• 식단 단백질 ↑ + 칼로리 -150kcal면 충분\n• 운동 너무 늘리면 부상·번아웃 위험\n\n💪 만약 운동을 더 한다면:\n• 주 1회 40분 LISS 유산소 추가 (걷기·자전거)\n• 기존 PT 강도는 유지 (감량 핑계로 무리 X)\n• 근력 운동은 절대 줄이지 말기 (근육 = 기초대사량)\n\n결론: 식단 조정이 먼저, 운동은 그대로!',fups:[]},
+  m3:{q:'허리 살짝 아픈데 오늘 PT 가도 돼요?',a:'잠깐, 통증 정확히 봐드릴게요.\n\n🔬 통증 체크\n1. 어디예요? — 허리 가운데 / 오른쪽 / 왼쪽 / 엉덩이로 내려가나요?\n2. 강도 1~10점 중 몇 점이에요?\n3. 어제 한 운동 있어요? (스쿼트·데드 등)\n4. 자세 바꿀 때 더 아픈가요?\n\n일단 일반 가이드:\n\n🟢 가도 되는 신호 (3점 이하)\n• 살짝 뻐근한 정도\n• 움직이면 풀리는 느낌\n• 다리로 안 내려옴\n→ 워밍업 길게(10분) + 데드/스쿼트 강도 70%\n\n🔴 미루는 게 좋은 신호 (5점 이상)\n• 다리로 저림·방사통\n• 누우면 더 아픔\n• 어제부터 점점 심해짐\n→ 정형외과 우선, PT 미루기\n\n어느 쪽에 가까우세요?',fups:['m3a','m3b']},
+  m3a:{q:'3점 정도예요. 가운데 살짝 뻐근',a:'그 정도면 가셔도 돼요. 단, 강도 조절 필요.\n\n✅ 오늘 PT 가이드 (정민재 트레이너님께 자동 전달됨)\n• 워밍업 10분 (평소 5분 → 2배)\n• 스쿼트 55kg → 45kg (80% 강도)\n• 데드리프트 → 생략, 케이블 로우로 대체\n• 코어: 플랭크·버드독만 (크런치 X)\n\n💡 PT 끝나고 회복 루틴\n• 폼롤러 등 5분\n• 따뜻한 샤워 + 스트레칭\n• 단백질 + 마그네슘 챙기기\n• 22시 전 취침\n\n내일 더 아프면 무조건 알려주세요. 트레이너님도 통증 강도 모니터링하실 거예요.',fups:[]},
+  m3b:{q:'어제 데드리프트 60kg 처음 했어요',a:'아하, 원인 명확하네요. 데드리프트 강도 올린 다음 날 통증은 흔해요.\n\n🔬 분석\n• 어제 60kg = 김민지님 1RM의 약 75% (적정)\n• 첫 시도 후 24~48시간 뻐근함은 정상\n• 다리로 안 내려오면 디스크 문제 아님 ✓\n\n📩 트레이너님께 자동 보고\n"김민지님 5/17 데드리프트 60kg 첫 시도. 5/18 허리 가운데 3/10 뻐근함. 방사통 X. 평범한 DOMS로 판단."\n\n오늘 PT 권장 조정:\n• 데드리프트 → 1주 휴식\n• 하체 day → 상체 day로 변경 가능 (트레이너님 확인)\n• 폼롤러 + 캣카우 5분으로 풀어주기\n\n주말까지 안 풀리면 통증 강도 알려주세요!',fups:[]}
+};
+
+let typingTimer=null,currentMode='trainer';
+
+function getChatEl(mode){return document.getElementById(mode==='trainer'?'adminChat':'memberChat')}
+function getAdminWelcomeEl(){return document.getElementById('adminWelcome')}
+
+function renderAdminWelcomeChips(){
+  const grid=document.getElementById('adminWelcomeChips');
+  grid.innerHTML='';
+  SUGG.trainer.forEach(s=>{
+    const btn=document.createElement('button');
+    btn.className='welcome-chip';
+    btn.textContent=s.text;
+    btn.addEventListener('click',()=>{
+      hideAdminWelcome();
+      playQA('trainer',s.key);
+    });
+    grid.appendChild(btn);
+  });
+}
+
+function hideAdminWelcome(){
+  getAdminWelcomeEl().classList.add('hidden');
+  getChatEl('admin').classList.add('show');
+}
+
+function showAdminWelcome(){
+  getAdminWelcomeEl().classList.remove('hidden');
+  getChatEl('admin').classList.remove('show');
+}
+
+function startMember(){
+  const chat=getChatEl('member');
+  chat.innerHTML='';
+  addAiMsgInstant('member',HELLO.member);
+  // 첫 대화 1건 자동 진행 (instant)
+  const firstKey=SUGG.member[0].key;
+  const qa=QA[firstKey];
+  if(qa){
+    addUserMsg('member',qa.q);
+    addAiMsgInstant('member',qa.a);
+    addFollowups('member',qa.fups);
+  }
+}
+
+function addAiMsgInstant(mode,text){
+  const chat=getChatEl(mode);
+  const msg=document.createElement('div');msg.className='msg ai';
+  msg.innerHTML=`<div class="msg-wrap"><div class="msg-bubble">${text}</div><div class="msg-meta">방금</div></div>`;
+  chat.appendChild(msg);chat.scrollTop=chat.scrollHeight;
+}
+
+function addStartChips(mode){
+  const chat=getChatEl(mode);
+  const row=document.createElement('div');row.className='followup-row';
+  row.dataset.startChips='1';
+  const label=document.createElement('div');label.className='followup-label';label.textContent='이런 거 물어볼 수 있어요';
+  row.appendChild(label);
+  SUGG[mode].forEach(s=>{
+    const btn=document.createElement('button');btn.className='followup-chip';
+    btn.innerHTML=`<span class="mention">@노어</span>${s.text}`;
+    btn.addEventListener('click',()=>{
+      row.remove();
+      playQA(mode,s.key);
+    });
+    row.appendChild(btn);
+  });
+  chat.appendChild(row);chat.scrollTop=chat.scrollHeight;
+}
+
+function addUserMsg(mode,text){
+  const chat=getChatEl(mode);const msg=document.createElement('div');msg.className='msg user';
+  msg.innerHTML=`<div class="msg-wrap"><div class="msg-bubble">${text}</div><div class="msg-meta">방금</div></div>`;
+  chat.appendChild(msg);chat.scrollTop=chat.scrollHeight;
+}
+function addAiMsgTyping(mode,text,onDone){
+  const chat=getChatEl(mode);const msg=document.createElement('div');msg.className='msg ai';
+  msg.innerHTML=`<div class="msg-wrap"><div class="msg-bubble"><span class="msg-text"></span><span class="typing-cursor"></span></div><div class="msg-meta" style="opacity:0">방금</div></div>`;
+  chat.appendChild(msg);
+  const span=msg.querySelector('.msg-text'),cursor=msg.querySelector('.typing-cursor'),meta=msg.querySelector('.msg-meta');
+  let i=0;
+  function step(){
+    if(i>=text.length){cursor.remove();meta.style.opacity='1';if(onDone)onDone();return}
+    span.textContent=text.slice(0,++i);chat.scrollTop=chat.scrollHeight;
+    typingTimer=setTimeout(step,8);
+  }
+  step();
+}
+function addFollowups(mode,fupKeys){
+  if(!fupKeys||!fupKeys.length)return;
+  const chat=getChatEl(mode);
+  const row=document.createElement('div');row.className='followup-row';
+  if(mode!=='member'){
+    const label=document.createElement('div');label.className='followup-label';label.textContent='이어서 물어볼 수 있어요';
+    row.appendChild(label);
+  }
+  fupKeys.forEach(k=>{
+    if(!QA[k])return;
+    const btn=document.createElement('button');btn.className='followup-chip';
+    btn.innerHTML=`<span class="mention">@노어</span>${QA[k].q}`;
+    btn.addEventListener('click',()=>playQA(mode,k));
+    row.appendChild(btn);
+  });
+  chat.appendChild(row);chat.scrollTop=chat.scrollHeight;
+}
+function playQA(mode,key){
+  clearTimeout(typingTimer);
+  const qa=QA[key];if(!qa)return;
+  addUserMsg(mode,qa.q);
+  setTimeout(()=>{
+    addAiMsgTyping(mode,qa.a,()=>{
+      setTimeout(()=>addFollowups(mode,qa.fups),400);
+    });
+  },420);
+}
+
+function resetMode(mode){
+  clearTimeout(typingTimer);
+  const chat=getChatEl(mode);
+  chat.innerHTML='';
+  if(mode==='trainer'){
+    showAdminWelcome();
+  }else{
+    startMember();
+  }
+}
+
+document.querySelectorAll('.mode-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const mode=btn.dataset.mode;if(mode===currentMode)return;
+    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+    document.body.dataset.mode=mode;currentMode=mode;
+    clearTimeout(typingTimer);
+  });
+});
+
+document.getElementById('adminReset').addEventListener('click',()=>resetMode('trainer'));
+document.getElementById('memberReset').addEventListener('click',()=>resetMode('member'));
+
+renderAdminWelcomeChips();
+startMember();
+</script>
+</body></html>
