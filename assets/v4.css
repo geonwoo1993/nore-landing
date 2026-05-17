@@ -138,6 +138,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .hero { padding: 96px 40px 120px; max-width: 1280px; margin: 0 auto; position: relative; }
 .headline { margin-top: 32px; font-size: 76px; font-weight: 600; letter-spacing: -0.028em; line-height: 1.22; color: var(--ink); max-width: 1040px; }
 .headline em { font-style: normal; color: var(--accent); font-weight: 600; }
+/* Line-break helpers — 데스크탑 전용 / 모바일 전용 br */
+br.brk-d { display: inline; }
+@media (max-width: 720px) { br.brk-d { display: none; } }
+br.brk-m { display: none; }
+@media (max-width: 720px) { br.brk-m { display: inline; } }
 .headline-tight { font-size: 52px; line-height: 1.16; max-width: 820px; }
 .subhead { margin-top: 28px; font-size: 18px; font-weight: 400; letter-spacing: -0.008em; line-height: 1.65; color: var(--ink-soft); max-width: 600px; }
 .subhead strong { color: var(--ink); font-weight: 600; }
