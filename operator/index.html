@@ -355,17 +355,17 @@
     <div class="container">
       <span class="eyebrow">See It Working</span>
       <h2 class="demo-head" style="font-size:42px;">한 화면에 다 모인 매출·이탈·KPI.<br><em style="color:var(--accent); font-style:normal;">AI가 지금 상황을 해석합니다.</em></h2>
-      <!-- Arcade 녹화 후 data-arcade-src에 share URL 박으면 자동 활성화 -->
-      <div class="arcade-embed" data-arcade-src="">
-        <iframe class="arcade-frame" src="about:blank" loading="lazy" allowfullscreen allow="clipboard-write" hidden></iframe>
-        <div class="arcade-mock">
-          <div class="am-inner">
-            <span class="am-label">▶ Arcade Demo</span>
-            <p class="am-title">노어 운영 대시보드 한 화면<br>지표 모음 + AI 해석</p>
-            <span class="am-sub">녹화 준비 중 · COMING SOON</span>
-          </div>
-        </div>
+      <!--ARCADE EMBED START-->
+      <div style="position: relative; padding-bottom: calc(53.1746% + 41px); height: 0; width: 100%; margin: 48px auto 0; max-width: 1080px;">
+        <iframe src="https://demo.arcade.software/8DxK7y3NUeFjyS2lsfza?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+          title="헬스장 사업 대시보드에서 핵심 성과 지표 살펴보기"
+          frameborder="0" loading="lazy"
+          webkitallowfullscreen mozallowfullscreen allowfullscreen
+          allow="clipboard-write"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 22px;">
+        </iframe>
       </div>
+      <!--ARCADE EMBED END-->
     </div>
   </section>
 
@@ -523,16 +523,6 @@
   </footer>
 
   <script>
-    // Arcade hydration: data-arcade-src 채워지면 iframe 활성화, 비어 있으면 mock 유지
-    document.querySelectorAll('.arcade-embed[data-arcade-src]').forEach(el => {
-      const src = el.getAttribute('data-arcade-src');
-      if (!src) return;
-      const frame = el.querySelector('.arcade-frame');
-      const mock = el.querySelector('.arcade-mock');
-      if (frame) { frame.src = src; frame.hidden = false; }
-      if (mock) mock.style.display = 'none';
-    });
-
     // ?ref= 전파 + plan 카드 할인 가격 표시
     (function(){
       const REF_DISCOUNTS = {
