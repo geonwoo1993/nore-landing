@@ -336,117 +336,58 @@ body[data-mode="member"] .member-shell{display:flex}
     </aside>
 
     <main class="admin-main">
-      <div class="tr-chat-header">
-        <div class="tr-chat-avatar-lg">김</div>
-        <div style="min-width:0">
-          <div class="tr-chat-name">김민지 회원</div>
-          <div class="tr-chat-meta">PT 12/30 · 출석 92% · 체중 -2.4kg · 컨디션 3.2/5 · 다음 PT 5/19 19:00</div>
+      <div class="admin-main-head">
+        <div>
+          <div class="admin-main-title">김민지 회원 상세</div>
+          <div class="admin-main-sub">우측 NORE AI가 이 회원 데이터에 답합니다 →</div>
         </div>
-        <div class="tr-chat-status-pill">앱 접속 중</div>
+        <div class="admin-main-date">PT 12/30 · 26세 · 다이어트</div>
       </div>
 
-      <div class="tr-chat-thread">
-        <div class="tr-chat-divider">5/17 (어제) 21:40</div>
+      <div class="tr-detail">
+        <div class="tr-detail-head">
+          <div>
+            <div class="tr-detail-name">김민지</div>
+            <div class="tr-detail-name-sub">5월 등록 · 주 2회 · 다음 PT 5/19 (월) 19:00</div>
+          </div>
+          <div class="tr-detail-badge">PROGRESS GOOD</div>
+        </div>
+        <div class="tr-detail-grid">
+          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">출석</div><div class="tr-detail-cell-num">92%</div><div class="tr-detail-cell-hint">11/12회</div></div>
+          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">체중 ↓</div><div class="tr-detail-cell-num">-2.4kg</div><div class="tr-detail-cell-hint">4주 누적</div></div>
+          <div class="tr-detail-cell"><div class="tr-detail-cell-label">식단 기록</div><div class="tr-detail-cell-num">18일</div><div class="tr-detail-cell-hint">최근 21일 중</div></div>
+          <div class="tr-detail-cell warn"><div class="tr-detail-cell-label">컨디션</div><div class="tr-detail-cell-num">3.2/5</div><div class="tr-detail-cell-hint">평소 4.1</div></div>
+        </div>
+      </div>
 
-        <div class="tr-chat-msg member">
-          <div class="tr-chat-avatar-sm member">김</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">정민재 쌤, 내일 PT 가야하는데 컨디션 3/5예요. 잠을 5시간밖에 못 잤어요 😢</div>
-            <div class="tr-chat-time">21:40</div>
+      <div class="tr-section">
+        <div class="tr-section-title"><b>최근 식단 — AI 자동 분석</b><span>오늘 5/18</span></div>
+        <div class="tr-meal-card">
+          <div class="tr-meal-thumb">🥗</div>
+          <div class="tr-meal-body">
+            <div class="tr-meal-head"><div class="tr-meal-name">아침 — 닭가슴살 샐러드</div><div class="tr-meal-time">08:20</div></div>
+            <div class="tr-meal-macro">약 <b>320kcal</b> · 단백질 <b>32g</b> · 탄수 <b>12g</b> · 지방 <b>14g</b></div>
           </div>
         </div>
-
-        <div class="tr-chat-card alert">
-          <div class="tr-chat-card-tag">🚨 트레이너님께 알림 전송</div>
-          <div class="tr-chat-card-body">컨디션 <b>3/5</b> + 수면 <b>5h</b> → 강도 80% 권장 또는 일정 조정 필요. AI가 회원에게 1차 안내 후 트레이너 답변 대기 중.</div>
-        </div>
-
-        <div class="tr-chat-msg ai">
-          <div class="tr-chat-avatar-sm ai">N</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">컨디션 안 좋으신 거 정민재 쌤께 알려드렸어요 💪 답변 오시면 즉시 전달드릴게요. 오늘은 푹 쉬시고 23시 전 취침 권장드려요!</div>
-            <div class="tr-chat-time">21:40 · AI 자동 응답</div>
-          </div>
-        </div>
-
-        <div class="tr-chat-msg trainer">
-          <div class="tr-chat-avatar-sm trainer">정</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">민지님 컨디션 보고 받았어요. 내일 PT는 80% 강도로 가고 데드리프트는 다음 주로 미룰게요. 푹 주무세요 🙌</div>
-            <div class="tr-chat-time">22:15 · 정민재 트레이너</div>
-          </div>
-        </div>
-
-        <div class="tr-chat-divider">오늘 · 5/18 13:05</div>
-
-        <div class="tr-chat-msg member">
-          <div class="tr-chat-avatar-sm member">김</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">오늘 점심이에요!<div class="tr-chat-img"><span class="tr-chat-img-emoji">🍙</span><span>참치 김밥 1줄 · 사진 전송</span></div></div>
-            <div class="tr-chat-time">13:05</div>
-          </div>
-        </div>
-
-        <div class="tr-chat-card">
-          <div class="tr-chat-card-tag">✅ AI 식단 자동 분석</div>
-          <div class="tr-chat-card-body">참치 김밥 1줄 · <b>520kcal</b> · 단백질 <b>16g</b> · 탄수 <b>72g</b> · 지방 <b>18g</b><div class="tr-chat-card-warn">⚠ 단백질 부족 — 오늘 목표 80g 중 점심까지 48g</div></div>
-        </div>
-
-        <div class="tr-chat-msg ai">
-          <div class="tr-chat-avatar-sm ai">N</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">점심 분석 완료 ✅
-참치 김밥 520kcal · 단백질 16g 들어왔어요.
-
-오늘 단백질 목표(80g) 중 현재 48g 채움. 저녁에 32g+ 필요해요.
-
-💡 보강 옵션
-• 닭가슴살 100g 추가 (단백 25g) — 5분 컷
-• 두부 200g + 계란 2개 저녁 — 한 끼로 해결</div>
-            <div class="tr-chat-time">13:05 · AI 자동 응답</div>
-          </div>
-        </div>
-
-        <div class="tr-chat-msg member">
-          <div class="tr-chat-avatar-sm member">김</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">감사해요! 저녁에 닭가슴살 추가할게요 🙏</div>
-            <div class="tr-chat-time">13:06</div>
-          </div>
-        </div>
-
-        <div class="tr-chat-divider">5/18 16:20</div>
-
-        <div class="tr-chat-msg member">
-          <div class="tr-chat-avatar-sm member">김</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">쌤, 다이어트 정체기인 거 같아요. 체중이 2주째 거의 안 빠져요 😭</div>
-            <div class="tr-chat-time">16:20</div>
-          </div>
-        </div>
-
-        <div class="tr-chat-card">
-          <div class="tr-chat-card-tag">📊 AI 진단</div>
-          <div class="tr-chat-card-body">체중 변화: <b>-1.9kg/2주</b> (4/20~5/4) → <b>-0.5kg/2주</b> (5/4~5/18) · 정체 확인.<br>원인 추정: 칼로리 적응(가장 가능성↑) · 단백질 마지노선(78g) · 수면 평균 6.1h<br>옵션 3가지를 트레이너님께 의견 요청 보냈습니다.</div>
-        </div>
-
-        <div class="tr-chat-msg ai">
-          <div class="tr-chat-avatar-sm ai">N</div>
-          <div class="tr-chat-msg-body">
-            <div class="tr-chat-bubble">기록 확인해봤어요. 정체기 맞아요. 다만 자연스러운 과정이에요 💪
-
-정민재 쌤께 3가지 옵션(칼로리↓ / 단백질↑ / 리피드 데이) 의견 요청 보냈고, 답변 받으면 바로 안내드릴게요. 그동안은 평소 식단·운동 그대로 유지하세요!</div>
-            <div class="tr-chat-time">16:20 · AI 자동 응답</div>
+        <div class="tr-meal-card">
+          <div class="tr-meal-thumb">🍙</div>
+          <div class="tr-meal-body">
+            <div class="tr-meal-head"><div class="tr-meal-name">점심 — 참치 김밥 1줄</div><div class="tr-meal-time">13:05</div></div>
+            <div class="tr-meal-macro">약 <b>520kcal</b> · 단백질 <b>16g</b> · 탄수 <b>72g</b> · 지방 <b>18g</b></div>
+            <div class="tr-meal-note">⚠ 단백질 부족 — AI가 회원에게 자동 보강 안내함</div>
           </div>
         </div>
       </div>
 
-      <div class="tr-chat-input-area">
-        <div class="tr-chat-input-row">
-          <input class="tr-chat-input" placeholder="민지님께 메시지 보내기..." readonly>
-          <button class="tr-chat-send-btn" tabindex="-1" aria-hidden="true">↑</button>
-        </div>
+      <div class="tr-section">
+        <div class="tr-section-title"><b>이번 주 KPI</b><span>정민재 트레이너</span></div>
+        <div class="tr-msg-row head"><div>지표</div><div>현재</div><div style="text-align:right">평균 대비</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">매출</div><div class="tr-msg-text"><b>1,180만</b> · 4월</div><div class="tr-msg-tag alert">-8.5%</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">재등록</div><div class="tr-msg-text"><b>74%</b> · 평균 78%</div><div class="tr-msg-tag alert">-4%p</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">소화율</div><div class="tr-msg-text"><b>85%</b> · 평균 89%</div><div class="tr-msg-tag alert">-4%p</div></div>
+        <div class="tr-msg-row"><div class="tr-msg-time">신규 전환</div><div class="tr-msg-text"><b>62%</b> · 평균 70%</div><div class="tr-msg-tag alert">-8%p</div></div>
       </div>
+
     </main>
 
     <aside class="ai-panel">
@@ -558,9 +499,9 @@ const HELLO={
 
 const SUGG={
   trainer:[
-    {key:'t1',text:'김민지 회원 이번 주 식단·컨디션 정리해줘'},
-    {key:'t2',text:'다음 PT에서 강도 조절 필요한 회원 누구야?'},
-    {key:'t3',text:'담당 회원 중 재등록 위험한 사람 있어?'}
+    {key:'t1',text:'허리디스크는 허리통증이랑 직접적인 연관이 있어?'},
+    {key:'t2',text:'김민지 회원 영양 계획 짜야하는데 어떻게 진행하면 좋을까?'},
+    {key:'t3',text:'내가 매출 더 나오려면 액션플랜이랑 KPI 냉정하게 분석해줘'}
   ],
   member:[
     {key:'m1',text:'방금 먹은 점심 사진 분석해줘'},
@@ -570,12 +511,15 @@ const SUGG={
 };
 
 const QA={
-  t1:{q:'김민지 회원 이번 주 식단·컨디션 정리해줘',a:'김민지 회원 5/12 ~ 5/18 정리입니다.\n\n📊 식단 (기록 7/7일)\n• 평균 1,420kcal · 단백질 78g · 탄수 165g · 지방 48g\n• 단백질 목표(80g) 거의 충족, 탄수 적절 (다이어트 단계)\n• 외식 2회 (참치 김밥 / 일식 우동) — AI가 자동 보강 안내함\n\n💪 운동\n• PT 2회 + 자가 운동 3회 (총 5회)\n• 스쿼트 50kg → 55kg 진행 (4주 +5kg)\n• 데드리프트는 컨디션 보고 다음 주로 연기 권장\n\n🧠 컨디션\n• 5/17 "컨디션 3/5" 보고 — 수면 부족(5h)·생리 2일차\n• 평소 평균 4.1/5 대비 -0.9 (단순 일시적 저하)\n\n다음 PT 액션 추천:\n① 스쿼트 55kg 유지, 데드리프트는 60% 강도\n② 5/20 컨디션 다시 확인 후 강도 결정',fups:['t1a','t1b']},
-  t1a:{q:'정체기 들어선 거 같아. 식단 어떻게 조정할까?',a:'김민지 회원 체중 그래프:\n• 4/20: 62.4kg → 5/4: 60.5kg (-1.9kg, 2주)\n• 5/4: 60.5kg → 5/18: 60.0kg (-0.5kg, 2주) ⚠ 정체\n\n원인 추정 3가지:\n① 칼로리 적응 (TDEE 하향) — 가장 흔함\n② 단백질 부족 가능성 — 80g 목표 중 평균 78g, 마지노선\n③ 탄수 일관성 부족 — 외식날 165g·운동날 110g 진동\n\n조정안 (트레이너님 판단으로):\n• 단백질 80g → 95g (체중×1.6)\n• 탄수 평일 130g·운동일 180g로 차등\n• 토요일 리피드 데이 1회 (탄수 200g+) 적용\n\n2주 적용 후 체중·근육량 변화 다시 보고 드릴게요.',fups:[]},
-  t1b:{q:'오늘 PT에서 컨디션 어떻게 확인하면 좋을까?',a:'5/18 PT 전 체크 추천 (회원 부담 없게):\n\n📝 체크리스트\n1. 어제 잠 몇 시간? (5h 미만이면 강도 80%로)\n2. 어디 통증 있어요? 1~10 척도로\n3. 오늘 첫 식사 뭐 드셨어요? (저혈당 방지)\n\n🎯 강도 결정 가이드\n• 컨디션 4~5: 평소 강도 (스쿼트 55kg)\n• 컨디션 3: 80% 강도 (스쿼트 45kg, 데드 생략)\n• 컨디션 2 이하: 가벼운 모빌리티 + 짧은 유산소로 전환\n\n💡 이번 회원은 자기 컨디션 정직하게 말하는 타입이에요. 그대로 받아주시면 신뢰 올라갑니다.',fups:[]},
-  t2:{q:'다음 PT에서 강도 조절 필요한 회원 누구야?',a:'다음 7일 PT 일정 + 강도 조정 권장:\n\n⚠ 강도 ↓ 필요\n• 김민지 (5/19 19시) — 어제 컨디션 3/5, 생리 2일차. 80% 강도 권장\n• 윤도현 (5/20 07시) — 무릎 통증 어제 보고. 하체 day 변경 또는 상체로 전환\n\n→ 평상 강도\n• 박수현 (5/19 11시) — 컨디션 4.2/5, 체중 -3.4kg 진행 중\n• 최예린 (5/21 19시) — PT 17/20 마무리 단계, 강도 유지\n\n⚡ 강도 ↑ 가능\n• 이재훈 (5/22 20시) — 컨디션 4.8/5, 식단 기록 100%, 데드리프트 80kg 도전 적기\n\nAI가 각 회원에게 컨디션 사전 체크 메시지 보낼까요?',fups:['t2a']},
-  t2a:{q:'응 보내줘. 답변 받으면 알려줄 수 있어?',a:'5명 회원에게 컨디션 체크 메시지 발송 완료.\n\n📩 발송 내용 (회원별 맞춤)\n"안녕하세요 ○○님 💪 내일 PT 전에 컨디션 1~5점으로 알려주세요. 통증 있는 부위도 함께 알려주시면 강도 맞춰드릴게요."\n\n📬 답변 도착 시 알림 방식\n• 트레이너님 카톡으로 즉시 전달\n• 컨디션 3 이하 OR 통증 보고 → 별도 알림\n• 모든 답변은 회원 카드에 자동 기록\n\n오늘 19시까지 답변 안 오면 한 번 더 리마인드 보낼게요.',fups:[]},
-  t3:{q:'담당 회원 중 재등록 위험한 사람 있어?',a:'담당 8명 중 재등록 위험 신호 3명입니다.\n\n🔴 1순위 — 이재훈 (3/30회 잔여, 5/28 만료)\n• 출석률 60% (평소 85% 대비 하락)\n• 최근 2주 식단 기록 없음\n• 카톡 응답 평균 12시간 (이전 2시간)\n→ 직접 카톡 권장. AI 자동 안내는 이미 1회 보냄.\n\n🟠 2순위 — 윤도현 (5/10회, 6/5 만료)\n• 무릎 통증 보고 후 운동 의욕 저하\n• 회원이 "재등록 할지 고민 중" 직접 발언함\n→ 다음 PT(5/20)에서 통증 관리 PT로 신뢰 회복\n\n🟡 3순위 — 박수현 (8/20회, 6/20 만료)\n• 체중 감량 잘 진행 중이지만 직장 야근으로 PT 미루는 빈도 증가\n• 시간대 조정 가능한지 물어볼 시점\n\n위 3명 미리 잡으면 이번 분기 재등록률 80%+ 가능합니다.',fups:[]},
+  t1:{q:'허리디스크는 허리통증이랑 직접적인 연관이 있어?',a:'결론부터 — 직접적인 연관은 생각보다 약합니다.\n\n📊 임상 데이터\n• MRI 디스크 변형 있어도 통증 0명 — 35~40% (Brinjikji 2015, AJNR)\n• 60대 이상은 무증상 디스크 변형 60%+\n• 즉 "디스크 = 통증" 공식은 옛날 얘기\n\n🎯 허리통증 원인 실제 순위 (NICE 가이드라인 2024)\n1. 근막통증증후군·자세 불균형 — 60%\n2. 천장관절·SI joint 문제 — 15%\n3. 디스크성 통증 — 10%\n4. 협착·관절돌기 — 8%\n5. 기타 (감염·종양 등) — 2% 미만\n\n💡 트레이너 입장에서 실무 포인트\n• "디스크 있어요" 회원 = 통증 원인이 디스크가 아닐 가능성이 더 높음\n• 운동 금지 X, 오히려 운동이 디스크 통증 회복에 더 도움 (ACSM 2024)\n• 단, "다리로 저림·방사통" 동반 시 정형외과 의뢰 후 운동 처방\n\n근거: NICE NG59 · ACSM Position Stand 2024 · Brinjikji et al. 2015',fups:['t1a','t1b']},
+  t1a:{q:'디스크 있는 회원한테 어떤 운동 처방해주면 돼?',a:'디스크 유형별 처방 (McKenzie 분류 기반)\n\n🔵 굴곡형 — 앉으면 악화, 서면 편함 (가장 흔함, 70%)\n• 처방: McKenzie extension 시리즈 (Prone press-up·Cobra)\n• 강화: 글루트 미디우스·맥시무스 (Bridge·Clamshell)\n• 코어: Dead bug · Bird dog (중립 척추 유지)\n• 금지: 크런치·싯업·헤비 데드리프트\n\n🔴 신전형 — 서면 악화, 굽히면 편함 (20%)\n• 처방: 햄스트링·고관절 굴곡근 스트레칭\n• 강화: 코어 안정화 (Plank 변형)\n• 금지: Cobra·Superman·과한 신전\n\n⚖️ 혼합형·판단 모호 — 안전한 공통 (10%)\n• 골반 중립 학습 (Bridge·Cat-Cow)\n• 글로벌 코어 안정화\n• 가동범위 점진 회복 우선\n\n📋 운동 진행 단계\n1. 통증 0/10 보장 강도 (1-2주)\n2. 가동범위 회복 (3-4주)\n3. 기능적 강화 (5-8주)\n4. 스포츠 복귀 (8주+)\n\n❌ 모든 디스크 회원 공통 금지\n• 1RM 데드리프트·스쿼트·굿모닝\n• 행잉·무거운 점프\n• 척추 회전 + 굴곡 동시 (러시안 트위스트 등)',fups:[]},
+  t1b:{q:'허리통증인데 디스크는 아닐 수도 있나? 어떻게 구분해?',a:'트레이너 레벨에서 1차 스크리닝 가능한 3가지 테스트\n\n🧪 1. SLR (Straight Leg Raise)\n• 자세: 회원 누운 상태, 한쪽 다리 들어올림\n• 양성: 30~70도 사이에서 다리·엉덩이로 저림·방사통\n• 의미: 디스크·좌골신경 압박 가능성 ↑ → 의뢰\n\n🧪 2. Slump Test\n• 자세: 의자 앉아서 등 굽히고, 다리 천천히 펴기\n• 양성: 다리·발로 저림\n• 의미: 신경 긴장 의심 → 의뢰\n\n🧪 3. McKenzie Repeated Movement\n• 자세: 엎드린 자세에서 Press-up 10회 반복\n• 양성: 통증이 다리에서 허리로 올라옴 (centralization)\n• 의미: 굴곡형 디스크 가능성, 신전 운동으로 호전 가능\n\n⚠ 무조건 의뢰 신호 (Red Flag)\n• 다리 근력 저하 (발끝 들기·뒤꿈치 들기 안 됨)\n• 대소변 조절 이상\n• 야간 안정 시에도 심한 통증\n• 발열·체중 감소 동반\n→ 운동 처방 금지, 즉시 정형외과·신경외과 의뢰\n\n✅ 디스크 가능성 낮음 (근막·자세 의심)\n• 통증이 허리 가운데만 머무름 (다리로 안 내려옴)\n• 특정 자세·동작에서만 발생\n• 1~2주 운동·휴식으로 호전\n• MRI에서 디스크는 정상',fups:[]},
+  t2:{q:'김민지 회원 영양 계획 짜야하는데 어떻게 진행하면 좋을까?',a:'김민지 데이터 보고 짜드릴게요.\n\n📊 현재 상태 (5/18 기준)\n• 26세 여 · 60.0kg · 다이어트 4주차 · -2.4kg 진행 후 정체\n• 현재 식단: 평균 1,420kcal · 단백질 78g · 탄수 165g · 지방 48g\n• 정체 원인: 칼로리 적응 + 단백질 마지노선\n\n📋 4단계 진행안\n\n① TDEE 재계산 (1단계 · 5분)\n• 현재 활동량 기준 TDEE = 1,850kcal\n• 적정 칼로리 = 1,500 (현재 1,420보다 +80, 단백질 채우는 용도)\n\n② 매크로 재분배 (2단계 · 즉시)\n• 단백질: 78g → 96g (체중×1.6, 근육 보존)\n• 탄수: 평일 130g · 운동일 180g (차등 적용)\n• 지방: 50~60g (호르몬 유지)\n\n③ 일주일 식단 템플릿 (3단계 · 회원에게 전달)\n• 아침: 계란 2개 + 통곡빵 1쪽 + 과일\n• 점심: 닭가슴살 150g + 야채 + 현미밥 1/2\n• 저녁: 연어/두부 150g + 채소 + 견과류\n• 운동 후: 단백질 셰이크 25g\n\n④ 회원 전달 멘트 (4단계 · 가장 중요)\n• "정체기는 자연스러운 과정이에요. 몸이 잘 적응한 거예요"\n• "원인 3가지 중 어떤 게 본인 같으세요?" (자기 진단)\n• "A·B·C 옵션 중 본인 생활에 가능한 거 선택하세요"\n• "2주 해보고 결과 같이 봐요"\n\n→ 회원이 직접 선택하면 실행률 80%+ (트레이너가 정해주면 60% 미만)\n\n근거: ACSM Nutrition Position Stand 2024 · ISSN Diet Guidelines',fups:['t2a','t2b']},
+  t2a:{q:'좋아. 영양 계획에 맞춰 개인 운동도 같이 추천해줘',a:'영양 조정에 맞춰 운동도 같이 가야 시너지 나요.\n\n💪 PT (현재 주 2회) — 변화안\n• 스쿼트: 55kg 유지 (정체기 깨려고 무리하면 부상 위험)\n• 데드리프트: 1주 휴식 후 60kg 도전 (정체기 깨는 효과)\n• 새 운동 추가: 케틀벨 스윙 + 불가리안 스플릿 스쿼트\n  → 평소 안 쓰는 근육 자극, 정체기 자극에 효과적\n\n🏃 자가 운동 추가 (정체기 깨기)\n• 주 1회 LISS 유산소 30분 — 속보·자전거\n  → 칼로리 +200~300kcal, 회복에 도움 (HIIT보다 정체기에 효과적)\n• 주 2~3회 코어·모빌리티 15분 (홈)\n  → Plank · Dead bug · Cat-cow · 폼롤러\n\n📊 예상 결과 (영양 + 운동 동시 조정)\n• 2주차: 체중 -0.5~0.7kg (회복)\n• 4주차: 체중 -1.0~1.5kg + 근육량 +0.3kg\n• 6주차: 정체기 완전 탈출 + 체지방률 -2%\n\n💡 회원 동기부여 도구\n• 매일 식단 사진 (AI가 자동 분석)\n• 주 1회 체중·둘레 체크인 (AI가 추이 그래프 자동 작성)\n• 정체기 알람 (2주 정체 시 AI가 자동 감지 + 트레이너 알림)\n\n→ 운동 계획 PDF로 정리해서 회원에게 보낼까요?',fups:[]},
+  t2b:{q:'회원에게 어떻게 설명해야 받아들이기 쉬울까?',a:'회원 수용성 높이는 4-step 멘트 흐름\n\n❌ 금지 멘트 (회원 방어막 ↑)\n• "더 빼셔야 해요"\n• "안 빠지면 더 적게 드세요"\n• "정체기는 의지 문제예요"\n→ 회원: "나 노력 안 한다는 거?" 반발\n\n✅ 권장 흐름 (수용률 80%+)\n\n1️⃣ 인정 단계 (정서적 안정)\n"민지님, 정체기는 정상 과정이에요. 몸이 1,420kcal에 잘 적응한 거예요. 칭찬받을 일이에요"\n→ 회원: "다행이다, 내 잘못 아니구나" 안도\n\n2️⃣ 진단 단계 (회원 자기 진단)\n"원인은 3가지 가능성이 있어요.\nA. 칼로리 적응 — 가장 흔함\nB. 단백질 부족 — 78g만 들어오고 있어요\nC. 수면 부족 — 평균 6.1h\n어떤 게 본인 같으세요?"\n→ 회원: (B 선택) "단백질 부족인 거 같아요"\n\n3️⃣ 옵션 제시 단계 (회원이 선택)\n"그럼 단백질 보강 방법 3가지 있어요.\n① 닭가슴살 매일 추가 — 가장 쉬움\n② 단백질 쉐이크 운동 후 — 가장 빠름\n③ 두부·계란 위주로 메뉴 변경 — 채식 가능\n본인 생활에 어떤 게 가능해 보이세요?"\n→ 회원: (①선택) "닭가슴살로 해볼게요"\n\n4️⃣ 약속 단계 (실행 강화)\n"좋아요. 2주 해보고 결과 같이 봐요. 매일 점심 사진만 보내주시면 AI가 단백질 자동 체크할게요"\n→ 회원: "넵! 해볼게요"\n\n📊 데이터 (우리 센터 기준)\n• 자기 선택 회원 실행률: 82%\n• 트레이너 지시 실행률: 58%\n• 한지우 트레이너(재등록 88%)가 쓰는 방법',fups:[]},
+  t3:{q:'내가 매출 더 나오려면 액션플랜이랑 KPI 냉정하게 분석해줘',a:'정민재 트레이너 4월 KPI · 솔직 분석\n\n📉 핵심 지표 (트레이너 평균 대비)\n• 매출: 1,180만 (평균 1,290 대비 -8.5%)\n• 담당 회원: 8명 (평균 6.5 대비 +1.5명) ← 좋음\n• 재등록률: 74% (평균 78% -4%p) ⚠\n• 소화율: 85% (평균 89% -4%p) ⚠\n• 신규 전환율: 62% (평균 70% -8%p) ⚠\n\n🎯 냉정한 진단\n\n포지션: "친절한 트레이너 + 단가 낮음"\n• 회원당 평균 매출 = 147만 (1,180만 ÷ 8명)\n• 평균 트레이너 = 198만 (-26%)\n• 즉, 6회·12회권 위주 = 단가 낮은 패키지만 팔고 있음\n• 회원은 많은데 단가·유지가 낮은 게 가장 큰 누수\n\n📊 3개월 액션 플랜 (+30% 매출 가능)\n\n① 패키지 단가 ↑ — 6회 → 24회 비중 ↑ (회원당 ARPU +30%)\n   현재: 6회 50% · 12회 40% · 24회 10%\n   목표: 6회 20% · 12회 40% · 24회 40%\n\n② 재등록 캠페인 — 만료 14일 전 안내 시작\n   현재: 만료 7일 전 (회원 결정 시간 부족)\n   목표: 30일 전 첫 안내 + 14일 전 옵션 제시 + 7일 전 확정\n\n③ 신규 상담 매뉴얼화 — 전환 62% → 75% 목표\n   현재: 임기응변 상담 (트레이너 컨디션 영향 큼)\n   목표: 4단계 표준 흐름 (니즈→진단→플랜→가격)\n\n💰 예상 매출 변화\n• 현재: 1,180만/월\n• 3개월 후: 1,530만/월 (+30%)\n• 6개월 후: 1,700만/월 (트레이너 평균 상회)\n\n어디부터 깊게 볼까요?',fups:['t3a','t3b']},
+  t3a:{q:'패키지 업그레이드 어떻게 설득해? 회원이 부담스러워할 거 같은데',a:'회원이 자발적으로 24회권 선택하게 만드는 흐름\n\n🧠 회원 인식 vs 실제\n• 회원: "24회는 너무 큰 부담"\n• 실제: 24회권 = 1회당 단가 -20% (회원 입장에서 더 이득)\n  → 12회 9만원 = 108만 / 24회 7만원 = 168만\n  → 12회 두 번 (216만) vs 24회 한 번 (168만) = -48만 이득\n\n📋 설득 4-step (강매 X · 자발 선택)\n\n1️⃣ 데이터로 시작 (감정 X, 사실 O)\n"민지님, 지금 진도 보면 6개월 더 필요하실 거예요.\n현재 소화율 92%, 체중 -2.4kg 진행 → 목표 -6kg까지 4개월 더"\n→ 회원: "아... 그렇게 걸리는구나"\n\n2️⃣ 옵션 비교 (선택지 제시)\n"두 가지 방법 있어요.\nA. 12회권 2번 = 216만 / 1회당 9만원\nB. 24회권 1번 = 168만 / 1회당 7만원 (-48만 이득)"\n→ 회원: (B 매력 발견)\n\n3️⃣ 부담 완화 (실행 장벽 ↓)\n"분할 결제 가능해요. 월 28만이면 동일하게 4개월 진행됩니다.\n12회권 분할(54만/2개월)이랑 차이 거의 없어요"\n→ 회원: "월 부담 같으면 24회 낫겠다"\n\n4️⃣ 결정 강요 X (생각 시간 제공)\n"지금 결제 안 하셔도 돼요. 다음 PT까지 생각해보세요"\n→ 회원: 부담 ↓ → 자발 결정\n\n📊 우리 센터 데이터\n• 자발 선택 24회: 끝까지 완주 75%\n• 강매 24회: 중도 환불 60% (악순환)\n• 한지우 트레이너 24회 비율 60% (정민재 10%)\n\n💡 핵심: 회원이 본인 데이터 보고 스스로 결정하면 실행률·재등록률 동시 ↑',fups:[]},
+  t3b:{q:'재등록률 평균 이상 트레이너들은 뭘 다르게 해?',a:'한지우 트레이너(재등록 88%) vs 평균(78%) · 차이점 분석\n\n📊 분석 데이터: 노어 트레이너 28명 · 1년치 행동 패턴\n\n핵심 차이 4가지 (모방 가능)\n\n1️⃣ 만료 안내 타이밍\n• 평균: 만료 7일 전 1회\n• 한지우: 만료 30일 전 첫 안내 → 14일 전 옵션 → 7일 전 확정\n• 차이: 회원 생각할 시간 4배\n• 이유: "급하게 결정하라"는 압박감 ↓ → 거절률 -40%\n\n2️⃣ PT 후 진도 카톡\n• 평균: 안 보냄\n• 한지우: 매 PT 후 30초 카톡 ("오늘 진도: 스쿼트 +5kg · 다음 목표: 60kg")\n• 차이: 회원이 매번 본인 진도 인식 → "이 트레이너랑 진짜 늘고 있구나"\n• 효과: 회원 가치 인식 +50% (설문 기준)\n\n3️⃣ 정체기 메뉴 조정 속도\n• 평균: 10주 만에 조정 (회원 불안 누적)\n• 한지우: 6주 만에 조정 + 회원에게 먼저 언급 ("이 시점에서 메뉴 바꿔야 해요")\n• 차이: 회원이 "트레이너가 신경 쓰고 있구나" 인지 → 신뢰 ↑\n\n4️⃣ 인간적 연결\n• 평균: 생일·기념일 X\n• 한지우: 자동 알림 + 한 줄 카톡 ("민지님 생일 축하해요! 오늘 PT는 가볍게 갈게요")\n• 차이: 회원이 "한 명으로 기억해주는구나" 인지 → 재등록 결정에 강하게 작용\n\n💡 정민재 트레이너님 즉시 적용 가능 3가지 (다 AI 자동화)\n\n✅ 만료 30일 전 자동 카톡\n→ AI가 자동 발송, 트레이너님 답변만 검토\n\n✅ PT 후 1분 진도 요약\n→ AI가 초안 작성, 정민재 톤으로 자동 변환, 트레이너님 한 번 확인 후 전송\n\n✅ 정체기 6주차 알림\n→ AI가 회원별 진행 추적, 6주 도달 시 트레이너님께 자동 알림\n\n예상 효과: 재등록률 74% → 82% (3개월 후), 88% (6개월 후)\n\n한지우 트레이너는 이미 노어 쓰고 있어요. 같은 도구로 충분히 따라잡을 수 있습니다.',fups:[]},
 
   m1:{q:'방금 먹은 점심 사진 분석해줘 📷',a:'점심 사진 분석 완료 ✅\n\n📸 인식 결과 — 참치 김밥 1줄 + 단무지\n\n🔬 영양 분석\n• 약 520kcal\n• 단백질 16g · 탄수 72g · 지방 18g\n\n⚠ 단백질 부족\n오늘 목표 단백질 80g 중 현재 48g 채움. 점심에서 16g만 들어와서 저녁에 32g+ 필요해요.\n\n💡 보강 옵션\n• 닭가슴살 100g 추가 (단백 25g) — 5분 컷\n• 그릭요거트 + 단백질 셰이크 — 운동 후 추천\n• 두부 200g + 계란 2개 저녁 — 한 끼로 해결\n\n트레이너님께 점심 기록 자동 보내드릴게요.',fups:['m1a','m1b']},
   m1a:{q:'저녁에 닭가슴살 추가하면 칼로리 너무 많지 않아요?',a:'걱정 마세요. 칼로리 정확히 계산해드릴게요.\n\n📊 김민지님 오늘 칼로리 (다이어트 목표 1,400kcal)\n• 아침 320 (샐러드) + 점심 520 (김밥) = 840\n• 남은 칼로리 = 560\n\n🍗 저녁 옵션 (560kcal 안에서)\n① 닭가슴살 100g + 현미밥 1/2공기 + 야채\n  → 320kcal · 단백 36g (목표 도달 ✓)\n② 두부 부침 200g + 야채볶음\n  → 280kcal · 단백 22g (칼로리 여유 ✓)\n\n①번이 단백질 목표 정확히 채워요. 추천!',fups:[]},
@@ -610,12 +554,12 @@ function renderAdminWelcomeChips(){
 
 function hideAdminWelcome(){
   getAdminWelcomeEl().classList.add('hidden');
-  getChatEl('admin').classList.add('show');
+  getChatEl('trainer').classList.add('show');
 }
 
 function showAdminWelcome(){
   getAdminWelcomeEl().classList.remove('hidden');
-  getChatEl('admin').classList.remove('show');
+  getChatEl('trainer').classList.remove('show');
 }
 
 function startMember(){
