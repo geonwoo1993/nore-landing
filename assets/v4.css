@@ -1003,31 +1003,32 @@ br.brk-m { display: none; }
   padding: 22px;
 }
 .hero-visual.hero-visual-chat .cs-bubble { font-size: 13.5px; }
+/* Hero iframe — 박스 wrapper 제거, iframe 자체로 우측 컬럼 가득 */
 .hero-ai-iframe {
-  width: 100%; height: 720px; border: 0; border-radius: 18px;
+  width: 100%; height: 820px; border: 0; border-radius: 20px;
   background: #FCFAF5; display: block;
-  box-shadow: 0 24px 48px -16px rgba(0,0,0,0.18);
+  box-shadow: 0 32px 64px -20px rgba(0,0,0,0.18), 0 12px 28px -12px rgba(0,0,0,0.08);
 }
 .hero-visual.hero-visual-chat:has(.hero-ai-iframe) {
-  padding: 14px;
-  background: linear-gradient(135deg, #FFF1E6 0%, #fde6cf 55%, #FFE5B4 100%);
-  border-radius: 22px;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  aspect-ratio: auto;
+}
+.hero-visual.hero-visual-chat:has(.hero-ai-iframe) .hero-founder-tag {
+  display: none;
 }
 @media (max-width: 720px) {
-  .hero-ai-iframe { height: 620px; border-radius: 14px; }
-  .hero-visual.hero-visual-chat:has(.hero-ai-iframe) { padding: 10px; border-radius: 18px; }
+  .hero-ai-iframe { height: 680px; border-radius: 16px; }
 }
 
-/* Slot 07 trainer arcade — 화면에 꽉차게 */
+/* Arcade in 메커니즘 — 크게 (480 → 700) */
 .trainer-arcade-wrap {
-  margin: 40px auto 0; max-width: 480px; width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #FFF1E6 0%, #fde6cf 55%, #FFE5B4 100%);
-  border-radius: 28px;
-  box-shadow: 0 32px 64px -24px rgba(255,105,0,0.28), 0 12px 28px -12px rgba(0,0,0,0.08);
+  margin: 40px auto 0; max-width: 700px; width: 100%;
 }
 @media (max-width: 720px) {
-  .trainer-arcade-wrap { padding: 10px; border-radius: 22px; margin-top: 28px; }
+  .trainer-arcade-wrap { max-width: 100%; margin-top: 28px; }
 }
 .hero-founder-tag {
   position: absolute; top: 18px; left: 22px;
