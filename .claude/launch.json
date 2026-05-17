@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nore",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4900"],
+      "port": 4900
+    }
+  ]
+}

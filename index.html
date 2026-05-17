@@ -27,17 +27,33 @@
     .hub-arrow span { font-family: 'Archivo', sans-serif; font-size: 22px; color: var(--ink-mute); transition: color 300ms ease, transform 420ms ease; }
     .hub-card:hover .hub-arrow span { color: var(--accent); transform: translateX(8px); }
 
+    /* Hero typography — 문단 사이 호흡 충분히 (가독성) */
+    .hero .subhead {
+      margin-top: 32px;
+      font-size: 18px; line-height: 1.75; letter-spacing: -0.006em;
+      color: var(--ink); font-weight: 500;
+    }
+    .hero .subhead strong { color: var(--ink); font-weight: 700; }
+
     .hero-subnote {
-      margin-top: 24px; max-width: 600px;
-      font-size: 16px; color: var(--ink-soft); line-height: 1.7;
-      letter-spacing: -0.005em;
+      margin-top: 28px; max-width: 600px;
+      font-size: 15px; color: var(--ink-soft); line-height: 1.75;
+      letter-spacing: -0.004em;
     }
+    .hero-subnote strong { color: var(--ink); font-weight: 600; }
+
     .hero-naming {
-      margin-top: 20px;
-      font-size: 14px; color: var(--ink-mute);
-      font-family: 'Archivo', sans-serif; letter-spacing: 0.04em;
+      margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border);
+      font-size: 12.5px; color: var(--ink-mute);
+      font-family: 'Archivo', sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
     }
-    .hero-naming strong { color: var(--ink); font-weight: 600; font-family: 'Pretendard Variable', sans-serif; letter-spacing: -0.005em; }
+    .hero-naming strong { color: var(--ink); font-weight: 700; }
+
+    @media (max-width: 480px) {
+      .hero .subhead { font-size: 16px !important; line-height: 1.7 !important; margin-top: 24px; }
+      .hero-subnote { font-size: 14px; line-height: 1.7; margin-top: 22px; }
+      .hero-naming { margin-top: 32px; padding-top: 14px; font-size: 11px; letter-spacing: 0.06em; }
+    }
 
     /* Hub Counter — 파일럿 참여자 카운트업 */
     @keyframes pulse {
@@ -112,15 +128,18 @@
     <h1 class="headline">
       감으로 일하던<br><em>시대는 끝났습니다.</em>
     </h1>
+
     <p class="subhead">
-      피트니스 전용 AI가 함께 출근하는 시대.<br>
+      피트니스 전용 AI가 함께 출근합니다.<br>
       <strong>대표는 결정만, 트레이너는 수업만.</strong>
     </p>
+
     <p class="hero-subnote">
-      GPT, 재미나이가 세상을 바꿨듯, 노어는 피트니스 현장을 바꿉니다.<br>
-      센터·트레이너·회원을 잇는 미래 생존의 핵심.
+      GPT·재미나이가 일반 업무를 바꾼 것처럼,<br>
+      <strong>노어는 피트니스 현장을 바꿉니다.</strong>
     </p>
-    <p class="hero-naming">Node + Core, <strong>노어</strong> — 피트니스 전문 AI.</p>
+
+    <p class="hero-naming"><strong>NORE</strong> = Node + Core · 피트니스 전문 AI</p>
 
     <div class="hub-counter">
       <span class="hub-counter-label">현재 노어 창립 파트너 합류</span>
@@ -159,7 +178,6 @@
   </section>
 
   <div class="founders-strip">
-    <span><strong>1RM 7지점이 만든 AI</strong> · 비상주 운영 9년 · 월 평균 5,000만원 KPI 데이터 기반</span>
     <span>창립 파트너 <span class="accent">No.469</span> / 500 현재 합류</span>
   </div>
 

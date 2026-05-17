@@ -1243,6 +1243,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
 .plan-name { font-size: 15px; font-weight: 600; color: var(--ink); }
 .plan-discount { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 4px 9px; border-radius: 999px; }
+.pricing-2col { grid-template-columns: repeat(2, 1fr); max-width: 720px; }
+@media (max-width: 720px) { .pricing-2col { grid-template-columns: 1fr !important; max-width: 100%; } }
 .plan-discount-stack { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
 .plan-chip-promo, .plan-chip-perm {
   font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700;
