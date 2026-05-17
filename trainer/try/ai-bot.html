@@ -194,6 +194,12 @@ body[data-mode="trainer"] .admin-shell{display:flex;justify-content:center;heigh
 body[data-mode="trainer"] .admin-side,
 body[data-mode="trainer"] .admin-main{display:none}
 body[data-mode="trainer"] .ai-panel{width:100%;max-width:560px;min-height:680px}
+
+/* embed 모드 — landing iframe에서 nav/back 숨김 */
+body.embed .top-bar{display:none}
+body.embed .back-fab{display:none}
+body.embed .shell{padding:12px 12px 24px}
+body.embed[data-mode="trainer"] .ai-panel{min-height:560px;max-width:100%;box-shadow:none;border-radius:14px}
 body[data-mode="member"] .admin-shell{display:none}
 body[data-mode="member"] .member-shell{display:flex}
 
@@ -530,6 +536,7 @@ const QA={
   m3b:{q:'어제 데드리프트 60kg 처음 했어요',a:'아하, 원인 명확하네요. 데드리프트 강도 올린 다음 날 통증은 흔해요.\n\n🔬 분석\n• 어제 60kg = 김민지님 1RM의 약 75% (적정)\n• 첫 시도 후 24~48시간 뻐근함은 정상\n• 다리로 안 내려오면 디스크 문제 아님 ✓\n\n📩 트레이너님께 자동 보고\n"김민지님 5/17 데드리프트 60kg 첫 시도. 5/18 허리 가운데 3/10 뻐근함. 방사통 X. 평범한 DOMS로 판단."\n\n오늘 PT 권장 조정:\n• 데드리프트 → 1주 휴식\n• 하체 day → 상체 day로 변경 가능 (트레이너님 확인)\n• 폼롤러 + 캣카우 5분으로 풀어주기\n\n주말까지 안 풀리면 통증 강도 알려주세요!',fups:[]}
 };
 
+if(new URLSearchParams(location.search).get('embed'))document.body.classList.add('embed');
 let typingTimer=null,currentMode='trainer';
 
 function getChatEl(mode){return document.getElementById(mode==='trainer'?'adminChat':'memberChat')}
