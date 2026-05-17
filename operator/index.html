@@ -202,9 +202,9 @@
     </div>
   </section>
 
-  <!-- SLOT 6: 메커니즘 — KPI 데이터 중요성 강조 (v5) -->
-  <section class="mechanism" style="position:relative;">
-    <span class="slot-label">06 · Mechanism</span>
+  <!-- SLOT 6: 메커니즘 + 통합 데모 (체험 분기) -->
+  <section class="mechanism" id="demo" style="position:relative;">
+    <span class="slot-label">06 · Mechanism + Demo</span>
     <div class="container">
       <span class="eyebrow">Why KPI</span>
       <h2 class="mechanism-head">
@@ -222,9 +222,9 @@
         </div>
         <div class="mech-arrow">→</div>
         <div class="mech-step">
-          <span class="mech-num">02 · 트레이너 성장 지표 분석</span>
-          <h3 class="mech-title">매출·재등록·만족도<br>같은 기준으로 줄세움.</h3>
-          <p class="mech-desc">트레이너별 KPI를 자동 집계 — <strong>누가 성장 중이고 누가 코칭이 필요한지</strong> 감이 아니라 숫자로 보입니다.</p>
+          <span class="mech-num">02 · 분석한다</span>
+          <h3 class="mech-title">트레이너 KPI를<br>한 페이지에서 분석.</h3>
+          <p class="mech-desc">매출·재등록·만족도를 자동 집계 — <strong>누가 성장 중이고 누가 코칭이 필요한지</strong> 감이 아니라 숫자로 보입니다.</p>
         </div>
         <div class="mech-arrow">→</div>
         <div class="mech-step">
@@ -232,6 +232,97 @@
           <h3 class="mech-title">다음 달 매출이<br>숫자로 미리 보입니다.</h3>
           <p class="mech-desc">PT 6회권 이탈률 ↑ / 신규 등록 전환 ↓ — 새는 곳이 보이면 <strong>다음 한 수가 명확</strong>해집니다. 대표는 결정만.</p>
         </div>
+      </div>
+
+      <!-- 데모 브리지 -->
+      <div class="demo-bridge">
+        <span class="eyebrow">Try It Yourself</span>
+        <h3 class="demo-bridge-head">한눈에 보는 센터 운영.<br><em>AI가 데이터를 해석합니다.</em></h3>
+      </div>
+
+      <!-- 데모 탭 (분기 지점) -->
+      <div class="demo-tabs" id="demo-tabs">
+        <div class="demo-tabs-nav" role="tablist">
+          <button type="button" class="demo-tab-btn active" data-tab="dashboard" aria-selected="true">
+            <span class="dt-icon">▶</span>
+            <span class="dt-label">대시보드 체험하기</span>
+          </button>
+          <button type="button" class="demo-tab-btn" data-tab="trainer-kpi" aria-selected="false">
+            <span class="dt-icon">▶</span>
+            <span class="dt-label">트레이너 KPI 분석 체험하기</span>
+          </button>
+        </div>
+
+        <!-- Panel: 대시보드 -->
+        <div class="demo-tab-panel active" data-panel="dashboard">
+          <div class="demo-try-hint">
+            <span class="hint-pulse"></span>
+            <span class="hint-text demo-desktop-only">마우스로 직접 클릭하며 둘러보세요 · 약 1분</span>
+            <span class="hint-text demo-mobile-only">손으로 터치하며 둘러보세요 · 약 1분</span>
+          </div>
+          <!-- Desktop -->
+          <div class="arcade-frame-wrap demo-desktop-only">
+            <div style="position: relative; padding-bottom: calc(53.1746% + 41px); height: 0; width: 100%;">
+              <iframe src="https://demo.arcade.software/8DxK7y3NUeFjyS2lsfza?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+                title="헬스장 사업 대시보드에서 핵심 성과 지표 살펴보기"
+                frameborder="0" loading="lazy"
+                webkitallowfullscreen mozallowfullscreen allowfullscreen
+                allow="clipboard-write"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 14px;">
+              </iframe>
+            </div>
+          </div>
+          <!-- Mobile -->
+          <div class="arcade-frame-wrap demo-mobile-only">
+            <div style="position: relative; max-height: calc(41px + 80vh); aspect-ratio: 0.621891 / 1; margin: 0 auto;">
+              <iframe src="https://demo.arcade.software/lhFSHZhHDvqYWbGWRe07?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+                title="매출상승을 위한 운영 KPI"
+                frameborder="0" loading="lazy"
+                webkitallowfullscreen mozallowfullscreen allowfullscreen
+                allow="clipboard-write"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 14px;">
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel: 트레이너 KPI -->
+        <div class="demo-tab-panel" data-panel="trainer-kpi" hidden>
+          <div class="demo-try-hint">
+            <span class="hint-pulse"></span>
+            <span class="hint-text demo-desktop-only">마우스로 직접 클릭하며 둘러보세요 · 약 1분</span>
+            <span class="hint-text demo-mobile-only">손으로 터치하며 둘러보세요 · 약 1분</span>
+          </div>
+          <!-- Desktop -->
+          <div class="arcade-frame-wrap demo-desktop-only">
+            <div style="position: relative; padding-bottom: calc(52.3936% + 41px); height: 0; width: 100%;">
+              <iframe src="https://demo.arcade.software/HO6RzLhnb6G1Ud6oWoif?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+                title="트레이너 KPI 보고서 비교하기"
+                frameborder="0" loading="lazy"
+                webkitallowfullscreen mozallowfullscreen allowfullscreen
+                allow="clipboard-write"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 14px;">
+              </iframe>
+            </div>
+          </div>
+          <!-- Mobile -->
+          <div class="arcade-frame-wrap demo-mobile-only">
+            <div style="position: relative; max-height: calc(41px + 80vh); aspect-ratio: 0.634518 / 1; margin: 0 auto;">
+              <iframe src="https://demo.arcade.software/y7oRWzGcVTDYk05wbQRj?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+                title="트레이너 KPI 분석하고 비교하기"
+                frameborder="0" loading="lazy"
+                webkitallowfullscreen mozallowfullscreen allowfullscreen
+                allow="clipboard-write"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 14px;">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-after-cta">
+        <span class="after-text">체험해보셨나요?</span>
+        <a class="btn-primary checkout-link" href="/checkout/?role=operator" data-role="operator">지금 시작하기 <span class="arr">→</span></a>
       </div>
     </div>
   </section>
@@ -316,6 +407,7 @@
           <span class="fb-result-label">결과</span>
           <span class="fb-result-text">검색에 잡히면, 신규 회원이 옵니다.</span>
         </div>
+        <a class="btn-secondary fb-link" href="/operator/try/trainer-marketing" style="margin-top:18px;">자세히 보기 <span class="arr">→</span></a>
       </div>
       <div class="fb-shot">
         <div class="fb-shot-screen">
@@ -346,97 +438,6 @@
           <div class="fb-shot-row"><span class="badge" style="background:var(--accent); color:#FCFAF5;">알림</span><span style="flex:1; font-size:12px; color:var(--ink); font-weight:600;">이탈 위험 회원 3명</span></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- SLOT 7: Demo — Arcade (기능 직후 배치) -->
-  <section class="demo" id="demo" style="position:relative; padding: 96px 40px; background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <span class="slot-label">07 · Show — Arcade</span>
-    <div class="container">
-      <span class="eyebrow">Try It Yourself</span>
-      <h2 class="demo-head" style="font-size:42px;">한 화면에 다 모인 매출·이탈·KPI.<br><em style="color:var(--accent); font-style:normal;">AI가 지금 상황을 해석합니다.</em></h2>
-
-      <div class="demo-try-hint">
-        <span class="hint-pulse"></span>
-        <span class="hint-text demo-desktop-only">마우스로 직접 클릭하며 둘러보세요 · 약 1분</span>
-        <span class="hint-text demo-mobile-only">손으로 터치하며 둘러보세요 · 약 1분</span>
-      </div>
-
-      <!--ARCADE EMBED START (Desktop)-->
-      <div class="arcade-frame-wrap demo-desktop-only">
-        <div style="position: relative; padding-bottom: calc(53.1746% + 41px); height: 0; width: 100%;">
-          <iframe src="https://demo.arcade.software/8DxK7y3NUeFjyS2lsfza?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-            title="헬스장 사업 대시보드에서 핵심 성과 지표 살펴보기"
-            frameborder="0" loading="lazy"
-            webkitallowfullscreen mozallowfullscreen allowfullscreen
-            allow="clipboard-write"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 22px;">
-          </iframe>
-        </div>
-      </div>
-      <!--ARCADE EMBED END (Desktop)-->
-
-      <!--ARCADE EMBED START (Mobile)-->
-      <div class="arcade-frame-wrap demo-mobile-only" style="max-width:420px;">
-        <div style="position: relative; max-height: calc(41px + 70vh); aspect-ratio: 0.621891 / 1; margin: 0 auto;">
-          <iframe src="https://demo.arcade.software/lhFSHZhHDvqYWbGWRe07?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-            title="매출상승을 위한 운영 KPI"
-            frameborder="0" loading="lazy"
-            webkitallowfullscreen mozallowfullscreen allowfullscreen
-            allow="clipboard-write"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 22px;">
-          </iframe>
-        </div>
-      </div>
-      <!--ARCADE EMBED END (Mobile)-->
-
-      <div class="demo-after-cta">
-        <span class="after-text">체험해보셨나요?</span>
-        <a class="btn-primary checkout-link" href="/checkout/?role=operator" data-role="operator">지금 시작하기 <span class="arr">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLOT 7B: Demo — Trainer KPI 분석 (운영 대시보드 다음, 깊이 보기) -->
-  <section class="demo" id="demo-trainer-kpi" style="position:relative; padding: 96px 40px; background: var(--bg-deep); border-bottom: 1px solid var(--border);">
-    <span class="slot-label">07B · Show — Trainer KPI</span>
-    <div class="container">
-      <span class="eyebrow">Trainer KPI</span>
-      <h2 class="demo-head" style="font-size:42px;">어느 트레이너가 잘하는지,<br><em style="color:var(--accent); font-style:normal;">5명을 한 페이지에서 줄세웁니다.</em></h2>
-
-      <div class="demo-try-hint">
-        <span class="hint-pulse"></span>
-        <span class="hint-text demo-desktop-only">트레이너 KPI 분석 화면을 직접 둘러보세요 · 약 1분</span>
-        <span class="hint-text demo-mobile-only">트레이너 KPI 화면을 손으로 둘러보세요 · 약 1분</span>
-      </div>
-
-      <!--ARCADE EMBED START (Desktop · Trainer KPI)-->
-      <div class="arcade-frame-wrap demo-desktop-only">
-        <div style="position: relative; padding-bottom: calc(52.3936% + 41px); height: 0; width: 100%;">
-          <iframe src="https://demo.arcade.software/HO6RzLhnb6G1Ud6oWoif?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
-            title="트레이너 KPI 보고서 비교하기"
-            frameborder="0" loading="lazy"
-            webkitallowfullscreen mozallowfullscreen allowfullscreen
-            allow="clipboard-write"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 22px;">
-          </iframe>
-        </div>
-      </div>
-      <!--ARCADE EMBED END (Desktop · Trainer KPI)-->
-
-      <!--ARCADE EMBED START (Mobile · Trainer KPI)-->
-      <div class="arcade-frame-wrap demo-mobile-only" style="max-width:420px;">
-        <div style="position: relative; max-height: calc(41px + 70vh); aspect-ratio: 0.634518 / 1; margin: 0 auto;">
-          <iframe src="https://demo.arcade.software/y7oRWzGcVTDYk05wbQRj?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
-            title="트레이너 KPI 분석하고 비교하기"
-            frameborder="0" loading="lazy"
-            webkitallowfullscreen mozallowfullscreen allowfullscreen
-            allow="clipboard-write"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light; border-radius: 22px;">
-          </iframe>
-        </div>
-      </div>
-      <!--ARCADE EMBED END (Mobile · Trainer KPI)-->
     </div>
   </section>
 
@@ -546,7 +547,7 @@
     <span class="slot-label">12 · CTA</span>
     <div class="container">
       <h2 class="final-head">
-        9년 노하우가 옆에 앉습니다.<br><em style="color:var(--accent); font-style:normal;">지금 시작하세요.</em>
+        누가 더 빨리 데이터를 보는가.<br><em style="color:var(--accent); font-style:normal;">피트니스 생존의 열쇠입니다.</em>
       </h2>
       <p class="final-guarantee">즉시 시작 · <strong style="color:var(--ink);">7일 내 전액 환불 보장</strong></p>
       <div class="final-cta-wrap">
@@ -576,6 +577,49 @@
     <span class="brand-word">NORE</span>
     <span class="sfm-copy">© 2026 NORE</span>
   </footer>
+
+  <!-- Scroll to top FAB -->
+  <button type="button" class="scroll-top-fab" aria-label="맨 위로" hidden>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script>
+    // Demo 탭 전환
+    (function(){
+      const btns = document.querySelectorAll('.demo-tab-btn');
+      const panels = document.querySelectorAll('.demo-tab-panel');
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tab = btn.dataset.tab;
+          btns.forEach(b => {
+            const active = b.dataset.tab === tab;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+          panels.forEach(p => {
+            const active = p.dataset.panel === tab;
+            p.classList.toggle('active', active);
+            p.hidden = !active;
+          });
+        });
+      });
+    })();
+
+    // Scroll-to-top FAB 동작
+    (function(){
+      const fab = document.querySelector('.scroll-top-fab');
+      if (!fab) return;
+      const threshold = 600;
+      const onScroll = () => {
+        const show = window.scrollY > threshold;
+        fab.hidden = !show;
+        fab.classList.toggle('visible', show);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      onScroll();
+    })();
+  </script>
 
   <script>
     // ?ref= 전파 + plan 카드 할인 가격 표시
