@@ -1003,24 +1003,35 @@ br.brk-m { display: none; }
   padding: 22px;
 }
 .hero-visual.hero-visual-chat .cs-bubble { font-size: 13.5px; }
-/* Hero iframe — 박스 wrapper 제거, iframe 자체로 우측 컬럼 가득 */
-.hero-ai-iframe {
-  width: 100%; height: 820px; border: 0; border-radius: 20px;
+/* Hero AI iframe — 전폭 단독 블록 (hero text 다음) */
+.hero-bot-section {
+  padding: 0 40px 96px; max-width: 1280px; margin: 0 auto;
+}
+.hero-bot-wrap {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 16px; align-items: center;
+}
+.hero-bot-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 9px 18px; background: var(--accent-soft); border: 1px solid rgba(255,105,0,0.18);
+  border-radius: 999px;
+}
+.hero-bot-eyebrow .hint-pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); animation: pulse 1.8s ease-in-out infinite;
+}
+.hero-ai-iframe-full {
+  width: 100%; height: 920px; border: 0; border-radius: 24px;
   background: #FCFAF5; display: block;
-  box-shadow: 0 32px 64px -20px rgba(0,0,0,0.18), 0 12px 28px -12px rgba(0,0,0,0.08);
-}
-.hero-visual.hero-visual-chat:has(.hero-ai-iframe) {
-  padding: 0;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-  aspect-ratio: auto;
-}
-.hero-visual.hero-visual-chat:has(.hero-ai-iframe) .hero-founder-tag {
-  display: none;
+  box-shadow: 0 40px 80px -24px rgba(0,0,0,0.22), 0 16px 32px -12px rgba(0,0,0,0.1);
 }
 @media (max-width: 720px) {
-  .hero-ai-iframe { height: 680px; border-radius: 16px; }
+  .hero-bot-section { padding: 0 18px 64px; }
+  .hero-ai-iframe-full { height: 760px; border-radius: 18px; }
+  .hero-bot-eyebrow { font-size: 11px; padding: 8px 14px; letter-spacing: 0.08em; }
 }
 
 /* Arcade in 메커니즘 — 크게 (480 → 700) */
