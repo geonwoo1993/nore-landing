@@ -1081,6 +1081,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .fi-text strong { color: var(--ink); font-weight: 700; }
 
+/* v5 — 편지 톤 (founder-letter) */
+.fi-list {
+  margin-top: 18px;
+  padding-left: 0;
+  list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.fi-list li {
+  padding-left: 18px;
+  position: relative;
+  font-size: 15.5px; line-height: 1.6;
+  color: var(--ink-soft);
+  letter-spacing: -0.004em;
+}
+.fi-list li::before {
+  content: ''; position: absolute;
+  left: 0; top: 0.62em;
+  width: 8px; height: 1.5px;
+  background: var(--accent);
+}
+.fi-list li strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 720px) {
+  .fi-list li { font-size: 14.5px; padding-left: 14px; }
+  .fi-list li::before { width: 6px; }
+}
+
 .founder-stats {
   display: grid; grid-template-columns: repeat(4, 1fr);
   background: var(--surface);
