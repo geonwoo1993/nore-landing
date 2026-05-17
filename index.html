@@ -3,394 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light">
-  <meta name="supported-color-schemes" content="light">
   <title>노어 · 피트니스 전문 AI</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/v4.css">
   <style>
-    :root {
-      color-scheme: only light;
-      --bg: #FCFAF5;
-      --surface: #FFFFFF;
-      --ink: #0A0A0A;
-      --ink-soft: #4A4744;
-      --ink-mute: #8A8680;
-      --accent: #FF6900;
-      --accent-hover: #E85D04;
-      --accent-soft: #FFF1E6;
-      --border: rgba(10,10,10,0.08);
-      --border-strong: rgba(10,10,10,0.14);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      background-color: #FCFAF5 !important;
-      color: #0A0A0A !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      forced-color-adjust: none;
-    }
-    @media (prefers-color-scheme: dark) {
-      html, body {
-        background-color: #FCFAF5 !important;
-        color: #0A0A0A !important;
-      }
-      .headline, .card-title, .brand-word, .card-go, .subhead strong, .subhead .naming, .hub-counter-num {
-        color: #0A0A0A !important;
-      }
-      .subhead, .card-sub, .hub-counter {
-        color: #4A4744 !important;
-      }
-      .question, .card-tag, .trust-left, .trust-right, .eyebrow, .hub-counter-label, .hub-counter-total, .hub-counter-slash {
-        color: #8A8680 !important;
-      }
-      .card {
-        background-color: #FFFFFF !important;
-      }
-      .brand-symbol span {
-        background-color: #0A0A0A !important;
-      }
-    }
-    body {
-      font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      font-feature-settings: 'ss18', 'tnum';
-      letter-spacing: -0.005em;
-      line-height: 1.55;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    /* ===== Nav ===== */
-    .nav {
-      max-width: 1280px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 32px 40px;
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-symbol {
-      display: inline-flex;
-      align-items: flex-end;
-      gap: 2px;
-      height: 11px;
-    }
-    .brand-symbol span {
-      display: block;
-      width: 2px;
-      background: var(--ink);
-      border-radius: 1px;
-    }
-    .brand-symbol span:nth-child(1) { height: 11px; }
-    .brand-symbol span:nth-child(2) { height: 11px; }
-    .brand-symbol span:nth-child(3) { height: 11px; }
-    .brand-word {
-      font-family: 'Archivo', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      letter-spacing: 0.18em;
-      color: var(--ink);
-    }
-
-    /* ===== Hero ===== */
-    .hero {
-      max-width: 1280px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 72px 40px 40px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .eyebrow {
-      font-family: 'Archivo', sans-serif;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-    }
-    .eyebrow::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-    .headline {
-      margin-top: 28px;
-      font-size: 68px;
-      font-weight: 600;
-      letter-spacing: -0.026em;
-      line-height: 1.12;
-      color: var(--ink);
-      max-width: 940px;
-    }
-    .headline em {
-      font-style: normal;
-      color: var(--accent);
-      font-weight: 600;
-    }
-    .subhead {
-      margin-top: 32px;
-      font-size: 19px;
-      font-weight: 400;
-      letter-spacing: -0.008em;
-      line-height: 1.75;
-      color: var(--ink-soft);
-      max-width: 720px;
-    }
-    .subhead strong { color: var(--ink); font-weight: 600; }
-    .subhead .naming { color: var(--ink); font-weight: 500; }
-
-    /* ===== Question ===== */
-    .question {
-      margin-top: 48px;
-      font-size: 13.5px;
-      color: var(--ink-mute);
-      letter-spacing: -0.005em;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .question::before {
-      content: '';
-      width: 24px;
-      height: 1px;
-      background: var(--ink-mute);
-    }
-
-    /* ===== Cards ===== */
-    .cards {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 36px 36px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      min-height: 240px;
+    .hub-cards { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 40px 96px; max-width: 1280px; margin-left: auto; margin-right: auto; }
+    .hub-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 22px; padding: 44px 40px 36px;
+      display: flex; flex-direction: column; gap: 18px;
+      min-height: 280px;
       transition: border 260ms ease, transform 420ms cubic-bezier(.2,.7,.2,1), box-shadow 420ms ease;
       cursor: pointer;
     }
-    .card:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-4px);
-      box-shadow: 0 18px 36px -20px rgba(10,10,10,0.12);
-    }
+    .hub-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(255,105,0,0.22); }
+    .hub-tag { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); }
+    .hub-tag .num { color: var(--accent); font-weight: 700; margin-left: 6px; }
+    .hub-title { font-size: 44px; font-weight: 600; letter-spacing: -0.024em; line-height: 1.14; color: var(--ink); }
+    .hub-line { font-size: 17px; color: var(--ink); font-weight: 500; line-height: 1.55; }
+    .hub-line strong { color: var(--accent); font-weight: 700; }
+    .hub-arrow { margin-top: auto; display: flex; justify-content: flex-end; }
+    .hub-arrow span { font-family: 'Archivo', sans-serif; font-size: 22px; color: var(--ink-mute); transition: color 300ms ease, transform 420ms ease; }
+    .hub-card:hover .hub-arrow span { color: var(--accent); transform: translateX(8px); }
 
-    .card-tag {
-      font-family: 'Archivo', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-tag .dot {
-      color: var(--ink-mute);
-      opacity: 0.5;
-    }
-    .card-tag .num {
-      font-family: 'Archivo', sans-serif;
-      color: var(--accent);
-      font-weight: 700;
-    }
-    .card-title {
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      color: var(--ink);
-    }
-    .card-sub {
-      font-size: 15px;
-      color: var(--ink-soft);
-      letter-spacing: -0.005em;
-      line-height: 1.7;
-      max-width: 380px;
-    }
-    .card-cta {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-top: 8px;
-    }
-    .card-arrow {
-      font-family: 'Archivo', sans-serif;
-      font-size: 20px;
-      color: var(--ink-mute);
-      transition: color 300ms ease, transform 420ms cubic-bezier(.2,.7,.2,1);
-      line-height: 1;
-    }
-    .card:hover .card-arrow {
-      color: var(--accent);
-      transform: translateX(6px);
-    }
-
-    /* ===== Trust footer ===== */
-    .trust {
-      max-width: 1280px;
-      width: 100%;
-      margin: 72px auto 0;
-      padding: 32px 40px 36px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .trust-left {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 12.5px;
-      color: var(--ink-mute);
+    .hero-subnote {
+      margin-top: 24px; max-width: 600px;
+      font-size: 16px; color: var(--ink-soft); line-height: 1.7;
       letter-spacing: -0.005em;
     }
-    .trust-sep {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
+    .hero-naming {
+      margin-top: 20px;
+      font-size: 14px; color: var(--ink-mute);
+      font-family: 'Archivo', sans-serif; letter-spacing: 0.04em;
     }
-    .trust-right {
-      font-family: 'Archivo', sans-serif;
-      font-size: 11px;
-      color: var(--ink-mute);
-      letter-spacing: 0.06em;
-    }
+    .hero-naming strong { color: var(--ink); font-weight: 600; font-family: 'Pretendard Variable', sans-serif; letter-spacing: -0.005em; }
 
-    /* ===== Hub Counter (중형 카드) ===== */
+    /* Hub Counter — 파일럿 참여자 카운트업 */
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(1.3); }
     }
-    .hub-counter {
-      margin: 64px 0 0;
-      text-align: left;
-    }
+    .hub-counter { margin: 56px 0 0; text-align: left; }
     .hub-counter-label {
-      font-family: 'Pretendard Variable', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: -0.005em;
-      color: var(--ink-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: -0.005em; color: var(--ink-soft);
+      display: inline-flex; align-items: center; gap: 8px;
     }
     .hub-counter-label::before {
-      content: '';
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 1.8s ease-in-out infinite;
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 1.8s ease-in-out infinite;
     }
     .hub-counter-number {
-      margin-top: 16px;
-      font-family: 'Archivo', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.024em;
+      margin-top: 14px; font-family: 'Archivo', sans-serif;
+      font-weight: 700; letter-spacing: -0.024em;
       font-feature-settings: 'tnum';
-      display: flex;
-      align-items: baseline;
-      justify-content: flex-start;
-      gap: 6px;
-      line-height: 1;
+      display: flex; align-items: baseline; gap: 8px; line-height: 1;
     }
-    .hub-counter-num {
-      font-size: 64px;
-      color: var(--ink);
-      min-width: 1.1em;
-    }
+    .hub-counter-num { font-size: 64px; color: var(--ink); min-width: 1.1em; }
     .hub-counter-suffix {
       font-family: 'Pretendard Variable', sans-serif;
-      font-size: 34px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-left: 4px;
-      line-height: 1;
+      font-size: 30px; font-weight: 600; color: var(--ink);
+      letter-spacing: -0.02em; line-height: 1;
     }
-    .hub-counter-slash {
-      font-size: 32px;
-      color: var(--ink-mute);
-      font-weight: 400;
-    }
-    .hub-counter-total {
-      font-size: 32px;
-      color: var(--ink-soft);
-      font-weight: 600;
-    }
+    .hub-counter-slash { font-size: 28px; color: var(--ink-mute); font-weight: 400; margin: 0 2px; }
+    .hub-counter-total { font-size: 28px; color: var(--ink-soft); font-weight: 600; }
     .hub-counter-bar-wrap {
-      margin: 16px auto 0;
-      width: 180px;
-      height: 2px;
-      background: rgba(10,10,10,0.08);
-      border-radius: 1px;
-      overflow: hidden;
+      margin-top: 14px; width: 220px; height: 2px;
+      background: rgba(10,10,10,0.08); border-radius: 1px; overflow: hidden;
     }
     .hub-counter-bar {
-      height: 100%;
-      width: 0%;
-      background: var(--accent);
-      border-radius: 1px;
+      height: 100%; width: 0%; background: var(--accent);
       transition: width 1.8s cubic-bezier(.2,.7,.2,1);
     }
     @media (max-width: 720px) {
       .hub-counter { margin: 32px 0 0; }
       .hub-counter-num { font-size: 48px; }
-      .hub-counter-slash, .hub-counter-total { font-size: 26px; }
+      .hub-counter-suffix, .hub-counter-slash, .hub-counter-total { font-size: 22px; }
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 860px) {
-      .nav { padding: 22px 24px; }
-      .hero { padding: 48px 24px 24px; }
-      .headline { font-size: 38px; line-height: 1.18; }
-      .subhead { font-size: 15.5px; margin-top: 22px; line-height: 1.7; }
-      .question { margin-top: 60px; }
-      .cards { grid-template-columns: 1fr; gap: 14px; }
-      .card { padding: 28px 24px 24px; min-height: 200px; }
-      .card-title { font-size: 26px; }
-      .card-sub { font-size: 14.5px; }
-      .card-arrow { font-size: 18px; }
-      .trust {
-        padding: 28px 24px 28px;
-        margin-top: 56px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
+    /* Founders trust strip (footer 위) */
+    .founders-strip {
+      margin: 64px auto 0; max-width: 1280px;
+      padding: 22px 40px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 18px; flex-wrap: wrap;
+      font-size: 13px; color: var(--ink-soft);
     }
+    .founders-strip strong { color: var(--ink); font-weight: 600; }
+    .founders-strip .accent { color: var(--accent); font-weight: 700; }
+    @media (max-width: 720px) { .founders-strip { padding: 18px 22px; font-size: 12.5px; } }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
   <nav class="nav">
     <div class="brand">
       <span class="brand-symbol"><span></span><span></span><span></span></span>
@@ -398,93 +105,99 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- SLOT 1: HOOK — 자필 후크 -->
   <main class="hero">
-    <span class="eyebrow">Fitness-native AI · 피트니스 전문 AI</span>
-    <h1 class="headline">이젠, 피트니스 전문 <em>AI</em>가<br>있어야 합니다.</h1>
+    <span class="slot-label">01 · Hook</span>
+    <span class="eyebrow">Fitness-native AI <span class="ko">· 피트니스 전문 AI</span></span>
+    <h1 class="headline">
+      감으로 일하던<br><em>시대는 끝났습니다.</em>
+    </h1>
     <p class="subhead">
-      GPT, 재미나이가 세상을 바꿨듯, <strong>노어는 피트니스 현장을 바꿉니다.</strong><br>
-      센터·트레이너·회원을 잇는 하나의 핵심.<br>
-      <span class="naming">Node + Core, 노어 — 피트니스 전문 AI.</span>
+      피트니스 전용 AI가 함께 출근하는 시대.<br>
+      <strong>대표는 결정만, 트레이너는 수업만.</strong>
     </p>
+    <p class="hero-subnote">
+      GPT, 재미나이가 세상을 바꿨듯, 노어는 피트니스 현장을 바꿉니다.<br>
+      센터·트레이너·회원을 잇는 미래 생존의 핵심.
+    </p>
+    <p class="hero-naming">Node + Core, <strong>노어</strong> — 피트니스 전문 AI.</p>
 
     <div class="hub-counter">
-      <span class="hub-counter-label">현재 노어 파일럿 참여자</span>
+      <span class="hub-counter-label">현재 노어 창립 파트너 합류</span>
       <div class="hub-counter-number">
-        <span class="hub-counter-num" data-target="327">0</span><span class="hub-counter-suffix">명</span>
+        <span class="hub-counter-num" data-target="469">0</span><span class="hub-counter-suffix">명</span>
+        <span class="hub-counter-slash">/</span><span class="hub-counter-total">500</span>
       </div>
-    </div>
-
-    <p class="question">당신은 누구신가요?</p>
-    <div class="cards">
-      <a class="card" href="/operator" aria-label="대표, 관리자용 페이지로 이동">
-        <span class="card-tag">FOR OWNERS <span class="dot">·</span> <span class="num">01</span></span>
-        <h2 class="card-title">대표, 관리자</h2>
-        <p class="card-sub">안정적인 매출 관리를 위한<br>AI 매출·트레이너 KPI 분석 시스템</p>
-        <div class="card-cta">
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <a class="card" href="/trainer" aria-label="트레이너용 페이지로 이동">
-        <span class="card-tag">FOR TRAINERS <span class="dot">·</span> <span class="num">02</span></span>
-        <h2 class="card-title">트레이너</h2>
-        <p class="card-sub">AI를 활용한<br>회원 관리부터 개인 브랜딩까지</p>
-        <div class="card-cta">
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
+      <div class="hub-counter-bar-wrap"><div class="hub-counter-bar" data-target="93.8"></div></div>
     </div>
   </main>
 
-  <!-- Trust -->
-  <footer class="trust">
-    <div class="trust-left">
-      <span>1RM 7지점이 만든 AI</span>
-      <span class="trust-sep"></span>
-      <span>창립 파트너 <strong style="color:#0A0A0A;font-weight:600;">No.327</strong> / 500 현재 합류</span>
+  <!-- SLOT 2: 페르소나 분기 -->
+  <section style="position: relative; padding: 32px 0 96px;">
+    <span class="slot-label" style="left: 40px;">02 · 페르소나 분기</span>
+    <div class="hub-cards">
+      <a class="hub-card" href="/operator">
+        <span class="hub-tag">FOR OWNERS<span class="num">01</span></span>
+        <h2 class="hub-title">대표·관리자</h2>
+        <p class="hub-line">
+          바쁜 대표님을 위해<br>AI 직원이 함께 출근합니다.<br>
+          <strong>대표는 결정만 하세요.</strong>
+        </p>
+        <div class="hub-arrow"><span>→</span></div>
+      </a>
+
+      <a class="hub-card" href="/trainer">
+        <span class="hub-tag">FOR TRAINERS<span class="num">02</span></span>
+        <h2 class="hub-title">트레이너</h2>
+        <p class="hub-line">
+          매출 올려주는 AI가<br>옆자리에 앉습니다.<br>
+          <strong>트레이너는 수업에만 집중하세요.</strong>
+        </p>
+        <div class="hub-arrow"><span>→</span></div>
+      </a>
     </div>
-    <div class="trust-right">© 2026 NORE</div>
+  </section>
+
+  <div class="founders-strip">
+    <span><strong>1RM 7지점이 만든 AI</strong> · 비상주 운영 9년 · 월 평균 5,000만원 KPI 데이터 기반</span>
+    <span>창립 파트너 <span class="accent">No.469</span> / 500 현재 합류</span>
+  </div>
+
+  <footer class="site-footer">
+    <span class="brand-symbol"><span></span><span></span><span></span></span>
+    <span class="brand-word">NORE</span>
+    <span class="sfm-copy">© 2026 NORE</span>
   </footer>
 
   <script>
-    // Hub Counter · 뷰포트 진입 시 0→target 카운트업
     (function(){
-      const el = document.querySelector('.hub-counter-num');
+      const num = document.querySelector('.hub-counter-num');
       const bar = document.querySelector('.hub-counter-bar');
-      if (!el) return;
-      const target = parseInt(el.dataset.target, 10);
+      if (!num) return;
+      const target = parseInt(num.dataset.target, 10);
       const barTarget = bar ? parseFloat(bar.dataset.target) : 0;
       const duration = 2400;
       let started = false;
-
       function animate() {
         const start = performance.now();
         function step(now) {
           const t = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-          el.textContent = Math.round(target * eased);
+          const eased = 1 - Math.pow(1 - t, 3);
+          num.textContent = Math.round(target * eased);
           if (t < 1) requestAnimationFrame(step);
-          else el.textContent = target;
+          else num.textContent = target;
         }
         requestAnimationFrame(step);
         if (bar) bar.style.width = barTarget + '%';
       }
-
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
           entries.forEach(e => {
-            if (e.isIntersecting && !started) {
-              started = true;
-              animate();
-              io.disconnect();
-            }
+            if (e.isIntersecting && !started) { started = true; animate(); io.disconnect(); }
           });
         }, { threshold: 0.4 });
-        io.observe(el);
-      } else {
-        animate();
-      }
+        io.observe(num.closest('.hub-counter'));
+      } else { animate(); }
     })();
   </script>
 

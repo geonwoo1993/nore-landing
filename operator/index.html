@@ -3,845 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light">
-  <meta name="supported-color-schemes" content="light">
   <title>노어 · 대표·관리자를 위한 피트니스 전문 AI</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: only light;
-      --bg: #FCFAF5;
-      --bg-deep: #F5F2EC;
-      --surface: #FFFFFF;
-      --ink: #0A0A0A;
-      --ink-soft: #4A4744;
-      --ink-mute: #8A8680;
-      --accent: #FF6900;
-      --accent-hover: #E85D04;
-      --accent-soft: #FFF1E6;
-      --border: rgba(10,10,10,0.08);
-      --border-strong: rgba(10,10,10,0.14);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      background-color: #FCFAF5 !important;
-      color: #0A0A0A !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-      forced-color-adjust: none;
-    }
-    body {
-      font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      font-feature-settings: 'ss18', 'tnum';
-      letter-spacing: -0.005em;
-      line-height: 1.55;
-    }
-    @media (prefers-color-scheme: dark) {
-      html, body { background-color: #FCFAF5 !important; color: #0A0A0A !important; }
-      .headline, .brand-word, .benefit-title, .plan-name, .plan-price, .eal-title, .section-title, .pilot-title, .pilot-urgency strong, .pricing-banner { color: #0A0A0A !important; }
-      .subhead, .benefit-desc, .plan-period, .eal-desc, .pilot-lead, .pilot-urgency, .fc-total, .fc-label { color: #4A4744 !important; }
-      .hero-eyebrow, .pilot-eyebrow-label, .plan-suffix, .ft-trust, .fc-slash { color: #8A8680 !important; }
-      .benefit-featured-tag, .pricing-banner strong { color: #FF6900 !important; }
-      .brand-symbol span { background-color: #0A0A0A !important; }
-    }
-    a { color: inherit; text-decoration: none; }
-    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-
-    /* ===== Nav ===== */
-    .nav {
-      max-width: 1280px; width: 100%;
-      margin: 0 auto; padding: 32px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .brand { display: inline-flex; align-items: center; gap: 12px; }
-    .brand-symbol { display: inline-flex; align-items: flex-end; gap: 2px; height: 11px; }
-    .brand-symbol span { display: block; width: 2px; background: #0A0A0A; border-radius: 1px; height: 11px; }
-    .brand-word {
-      font-family: 'Archivo', sans-serif; font-weight: 700;
-      font-size: 15px; letter-spacing: 0.18em; color: #0A0A0A;
-    }
-    .nav-back {
-      font-size: 13px; color: var(--ink-soft);
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 14px 8px 10px; border-radius: 999px;
-      transition: color 200ms ease, background 200ms ease;
-    }
-    .nav-back:hover { color: var(--ink); background: rgba(10,10,10,0.04); }
-    .nav-back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-
-    /* ===== Hero ===== */
-    .hero {
-      max-width: 1280px; width: 100%;
-      margin: 0 auto; padding: 80px 40px 64px;
-    }
-    .hero-eyebrow {
-      font-family: 'Archivo', sans-serif;
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--ink-soft);
-    }
-    .hero-eyebrow::before {
-      content: ''; width: 5px; height: 5px;
-      border-radius: 50%; background: var(--accent);
-    }
-    .hero-eyebrow .ko {
-      font-family: 'Pretendard Variable', sans-serif;
-      letter-spacing: 0.02em; text-transform: none;
-      margin-left: 8px;
-    }
-    .headline {
-      margin-top: 28px;
-      font-size: 68px; font-weight: 600;
-      letter-spacing: -0.026em; line-height: 1.12;
-      color: var(--ink); max-width: 940px;
-    }
-    .headline em { font-style: normal; color: var(--accent); font-weight: 600; }
-    .subhead {
-      margin-top: 30px;
-      font-size: 19px; font-weight: 400;
-      letter-spacing: -0.008em; line-height: 1.72;
-      color: var(--ink-soft); max-width: 700px;
-    }
-    .subhead strong { color: var(--ink); font-weight: 600; }
-    .hero-cta {
-      margin-top: 48px;
-      display: flex; flex-wrap: wrap; gap: 10px;
-    }
-    .btn-primary {
-      font-size: 14.5px; font-weight: 500;
-      color: #fff; background: var(--ink);
-      padding: 14px 24px; border-radius: 999px;
-      letter-spacing: -0.005em;
-      transition: background 220ms ease;
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-primary .arr { font-family: 'Archivo', sans-serif; }
-    .btn-secondary {
-      font-size: 14.5px; font-weight: 500;
-      color: var(--ink); background: transparent;
-      padding: 14px 22px; border-radius: 999px;
-      border: 1px solid var(--border-strong);
-      letter-spacing: -0.005em;
-      transition: background 220ms ease, border-color 220ms ease;
-    }
-    .btn-secondary:hover { background: rgba(10,10,10,0.04); border-color: var(--ink); }
-
-    /* ===== Pilot section ===== */
-    .pilot {
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-      border-top: 1px solid var(--border);
-      padding: 96px 0 120px;
-    }
-    .pilot-inner {
-      max-width: 1280px; width: 100%;
-      margin: 0 auto; padding: 0 40px;
-    }
-    .pilot-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--accent);
-    }
-    .pilot-eyebrow::before {
-      content: ''; width: 5px; height: 5px;
-      border-radius: 50%; background: var(--accent);
-    }
-    .pilot-eyebrow-label {
-      font-family: 'Pretendard Variable', sans-serif;
-      letter-spacing: 0.02em; text-transform: none;
-      color: var(--ink-soft);
-      margin-left: 4px;
-    }
-    .pilot-title {
-      margin-top: 48px;
-      font-size: 42px; font-weight: 600;
-      letter-spacing: -0.024em; line-height: 1.18;
-      color: var(--ink); max-width: 760px;
-    }
-    .pilot-title em { font-style: normal; color: var(--ink); font-weight: 600; }
-    .pilot-lead {
-      margin-top: 16px;
-      font-size: 16.5px; color: var(--ink-soft);
-      line-height: 1.65; max-width: 620px;
-      letter-spacing: -0.005em;
-    }
-
-    /* Benefits */
-    .benefits {
-      margin-top: 48px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    .benefit {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 26px 24px 24px;
-      transition: border-color 260ms ease, transform 380ms cubic-bezier(.2,.7,.2,1);
-    }
-    .benefit:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-2px);
-    }
-    .benefit-featured {
-      border: 2px solid var(--accent);
-      padding: 25px 23px 23px;
-    }
-    .benefit-featured:hover {
-      border-color: var(--accent);
-    }
-    .benefit-featured-tag {
-      display: inline-block;
-      font-family: 'Archivo', sans-serif;
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--accent);
-      padding: 3px 8px;
-      background: var(--accent-soft);
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-    .benefit-num {
-      font-family: 'Archivo', sans-serif;
-      font-size: 20px; font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-      display: block; margin-bottom: 16px;
-    }
-    .benefit-title {
-      font-size: 17px; font-weight: 600;
-      letter-spacing: -0.014em; line-height: 1.35;
-      color: var(--ink); margin-bottom: 6px;
-    }
-    .benefit-desc {
-      font-size: 13.5px; color: var(--ink-soft);
-      line-height: 1.6; letter-spacing: -0.005em;
-    }
-
-    /* Pricing */
-    .section-head {
-      margin-top: 88px;
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .section-title {
-      font-size: 22px; font-weight: 600;
-      letter-spacing: -0.018em; color: var(--ink);
-    }
-    .section-sub {
-      font-size: 14px; color: var(--ink-mute);
-      letter-spacing: -0.005em;
-    }
-    .pricing-banner {
-      margin-top: 18px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      background: var(--accent-soft);
-      border-radius: 999px;
-      font-size: 13.5px;
-      color: var(--ink);
-      letter-spacing: -0.005em;
-    }
-    .pricing-banner::before {
-      content: '';
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
-    .pricing-banner strong {
-      color: var(--accent);
-      font-weight: 600;
-    }
-    .pricing {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      align-items: stretch;
-    }
-    .plan {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 30px 28px 28px;
-      display: flex; flex-direction: column;
-      position: relative;
-      transition: border-color 260ms ease, transform 380ms cubic-bezier(.2,.7,.2,1);
-    }
-    .plan:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-2px);
-    }
-    .plan-featured {
-      border: 2px solid var(--ink);
-      transform: translateY(-2px);
-    }
-    .plan-featured:hover { transform: translateY(-4px); }
-    .plan-badge {
-      position: absolute;
-      top: -11px; left: 50%; transform: translateX(-50%);
-      background: var(--ink); color: #fff;
-      font-family: 'Archivo', sans-serif;
-      font-size: 10.5px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 6px 12px; border-radius: 999px;
-      white-space: nowrap;
-    }
-    .plan-head {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 10px; margin-bottom: 18px;
-    }
-    .plan-name {
-      font-size: 15px; font-weight: 600;
-      color: var(--ink); letter-spacing: -0.005em;
-    }
-    .plan-discount {
-      font-family: 'Archivo', sans-serif;
-      font-size: 11px; font-weight: 700;
-      color: var(--accent); background: var(--accent-soft);
-      padding: 4px 9px; border-radius: 999px;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .plan-price-row {
-      display: flex; align-items: baseline; gap: 4px;
-      margin-bottom: 4px;
-    }
-    .plan-price {
-      font-family: 'Archivo', sans-serif;
-      font-size: 32px; font-weight: 700;
-      letter-spacing: -0.02em; color: var(--ink);
-      font-feature-settings: 'tnum';
-    }
-    .plan-suffix {
-      font-family: 'Pretendard Variable', sans-serif;
-      font-size: 14px; color: var(--ink-mute);
-      letter-spacing: -0.005em;
-    }
-    .plan-period {
-      font-size: 13px; color: var(--ink-soft);
-      letter-spacing: -0.005em;
-    }
-    .plan-desc {
-      margin-top: 14px;
-      font-size: 13px; color: var(--ink-soft);
-      line-height: 1.6; letter-spacing: -0.005em;
-      padding-top: 14px; border-top: 1px solid var(--border);
-    }
-
-    /* EAL note */
-    .eal {
-      margin-top: 22px;
-      background: var(--accent-soft);
-      border-radius: 14px;
-      padding: 18px 22px;
-      display: flex; align-items: center; gap: 14px;
-    }
-    .eal-icon {
-      flex-shrink: 0;
-      width: 32px; height: 32px;
-      border-radius: 50%; background: var(--accent); color: #fff;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-family: 'Archivo', sans-serif;
-      font-size: 13px; font-weight: 700;
-      letter-spacing: 0.04em;
-    }
-    .eal-body { display: flex; flex-direction: column; gap: 2px; }
-    .eal-title {
-      font-size: 14px; font-weight: 600;
-      color: var(--ink); letter-spacing: -0.005em;
-    }
-    .eal-desc {
-      font-size: 13px; color: var(--ink-soft);
-      letter-spacing: -0.005em;
-    }
-    .eal-desc strong { color: var(--accent); font-weight: 700; }
-
-    /* Urgency badge */
-    .pilot-urgency {
-      margin-top: 32px;
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 10px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border-strong);
-      border-radius: 999px;
-      font-size: 13.5px; color: var(--ink-soft);
-      letter-spacing: -0.005em;
-    }
-    .pilot-urgency strong { color: var(--ink); font-weight: 600; }
-    .urgency-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
-    }
-
-    /* Founders Counter · 창립 파트너 카운트업 */
-    .founders-counter {
-      margin-top: 32px;
-      padding: 36px 36px 32px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      text-align: center;
-    }
-    .fc-label {
-      font-family: 'Archivo', sans-serif;
-      font-size: 11.5px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .fc-label::before {
-      content: '';
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    .fc-number {
-      margin-top: 16px;
-      font-family: 'Archivo', sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.024em;
-      font-feature-settings: 'tnum';
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 8px;
-      line-height: 1;
-    }
-    .fc-current {
-      font-size: 88px;
-      color: var(--ink);
-      min-width: 1.2em;
-    }
-    .fc-slash {
-      font-size: 44px;
-      color: var(--ink-mute);
-      font-weight: 400;
-    }
-    .fc-total {
-      font-size: 44px;
-      color: var(--ink-soft);
-      font-weight: 600;
-    }
-    .fc-progress {
-      margin: 24px auto 0;
-      height: 3px;
-      max-width: 360px;
-      background: rgba(10,10,10,0.08);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .fc-bar {
-      height: 100%;
-      background: var(--accent);
-      border-radius: 2px;
-      width: 0%;
-      transition: width 1.8s cubic-bezier(.2,.7,.2,1);
-    }
-    @media (max-width: 720px) {
-      .founders-counter { padding: 28px 24px 24px; margin-top: 24px; }
-      .fc-current { font-size: 64px; }
-      .fc-slash, .fc-total { font-size: 32px; }
-      .fc-number { gap: 6px; }
-    }
-
-    /* Pilot CTA */
-    .pilot-cta {
-      margin-top: 40px;
-      display: flex; flex-wrap: wrap; gap: 10px;
-    }
-    .pilot-note {
-      margin-top: 14px;
-      font-size: 12.5px; color: var(--ink-mute);
-      letter-spacing: -0.005em;
-    }
-
-    /* ===== Footer trust ===== */
-    .trust {
-      max-width: 1280px; width: 100%;
-      margin: 0 auto; padding: 32px 40px 36px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px;
-    }
-    .ft-trust {
-      display: inline-flex; align-items: center; gap: 14px;
-      font-size: 12.5px; color: var(--ink-mute);
-      letter-spacing: -0.005em;
-    }
-    .ft-trust-sep { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
-    .ft-copy {
-      font-family: 'Archivo', sans-serif;
-      font-size: 11px; color: var(--ink-mute);
-      letter-spacing: 0.06em;
-    }
-
-    /* ===== Features section (Part 11.1 박제본 v2.5 · 원문 그대로) ===== */
-    .features-section {
-      max-width: 1280px; margin: 0 auto;
-      padding: 72px 40px 120px;
-    }
-    .features-section .eyebrow {
-      font-family: 'Archivo', sans-serif;
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--ink-soft);
-    }
-    .features-section .eyebrow::before {
-      content: ''; width: 5px; height: 5px;
-      border-radius: 50%; background: var(--accent);
-    }
-    .features-head {
-      margin-top: 22px; margin-bottom: 96px;
-      font-size: 54px; font-weight: 600;
-      line-height: 1.12; letter-spacing: -0.022em;
-      color: var(--ink); max-width: 820px;
-    }
-    .features-head em { font-style: normal; color: var(--accent); font-weight: 600; }
-    .feature-list { list-style: none; border-top: 1px solid var(--border); padding: 0; margin: 0; }
-    .feature-row {
-      display: grid;
-      grid-template-columns: minmax(100px,140px) minmax(260px,1fr) minmax(300px,1.3fr) minmax(120px,auto);
-      column-gap: 48px; align-items: center;
-      padding: 44px 8px;
-      border-bottom: 1px solid var(--border);
-      transition: padding 380ms cubic-bezier(.2,.7,.2,1), background 260ms ease;
-      position: relative; outline: none;
-    }
-    .feature-row::before {
-      content: ''; position: absolute;
-      left: 0; top: 0; bottom: 0; width: 0;
-      background: var(--accent);
-      transition: width 380ms cubic-bezier(.2,.7,.2,1);
-    }
-    .feature-row:hover, .feature-row:focus-visible {
-      padding-left: 28px; background: rgba(10,10,10,0.015);
-    }
-    .feature-row:hover::before, .feature-row:focus-visible::before { width: 3px; }
-    .feature-num {
-      font-family: 'Archivo', sans-serif;
-      font-size: 84px; font-weight: 400;
-      letter-spacing: -0.03em; color: var(--ink-mute);
-      line-height: 1; transition: color 280ms ease;
-      font-feature-settings: 'tnum';
-    }
-    .feature-row:hover .feature-num,
-    .feature-row:focus-visible .feature-num { color: var(--accent); }
-    .feature-title-wrap { display: flex; flex-direction: column; gap: 10px; }
-    .feature-title-wrap h3 {
-      font-size: 28px; font-weight: 600;
-      letter-spacing: -0.014em; color: var(--ink); line-height: 1.25;
-    }
-    .feature-tag {
-      font-family: 'Archivo', sans-serif;
-      font-size: 10.5px; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--ink-mute);
-    }
-    .feature-desc {
-      font-size: 16px; color: var(--ink-soft);
-      line-height: 1.65; max-width: 540px;
-    }
-    .feature-desc strong { color: var(--ink); font-weight: 600; }
-    .feature-cta {
-      display: flex; align-items: center; gap: 14px;
-      justify-content: flex-end;
-      color: var(--ink-mute);
-      transition: color 260ms ease;
-    }
-    .feature-cta-label {
-      font-family: 'Archivo', sans-serif;
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      opacity: 0; transform: translateX(-8px);
-      transition: opacity 300ms ease, transform 380ms cubic-bezier(.2,.7,.2,1);
-      color: var(--accent);
-    }
-    .feature-arrow {
-      width: 24px; height: 24px;
-      stroke: var(--ink-mute); fill: none;
-      stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
-      transition: stroke 260ms ease, transform 380ms cubic-bezier(.2,.7,.2,1);
-    }
-    .feature-row:hover .feature-cta-label,
-    .feature-row:focus-visible .feature-cta-label {
-      opacity: 1; transform: translateX(0);
-    }
-    .feature-row:hover .feature-arrow,
-    .feature-row:focus-visible .feature-arrow {
-      stroke: var(--accent); transform: translateX(8px);
-    }
-    @media (max-width: 980px) {
-      .feature-row {
-        grid-template-columns: 80px 1fr auto;
-        grid-template-rows: auto auto auto;
-        column-gap: 24px; row-gap: 14px;
-        padding: 32px 4px;
-      }
-      .feature-num { font-size: 52px; grid-row: 1; grid-column: 1; }
-      .feature-title-wrap { grid-row: 1; grid-column: 2; }
-      .feature-title-wrap h3 { font-size: 21px; }
-      .feature-cta { grid-row: 1; grid-column: 3; align-self: center; }
-      .feature-cta-label { display: none; }
-      .feature-desc { grid-row: 2; grid-column: 1 / -1; font-size: 14.5px; max-width: none; }
-      .feature-row:hover, .feature-row:focus-visible { padding-left: 16px; }
-    }
-    @media (max-width: 540px) {
-      .features-section { padding: 72px 24px 64px; }
-      .features-head { font-size: 32px; margin-bottom: 56px; }
-      .feature-num { font-size: 44px; }
-      .feature-title-wrap h3 { font-size: 19px; }
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 960px) {
-      .benefits { grid-template-columns: 1fr; }
-      .pricing { grid-template-columns: 1fr; gap: 12px; }
-      .plan-featured { transform: none; }
-      .plan-featured:hover { transform: translateY(-2px); }
-    }
-    @media (max-width: 720px) {
-      .nav { padding: 22px 22px; }
-      .hero { padding: 48px 22px 80px; }
-      .headline { font-size: 38px; line-height: 1.18; }
-      .subhead { font-size: 15.5px; margin-top: 22px; line-height: 1.7; }
-      .hero-cta { margin-top: 36px; }
-      .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 14px; }
-      .pilot { padding: 72px 0 88px; }
-      .pilot-inner { padding: 0 22px; }
-      .pilot-title { font-size: 28px; }
-      .benefit { padding: 22px 20px 20px; }
-      .plan { padding: 26px 22px 22px; }
-      .plan-price { font-size: 28px; }
-      .eal { padding: 16px 18px; gap: 12px; }
-      .trust { padding: 28px 22px 28px; flex-direction: column; align-items: flex-start; gap: 10px; }
-    }
-
-    /* ===== Footnote FAQ (v2.4 · Phase 2 ⑦) ===== */
-    .footnote-faq {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 64px 40px 24px;
-    }
-    .footnote-faq-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 40px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .ff-q {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -0.005em;
-      color: var(--ink);
-      margin: 0 0 8px;
-      line-height: 1.5;
-    }
-    .ff-a {
-      font-size: 12.5px;
-      line-height: 1.7;
-      color: var(--ink-soft);
-      letter-spacing: -0.005em;
-      margin: 0;
-    }
-    @media (max-width: 860px) {
-      .footnote-faq { padding: 48px 24px 16px; }
-      .footnote-faq-inner { grid-template-columns: 1fr; gap: 24px; padding-top: 32px; }
-    }
-
-    /* ===== Site Footer Minimal (v2.4 · Phase 2 ⑧) ===== */
-    .site-footer-minimal{
-      max-width:1280px; margin:0 auto;
-      padding:28px 40px 32px;
-      border-top:1px solid var(--border);
-      display:flex; align-items:center; gap:16px;
-    }
-    .sfm-switch{
-      font-size:12.5px; color:var(--ink-soft);
-      letter-spacing:-0.005em;
-      display:inline-flex; align-items:center; gap:6px;
-      margin-left:8px;
-      text-decoration:none;
-      transition:color 180ms ease;
-    }
-    .sfm-switch:hover{color:var(--ink)}
-    .sfm-switch-arr{
-      font-family:'Archivo',sans-serif;
-      font-weight:500; display:inline-block;
-      transition:transform 180ms ease;
-    }
-    .sfm-switch:hover .sfm-switch-arr{transform:translateX(3px)}
-    .sfm-copy{
-      font-family:'Archivo',sans-serif;
-      font-size:11px; font-weight:500;
-      letter-spacing:0.1em;
-      color:var(--ink-mute);
-      margin-left:auto;
-    }
-    @media(max-width:860px){
-      .site-footer-minimal{padding:24px 24px 28px; flex-wrap:wrap; gap:12px}
-      .sfm-switch{margin-left:0}
-      .sfm-copy{margin-left:auto}
-    }
-
-    /* ===== Waitlist Modal (v2.4 · Phase 2 ⑥) ===== */
-    .modal-backdrop{
-      position:fixed; inset:0; z-index:100;
-      background:rgba(10,10,10,0.48);
-      display:flex; align-items:flex-start; justify-content:center;
-      padding:40px 20px; overflow-y:auto;
-      opacity:0; transition:opacity 260ms ease;
-    }
-    .modal-backdrop[hidden]{display:none}
-    .modal-backdrop.show{opacity:1}
-    .modal-box{
-      background:var(--surface); border-radius:20px;
-      max-width:520px; width:100%;
-      padding:36px 36px 32px; position:relative;
-      transform:translateY(16px);
-      transition:transform 320ms cubic-bezier(.2,.7,.2,1);
-      box-shadow:0 20px 60px -20px rgba(0,0,0,0.25);
-    }
-    .modal-backdrop.show .modal-box{transform:translateY(0)}
-    .modal-close{
-      position:absolute; top:16px; right:16px;
-      width:32px; height:32px; border-radius:50%;
-      display:inline-flex; align-items:center; justify-content:center;
-      background:transparent; color:var(--ink-mute);
-      transition:background 180ms ease, color 180ms ease;
-    }
-    .modal-close:hover{background:rgba(10,10,10,0.05); color:var(--ink)}
-    .modal-head{margin-bottom:24px}
-    .modal-eyebrow{
-      font-family:'Archivo',sans-serif;
-      font-size:11px; font-weight:600;
-      letter-spacing:0.18em; text-transform:uppercase;
-      color:var(--accent);
-      display:inline-flex; align-items:center; gap:8px;
-    }
-    .modal-eyebrow::before{content:''; width:5px; height:5px; border-radius:50%; background:var(--accent)}
-    .modal-title{
-      margin-top:10px; font-size:24px; font-weight:600;
-      letter-spacing:-0.02em; color:var(--ink); line-height:1.3;
-    }
-    .modal-sub{
-      margin-top:8px; font-size:13.5px; color:var(--ink-soft);
-      line-height:1.6; letter-spacing:-0.005em;
-    }
-    .wl-form{display:flex; flex-direction:column; gap:16px}
-    .wl-field{display:flex; flex-direction:column; gap:6px}
-    .wl-label{
-      font-size:12.5px; font-weight:600;
-      color:var(--ink); letter-spacing:-0.005em;
-    }
-    .wl-req{color:var(--accent); font-weight:700; margin-left:2px}
-    .wl-opt{
-      font-family:'Archivo',sans-serif;
-      font-size:10px; font-weight:600;
-      letter-spacing:0.12em; text-transform:uppercase;
-      color:var(--ink-mute); margin-left:6px;
-    }
-    .wl-input, .wl-textarea{
-      font-family:inherit; font-size:14px;
-      padding:11px 14px; border:1px solid var(--border-strong);
-      border-radius:10px; background:var(--surface); color:var(--ink);
-      letter-spacing:-0.005em; transition:border-color 180ms ease;
-    }
-    .wl-input:focus, .wl-textarea:focus{
-      outline:none; border-color:var(--accent);
-      box-shadow:0 0 0 3px var(--accent-soft);
-    }
-    .wl-textarea{resize:vertical; min-height:80px; line-height:1.55}
-    .wl-hint{font-size:11.5px; color:var(--ink-mute); margin-top:2px}
-    .wl-radio-group{display:flex; gap:8px; flex-wrap:wrap}
-    .wl-radio{
-      flex:1; min-width:100px; position:relative;
-      display:inline-flex; align-items:center; justify-content:center; gap:6px;
-      padding:10px 14px; border:1px solid var(--border-strong);
-      border-radius:10px; cursor:pointer;
-      font-size:13.5px; color:var(--ink-soft);
-      transition:border 180ms ease, background 180ms ease, color 180ms ease;
-    }
-    .wl-radio input{position:absolute; opacity:0; pointer-events:none}
-    .wl-radio:has(input:checked){
-      border-color:var(--ink); background:var(--ink); color:#fff;
-    }
-    .wl-agree{
-      display:flex; flex-direction:column; gap:10px;
-      margin-top:4px; padding:14px 0 0;
-      border-top:1px solid var(--border);
-    }
-    .wl-check{
-      display:flex; align-items:flex-start; gap:10px;
-      font-size:12.5px; color:var(--ink-soft);
-      line-height:1.5; letter-spacing:-0.005em; cursor:pointer;
-    }
-    .wl-check input{margin-top:2px; accent-color:var(--accent)}
-    .wl-link{color:var(--ink); text-decoration:underline; text-underline-offset:2px}
-    .wl-submit{
-      margin-top:8px; padding:14px 24px;
-      background:var(--ink); color:#fff;
-      border-radius:999px; font-size:14.5px; font-weight:500;
-      letter-spacing:-0.005em;
-      transition:background 220ms ease;
-    }
-    .wl-submit:hover:not([disabled]){background:var(--accent)}
-    .wl-submit[disabled]{opacity:0.6; cursor:progress}
-    .wl-foot{
-      margin-top:8px; font-size:11.5px; color:var(--ink-mute);
-      text-align:center; letter-spacing:-0.005em;
-    }
-    .wl-success{text-align:center; padding:20px 10px}
-    .wl-success-icon{
-      width:64px; height:64px; border-radius:50%;
-      background:var(--accent-soft); color:var(--accent);
-      display:inline-flex; align-items:center; justify-content:center;
-      margin-bottom:18px;
-    }
-    .wl-success-title{
-      font-size:20px; font-weight:600; color:var(--ink);
-      letter-spacing:-0.015em; line-height:1.4; margin-bottom:8px;
-    }
-    .wl-success-num{color:var(--accent); font-weight:700; font-family:'Archivo',sans-serif}
-    .wl-success-sub{
-      font-size:13.5px; color:var(--ink-soft);
-      line-height:1.65; margin-bottom:24px; letter-spacing:-0.005em;
-    }
-    .wl-success-close{
-      padding:11px 28px; background:var(--ink); color:#fff;
-      border-radius:999px; font-size:13.5px; font-weight:500;
-    }
-    @media(max-width:540px){
-      .modal-backdrop{padding:20px 12px}
-      .modal-box{padding:28px 24px 24px}
-      .modal-title{font-size:21px}
-      .wl-radio{min-width:80px; font-size:12.5px; padding:9px 10px}
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/v4.css">
 </head>
 <body>
 
-  <!-- Nav -->
   <nav class="nav">
     <a class="brand" href="/">
       <span class="brand-symbol"><span></span><span></span><span></span></span>
@@ -853,148 +21,409 @@
     </a>
   </nav>
 
-  <!-- Hero -->
-  <main class="hero">
-    <span class="hero-eyebrow">For Studio Owners <span class="ko">· 대표·관리자를 위한</span></span>
-    <h1 class="headline">이젠, 피트니스 전문 <em>AI</em>가<br>있어야 합니다.</h1>
-    <p class="subhead">
-      안정적인 매출 관리를 위한 <strong>AI 매출·트레이너 KPI 분석 시스템</strong>.<br>
-      대표·관리자는 결정에만, 나머지는 노어가 대신합니다.
-    </p>
-    <div class="hero-cta">
-      <a class="btn-primary" href="/checkout/?role=operator&plan=founder-yearly">결제하고 시작하기 <span class="arr">→</span></a>
+  <!-- SLOT 1: HOOK — Founder story + KPI + product evidence (v4.4 재설계) -->
+  <main class="hero hero-split">
+    <div>
+      <span class="slot-label">01 · Hook</span>
+      <span class="eyebrow">For Studio Owners <span class="ko">· 대표·관리자</span></span>
+      <h1 class="headline">
+        대표가 매장에 안 가도<br>
+        <em>매출이 새지 않는</em><br>
+        9년 노하우.
+      </h1>
+      <p class="subhead">
+        비상주로 7지점 굴린 그 노하우로 만든,<br>
+        <strong>PT센터 전용 CRM입니다.</strong>
+      </p>
+
+      <div class="hero-kpi">
+        <div class="hk-cell"><div class="hk-key">9년</div><div class="hk-desc">비상주 운영</div></div>
+        <div class="hk-cell"><div class="hk-key">7지점</div><div class="hk-desc">동시 관리</div></div>
+        <div class="hk-cell"><div class="hk-key">+15%</div><div class="hk-desc">재등록률</div></div>
+        <div class="hk-cell"><div class="hk-key">1%</div><div class="hk-desc">마케팅비/매출</div></div>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn-primary" href="#cta">지금 시작하기 <span class="arr">→</span></a>
+        <a class="btn-secondary" href="#demo">2분 데모 보기 <span class="arr">→</span></a>
+      </div>
+      <p class="hero-cta-meta"><strong>7일 내 전액 환불</strong> · 카드 등록 즉시 시작</p>
     </div>
+
+    <aside class="hero-visual" aria-hidden="true">
+      <span class="hero-founder-tag">노어 화면 예시</span>
+      <div class="fb-shot-screen">
+        <div class="fb-shot-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto; font-size:11px; color:var(--ink-mute); font-family:Archivo;">오늘 아침 · 노어</span></div>
+        <div class="fb-shot-stat">
+          <div><div class="fb-shot-stat-num">₩ 47.8M</div><div class="fb-shot-stat-label">이번 달 매출</div></div>
+          <div><div class="fb-shot-stat-num" style="color:var(--accent);">+15%</div><div class="fb-shot-stat-label">재등록률 (vs 전월)</div></div>
+        </div>
+        <div class="fb-shot-row"><span class="badge">출석</span><span style="flex:1;">이번 주 출석률 <strong>78%</strong></span></div>
+        <div class="fb-shot-row"><span class="badge">상담</span><span style="flex:1;">신규 상담 12건 · 등록 <strong>5건</strong></span></div>
+        <div class="fb-shot-row"><span class="badge">트레이너</span><span style="flex:1;">박○○ <strong style="color:var(--accent);">유지율 92%</strong></span></div>
+      </div>
+    </aside>
   </main>
 
-  <!-- Features (Part 11.1 v2.5 박제본 그대로) -->
-  <section class="features-section">
-    <span class="eyebrow">Core Engines · 핵심 기능</span>
-    <h2 class="features-head">센터가 스스로 돌아가는,<br><em>5가지 AI 엔진.</em></h2>
+  <!-- SLOT 2: 페인 인정 — 수업 메인 정정 -->
+  <section class="section section-alt" style="position:relative; padding: 96px 0;">
+    <span class="slot-label">02 · 페인 인정</span>
+    <div class="container">
+      <span class="eyebrow">Recognition</span>
+      <h2 class="pain-h2">
+        하루 종일 수업·상담·트레이너 관리.<br>
+        <em>매출 볼 시간이 있으셨나요?</em>
+      </h2>
 
-    <ul class="feature-list">
-      <li>
-        <a class="feature-row" href="/operator/try/?scenario=revenue">
-          <div class="feature-num">01</div>
-          <div class="feature-title-wrap">
-            <span class="feature-tag">Revenue AI</span>
-            <h3>통합 대시보드 · AI 매출 분석</h3>
-          </div>
-          <p class="feature-desc">매출 예측·추이·지점별 비교를 한 화면에서. <strong>엑셀 없이</strong>, AI가 해석한 요약까지.</p>
-          <span class="feature-cta">
-            <span class="feature-cta-label">체험하기</span>
-            <svg class="feature-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="feature-row" href="/operator/try/ai-bot.html">
-          <div class="feature-num">02</div>
-          <div class="feature-title-wrap">
-            <span class="feature-tag">Member Care</span>
-            <h3>AI봇</h3>
-          </div>
-          <p class="feature-desc">회원의 질문·상담·동기부여 <strong>24/7 응대</strong>는 물론, 실제 운영 데이터 기반 <strong>AI 분석·피드백</strong>까지.</p>
-          <span class="feature-cta">
-            <span class="feature-cta-label">체험하기</span>
-            <svg class="feature-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="feature-row" href="/operator/try/?scenario=trainer-kpi">
-          <div class="feature-num">03</div>
-          <div class="feature-title-wrap">
-            <span class="feature-tag">Trainer KPI</span>
-            <h3>트레이너 KPI</h3>
-          </div>
-          <p class="feature-desc">트레이너별 <strong>KPI·성과·회원 유지율</strong>을 AI가 자동 추적. 평가가 아닌, 성장의 지표로.</p>
-          <span class="feature-cta">
-            <span class="feature-cta-label">체험하기</span>
-            <svg class="feature-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="feature-row" href="/operator/try/trainer-marketing.html">
-          <div class="feature-num">04</div>
-          <div class="feature-title-wrap">
-            <span class="feature-tag">Marketing Automation</span>
-            <h3>트레이너 마케팅 자동화</h3>
-          </div>
-          <p class="feature-desc">트레이너 블로그를 <strong>SEO·GEO에 맞게</strong> AI가 자동 작성. 검색에서 먼저 발견되는 트레이너가, <strong>센터 매출로 이어집니다</strong>.</p>
-          <span class="feature-cta">
-            <span class="feature-cta-label">체험하기</span>
-            <svg class="feature-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-          </span>
-        </a>
-      </li>
-      <li>
-        <div class="feature-row feature-row-static">
-          <div class="feature-num">05</div>
-          <div class="feature-title-wrap">
-            <span class="feature-tag">Operations</span>
-            <h3>회원·급여 관리 자동화 +<br/>안면인식 입출입 관리</h3>
-          </div>
-          <p class="feature-desc"><strong>이탈 위험 감지·리텐션 대응</strong> + <strong>급여 정산</strong> + <strong>안면인식 입출입</strong>까지. 센터 운영의 반복을 AI가 대신합니다.</p>
+      <div class="workday-v3">
+        <div class="wd-v3-row"><span class="wd-v3-time">07:00</span><span class="wd-v3-activity">첫 수업 — 새벽 PT 회원</span><span class="wd-v3-tag">수업</span></div>
+        <div class="wd-v3-row"><span class="wd-v3-time">11:00</span><span class="wd-v3-activity">신규 회원 상담 · 등록 협의</span><span class="wd-v3-tag">상담</span></div>
+        <div class="wd-v3-row"><span class="wd-v3-time">14:00</span><span class="wd-v3-activity">오후 수업 + 트레이너 일정 조율</span><span class="wd-v3-tag">수업</span></div>
+        <div class="wd-v3-row"><span class="wd-v3-time">18:00</span><span class="wd-v3-activity">트레이너 미팅 · 회원 민원 응대</span><span class="wd-v3-tag">트레이너 관리</span></div>
+        <div class="wd-v3-row"><span class="wd-v3-time">22:00</span><span class="wd-v3-activity">마지막 상담·수업 마감</span><span class="wd-v3-tag">수업</span></div>
+        <div class="wd-v3-row"><span class="wd-v3-time">23:00</span><span class="wd-v3-activity">정산 · 카톡 회신 · 다음 날 준비</span><span class="wd-v3-tag">마감 정리</span></div>
+
+        <div class="wd-v3-final">
+          <span class="wd-v3-final-eyebrow">그리고 안 한 일</span>
+          <p class="wd-v3-final-text">
+            매출 어디서 새는지, 어떤 회원이 떠나는지,<br>
+            어떤 트레이너가 잘하는지 — 볼 시간이 없었습니다.
+          </p>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </section>
 
-  <!-- Pilot section -->
-  <section class="pilot" id="pilot">
-    <div class="pilot-inner">
-      <span class="pilot-eyebrow">Founding Partners <span class="pilot-eyebrow-label">· 창립 파트너</span></span>
+  <!-- SLOT 3: 자가 진단 체크리스트 ★ 신설 (v4) -->
+  <section class="diagnose" style="position:relative;">
+    <span class="slot-label">03 · 자가 진단</span>
+    <div class="container">
+      <span class="eyebrow">Self-Diagnose</span>
+      <h2 class="diagnose-head">
+        지금 우리 센터,<br><em>몇 개나 보이세요?</em>
+      </h2>
+      <p class="diagnose-sub">감으로 답하지 마시고, 숫자로 답할 수 있는 만큼만 체크하세요.</p>
 
-      <!-- Founders Counter · 창립 파트너 카운트업 -->
-      <div class="founders-counter" id="founders">
-        <span class="fc-label">현재 합류 인원</span>
-        <div class="fc-number">
-          <span class="fc-current" data-target="327">0</span>
-          <span class="fc-slash">/</span>
-          <span class="fc-total">500</span>
-        </div>
-        <div class="fc-progress"><div class="fc-bar" data-target="65.4"></div></div>
+      <form class="checklist" onsubmit="return false;">
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">이번 주에 안 나온 회원이 누구인지, 바로 보이시나요?</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">상담·체험 전환율이 지난달보다 올랐는지 떨어졌는지, 숫자로 아시나요?</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">수업 부채(미사용 잔여 회기)가 늘고 있는지 줄고 있는지 보이시나요?</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">우리 트레이너 중 누가 회원을 가장 잘 잡는지 한눈에 보이시나요?</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">이번 달 매출 중 새 회원 vs 재등록 회원, 어느 쪽이 더 큰지 아시나요?</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">트레이너 면담할 때, 결국 '느낌'으로 평가하고 계시진 않나요?</span>
+        </label>
+        <label class="checklist-item">
+          <input type="checkbox">
+          <span class="checklist-text">다음 달 매출이 얼마쯤일지 미리 보이시나요?</span>
+        </label>
+      </form>
+
+      <div class="checklist-result">
+        <span class="cr-eyebrow">Result</span>
+        <p class="cr-head">
+          답 못한 만큼,<br><strong>매출이 새고 있습니다.</strong>
+        </p>
+        <p class="cr-meta">
+          5분이면 됩니다. 아래 흐름 보세요.
+        </p>
       </div>
+    </div>
+  </section>
 
-      <h2 class="pilot-title">새로운 피트니스 AI의 시작을<br>함께 하는 <em>500명</em>.</h2>
-      <p class="pilot-lead">이미 300+명의 대표·트레이너가 창립 파트너로 함께하고 있습니다. 선착순 500명까지, 피트니스의 현장을 먼저 바꿀 분들에게 노어가 드리는 혜택입니다.</p>
+  <!-- SLOT 4: Big Idea -->
+  <section class="big-idea" style="position:relative; padding: 120px 40px;">
+    <span class="slot-label">04 · Big Idea</span>
+    <div class="container">
+      <span class="bi-eyebrow">A New Way</span>
+      <h2 class="bi-head">
+        결정은 대표가.<br><em>작업은 AI 직원이.</em>
+      </h2>
+    </div>
+  </section>
 
-      <!-- Benefits 3 -->
-      <div class="benefits">
-        <div class="benefit benefit-featured">
-          <span class="benefit-featured-tag">Forever</span>
-          <span class="benefit-num">01</span>
-          <div class="benefit-title">창립 파트너 영구 10% 할인</div>
-          <div class="benefit-desc">창립 파트너로 남는 한 영구 10% 할인. 런칭 이후 가격이 올라도 이 약속은 유지됩니다.</div>
+  <!-- SLOT 5: What (제거 — slot 4 Big Idea와 메시지 겹쳐 slot 8 직원 인트로로 흡수) -->
+
+  <!-- SLOT 5.5: 카테고리 비교 박스 ★ 신설 (v4 · G2) -->
+  <section class="compare-section" style="position:relative;">
+    <span class="slot-label">05+ · Vs Others</span>
+    <div class="container">
+      <h2 class="compare-h">
+        PT센터에 맞는 CRM은,<br><em>여기서부터 다릅니다.</em>
+      </h2>
+      <p class="compare-sub">한눈에 비교해보세요.</p>
+
+      <div class="compare-matrix">
+        <div class="cm-head cm-label-col"></div>
+        <div class="cm-head">엑셀</div>
+        <div class="cm-head">일반 CRM</div>
+        <div class="cm-head">일반 GPT</div>
+        <div class="cm-head cm-nore">노어</div>
+
+        <div class="cm-cell cm-label-col">출석·재등록 매일 자동</div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-mid">△</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell cm-nore"><span class="cm-mark cm-good">●</span></div>
+
+        <div class="cm-cell cm-label-col">트레이너 KPI 자동 평가</div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-mid">△</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell cm-nore"><span class="cm-mark cm-good">●</span></div>
+
+        <div class="cm-cell cm-label-col">떠날 회원 미리 알림</div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell cm-nore"><span class="cm-mark cm-good">●</span></div>
+
+        <div class="cm-cell cm-label-col">신규 회원 모집 마케팅 지원</div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-bad">✕</span></div>
+        <div class="cm-cell"><span class="cm-mark cm-mid">△</span></div>
+        <div class="cm-cell cm-nore"><span class="cm-mark cm-good">●</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOT 6: 메커니즘 — KPI 데이터 중요성 강조 (v5) -->
+  <section class="mechanism" style="position:relative;">
+    <span class="slot-label">06 · Mechanism</span>
+    <div class="container">
+      <span class="eyebrow">How It Works</span>
+      <h2 class="mechanism-head">
+        감·기억으로 굴리던 PT센터는 한계가 옵니다.<br><em>KPI 데이터가 있어야, 다음 달 매출이 보입니다.</em>
+      </h2>
+      <p class="mechanism-sub">
+        매출이 어디서 새는지, 어떤 트레이너가 잘하는지, 누가 떠나는지 — <strong>숫자로 봐야 손쓸 수 있습니다.</strong>
+        9년 비상주로 7지점 굴리며 검증된 KPI 체계를 한 화면에 모았습니다.
+      </p>
+
+      <div class="mechanism-flow">
+        <div class="mech-step">
+          <span class="mech-num">01 · 본다</span>
+          <h3 class="mech-title">매출·출석·트레이너 KPI를<br>한 화면에서.</h3>
+          <p class="mech-desc">표면수익률·실질수익률(이연 매출 차감)·재등록률·이탈 신호. <strong>대표가 매일 봐야 할 숫자</strong>를 통합 대시보드에 정리합니다.</p>
         </div>
-        <div class="benefit">
-          <span class="benefit-num">02</span>
-          <div class="benefit-title">창립 파트너 뱃지</div>
-          <div class="benefit-desc">프로필과 서비스 곳곳에 창립 파트너 인증이 표시됩니다.</div>
+        <div class="mech-arrow">→</div>
+        <div class="mech-step">
+          <span class="mech-num">02 · 비교한다</span>
+          <h3 class="mech-title">트레이너 5명을<br>같은 기준으로 줄세움.</h3>
+          <p class="mech-desc">매출·비중·재등록·세션 소화. <strong>"누가 잘하고 누가 면담 필요한지"</strong> 감이 아니라 숫자로 보입니다.</p>
         </div>
-        <div class="benefit">
-          <span class="benefit-num">03</span>
-          <div class="benefit-title">로드맵 참여권</div>
-          <div class="benefit-desc">분기별 기능 우선순위 투표. 신규 기능을 먼저 사용하며 방향을 함께 만듭니다.</div>
-        </div>
-        <div class="benefit">
-          <span class="benefit-num">04</span>
-          <div class="benefit-title">런칭 우선 액세스</div>
-          <div class="benefit-desc">정식 오픈 2주일 전, 먼저 들어와 기능을 사용해보실 수 있습니다.</div>
+        <div class="mech-arrow">→</div>
+        <div class="mech-step">
+          <span class="mech-num">03 · 결정한다</span>
+          <h3 class="mech-title">다음 달 매출이<br>숫자로 미리 보입니다.</h3>
+          <p class="mech-desc">PT 6회권 이탈률 ↑ / 신규 등록 전환 ↓ — 새는 곳이 보이면 <strong>다음 한 수가 명확</strong>해집니다. 대표는 결정만.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Pricing -->
-      <div class="section-head">
-        <div class="section-title">요금제</div>
-        <div class="section-sub">연간 결제 기준 · VAT 포함</div>
+  <!-- SLOT 8: 5명의 AI 직원 — feature-bigshot 5개 (slot 5 What 흡수) -->
+  <section style="position:relative; padding: 72px 40px 0;">
+    <span class="slot-label" style="left:40px;">08 · Your AI Staff (5)</span>
+    <div class="container">
+      <span class="eyebrow">Why KPI</span>
+      <h2 class="what-head" style="margin-top:14px;">
+        감이 아닌 KPI 데이터가 있어야,<br><em style="color:var(--accent); font-style:normal;">문제를 ‘해결’할 수 있습니다.</em>
+      </h2>
+    </div>
+
+    <!-- 01 -->
+    <div class="feature-bigshot">
+      <div class="fb-text">
+        <span class="fb-num">01</span>
+        <h3 class="fb-title">매출이 어디서 새는지,<br><em>매일 짚어드립니다.</em></h3>
+        <p class="fb-desc">엑셀로 정산하면 <strong>다음 달에야</strong> 압니다. 매출 흐름·이상 신호·회원별 매출을 <strong>아침에 한 화면으로.</strong></p>
+        <div class="fb-result">
+          <span class="fb-result-label">결과</span>
+          <span class="fb-result-text">새는 돈이 보이면, 막을 수 있습니다.</span>
+        </div>
       </div>
+      <div class="fb-shot">
+        <div class="fb-shot-screen">
+          <div class="fb-shot-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto; font-size:11px; color:var(--ink-mute); font-family:Archivo;">매출 대시보드</span></div>
+          <div class="fb-shot-stat">
+            <div><div class="fb-shot-stat-num">₩ 47.8M</div><div class="fb-shot-stat-label">이번 달 매출</div></div>
+            <div><div class="fb-shot-stat-num" style="color:var(--accent);">↓ ₩2.3M</div><div class="fb-shot-stat-label">새는 지점 감지</div></div>
+          </div>
+          <div class="fb-shot-row"><span class="badge">신호</span><span style="flex:1;">PT 6회권 이탈률 ↑</span><span style="color:var(--accent); font-weight:700;">·</span></div>
+          <div class="fb-shot-row"><span class="badge">신호</span><span style="flex:1;">신규 상담 → 등록 전환률 ↓</span><span style="color:var(--accent); font-weight:700;">·</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="feature-bigshot reverse">
+      <div class="fb-text">
+        <span class="fb-num">02</span>
+        <h3 class="fb-title">수업 중에 막혀도,<br><em>@노어 한 번이면 끝.</em></h3>
+        <p class="fb-desc">수업 중 무릎·식단·재활 질문에 막힐 때. <strong>@노어 한 번이면</strong> 미국 3대 가이드 기반 즉답.</p>
+        <div class="fb-result">
+          <span class="fb-result-label">결과</span>
+          <span class="fb-result-text">수업이 안 막히면, 회원이 신기해합니다.</span>
+        </div>
+      </div>
+      <div class="fb-shot">
+        <div class="fb-shot-screen">
+          <div class="fb-shot-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto; font-size:11px; color:var(--ink-mute); font-family:Archivo;">수업 중 채팅</span></div>
+          <div class="fb-shot-row" style="background:var(--bg-deep); padding:10px; border-radius:10px;"><span style="flex:1; font-size:12px; color:var(--ink);"><strong style="color:var(--accent);">@노어</strong> 무릎 회원 스쿼트 변형?</span></div>
+          <div class="fb-shot-row" style="background:var(--ink); color:#FCFAF5; padding:10px; border-radius:10px;"><span style="flex:1; font-size:12px;">무릎 부담 ↓ — 박스 스쿼트·고블릿 추천. 가동범위 부분만.</span></div>
+          <div class="fb-shot-row" style="background:var(--bg-deep); padding:10px; border-radius:10px;"><span style="flex:1; font-size:12px; color:var(--ink);"><strong style="color:var(--accent);">@노어</strong> 회원 식단 사진 분석</span></div>
+          <div class="fb-shot-row" style="background:var(--ink); color:#FCFAF5; padding:10px; border-radius:10px;"><span style="flex:1; font-size:12px;">682 kcal · 탄 95g · 단 22g — 단백 보강 필요</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="feature-bigshot">
+      <div class="fb-text">
+        <span class="fb-num">03</span>
+        <h3 class="fb-title">좋은 트레이너는 안 잃고,<br><em>문제는 빨리 압니다.</em></h3>
+        <p class="fb-desc">감으로 평가하면 <strong>잘하는 트레이너를 놓칩니다.</strong> 유지율·만족도·매출 기여로 자동 줄세움.</p>
+        <div class="fb-result">
+          <span class="fb-result-label">결과</span>
+          <span class="fb-result-text">감 평가가 끝납니다. 잘하는 트레이너부터 보입니다.</span>
+        </div>
+      </div>
+      <div class="fb-shot">
+        <div class="fb-shot-screen">
+          <div class="fb-shot-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto; font-size:11px; color:var(--ink-mute); font-family:Archivo;">트레이너 KPI</span></div>
+          <div class="fb-shot-row"><span style="font-weight:600; color:var(--ink);">박○○</span><div class="fb-shot-bar"><div class="fb-shot-bar-fill" style="width:92%;"></div></div><span style="font-family:Archivo; font-size:11px; font-weight:700; color:var(--accent);">92</span></div>
+          <div class="fb-shot-row"><span style="font-weight:600; color:var(--ink);">김○○</span><div class="fb-shot-bar"><div class="fb-shot-bar-fill" style="width:78%;"></div></div><span style="font-family:Archivo; font-size:11px; font-weight:700; color:var(--ink);">78</span></div>
+          <div class="fb-shot-row"><span style="font-weight:600; color:var(--ink);">이○○</span><div class="fb-shot-bar"><div class="fb-shot-bar-fill" style="width:54%;"></div></div><span style="font-family:Archivo; font-size:11px; font-weight:700; color:var(--ink-mute);">54</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="feature-bigshot reverse">
+      <div class="fb-text">
+        <span class="fb-num">04</span>
+        <h3 class="fb-title">트레이너 블로그를,<br><em>AI가 자동으로</em> 씁니다.</h3>
+        <p class="fb-desc">블로그를 안 쓰면 <strong>검색에 안 잡힙니다.</strong> AI가 초안까지. 트레이너는 검토·발행만.</p>
+        <div class="fb-result">
+          <span class="fb-result-label">결과</span>
+          <span class="fb-result-text">검색에 잡히면, 신규 회원이 옵니다.</span>
+        </div>
+      </div>
+      <div class="fb-shot">
+        <div class="fb-shot-screen">
+          <div class="fb-shot-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto; font-size:11px; color:var(--ink-mute); font-family:Archivo;">트레이너 블로그</span></div>
+          <div class="fb-shot-row"><span class="badge">AI 초안</span><span style="flex:1; font-size:12px;">"30대 직장인 다이어트 가이드"</span></div>
+          <div class="fb-shot-row"><span class="badge">AI 초안</span><span style="flex:1; font-size:12px;">"무릎 통증 회원 운동 처방"</span></div>
+          <div class="fb-shot-row"><span class="badge" style="background:var(--ink); color:#FCFAF5;">검색 노출</span><span style="flex:1; font-size:12px; color:var(--accent); font-weight:600;">"홍대 PT" → 3위</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="feature-bigshot">
+      <div class="fb-text">
+        <span class="fb-num">05</span>
+        <h3 class="fb-title">반복 운영,<br><em>AI가 대신합니다.</em></h3>
+        <p class="fb-desc">급여 정산·출입·이탈 체크 — <strong>대표가 손대던 반복</strong>을 노어가 대신.</p>
+        <div class="fb-result">
+          <span class="fb-result-label">결과</span>
+          <span class="fb-result-text">반복에서 해방. 대표는 결정만.</span>
+        </div>
+      </div>
+      <div class="fb-shot">
+        <div class="fb-shot-screen">
+          <div class="fb-shot-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:auto; font-size:11px; color:var(--ink-mute); font-family:Archivo;">운영 자동화</span></div>
+          <div class="fb-shot-row"><span class="badge">자동</span><span style="flex:1; font-size:12px;">이번 달 급여 정산 완료</span><span style="color:var(--accent); font-weight:700;">✓</span></div>
+          <div class="fb-shot-row"><span class="badge">자동</span><span style="flex:1; font-size:12px;">안면인식 입출입 187건</span><span style="color:var(--accent); font-weight:700;">✓</span></div>
+          <div class="fb-shot-row"><span class="badge" style="background:var(--accent); color:#FCFAF5;">알림</span><span style="flex:1; font-size:12px; color:var(--ink); font-weight:600;">이탈 위험 회원 3명</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOT 7: Demo — Arcade (기능 직후 배치) -->
+  <section class="demo" id="demo" style="position:relative; padding: 96px 40px; background: var(--bg-deep); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <span class="slot-label">07 · Show — Arcade</span>
+    <div class="container">
+      <span class="eyebrow">See It Working</span>
+      <h2 class="demo-head" style="font-size:42px;">한 화면에 다 모인 매출·이탈·KPI.<br><em style="color:var(--accent); font-style:normal;">AI가 지금 상황을 해석합니다.</em></h2>
+      <div class="arcade-mock">
+        <div class="am-inner">
+          <span class="am-label">▶ Arcade Demo</span>
+          <p class="am-title">노어 운영 대시보드 한 화면<br>지표 모음 + AI 해석</p>
+          <span class="am-sub">CLICK TO START</span>
+        </div>
+      </div>
+      <div class="demo-cta">
+        <a class="btn-primary" href="#cta">내 센터에 적용하기 <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOT 9: Proof — 창립 파트너 + 노하우 통합 (v4.3 재설계) -->
+  <section class="proof" style="position:relative; padding: 96px 40px; background: var(--bg);">
+    <span class="slot-label">09 · Social Proof</span>
+    <div class="container">
+      <span class="eyebrow">Founding Partners</span>
+      <h2 class="proof-head">
+        지금은 <em>창립 파트너</em>만<br>받습니다.
+      </h2>
+
+      <div class="founder-block">
+        <div class="founder-intro">
+          <span class="fi-eyebrow">왜 창립 파트너인가</span>
+          <p class="fi-text">
+            <strong>9년 동안 매장에 거의 안 갔습니다.</strong> 그래도 7지점이 돌았습니다.<br>
+            이 노하우, 우리 센터에 맞는지 직접 확인해보세요.
+          </p>
+        </div>
+
+        <div class="founder-stats">
+          <div class="fs-cell"><span class="fs-key">9년</span><span class="fs-desc">비상주 운영</span></div>
+          <div class="fs-cell"><span class="fs-key">7지점</span><span class="fs-desc">동시 관리</span></div>
+          <div class="fs-cell"><span class="fs-key fs-accent">5,000만</span><span class="fs-desc">본점 월 평균 매출 (원)</span></div>
+          <div class="fs-cell"><span class="fs-key fs-accent">+15%</span><span class="fs-desc">재등록률 상승</span></div>
+        </div>
+
+        <div class="founder-foot">
+          이 9년 노하우가 <em>노어 안에 들어가 있습니다.</em>
+        </div>
+
+        <div class="deadline-pill">
+          <strong>5월 31일</strong>까지 합류 시 영구 잠금 · 6월부터 정가
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOT 10: Pricing -->
+  <section class="pricing-section" id="cta" style="position:relative;">
+    <span class="slot-label">10 · Offer</span>
+    <div class="container">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="pricing-head">요금제.</h2>
+      <p class="pricing-sub">연간 결제 기준 · VAT 포함</p>
       <div class="pricing-banner">
-        <span>창립 파트너 가입 시 모든 요금제에 <strong>영구 10% 할인</strong>이 적용됩니다.</span>
+        <span>창립 파트너 <strong>영구 10% 할인</strong> 적용</span>
       </div>
       <div class="pricing">
-        <!-- 대표·관리자 1년권 — featured -->
         <div class="plan plan-featured">
           <span class="plan-badge">Recommended</span>
           <div class="plan-head">
@@ -1006,9 +435,8 @@
             <span class="plan-suffix">원 / 년</span>
           </div>
           <div class="plan-period">월 39,900원 · 12개월 일괄</div>
-          <p class="plan-desc">대시보드·매출 분석·트레이너 KPI·회원 자동화 등 노어 전체 기능 사용.</p>
+          <p class="plan-desc">5명의 AI 직원 전체 사용.</p>
         </div>
-        <!-- 직원 추가 이용권 -->
         <div class="plan">
           <div class="plan-head">
             <span class="plan-name">직원 추가 이용권</span>
@@ -1017,10 +445,9 @@
             <span class="plan-price">238,800</span>
             <span class="plan-suffix">원 / 년</span>
           </div>
-          <div class="plan-period">월 19,900원 · 대표 계정 보유 시</div>
-          <p class="plan-desc">매니저·스태프 계정 추가. 대표·관리자 계정과 데이터 공유. <strong style="color:var(--accent);font-weight:600;">창립 파트너는 첫 달 100원</strong>.</p>
+          <div class="plan-period">월 19,900원</div>
+          <p class="plan-desc">매니저·스태프 계정 추가. <strong style="color:var(--accent);">창립 파트너 첫 달 100원</strong>.</p>
         </div>
-        <!-- 월 이용권 -->
         <div class="plan">
           <div class="plan-head">
             <span class="plan-name">월 이용권</span>
@@ -1029,278 +456,63 @@
             <span class="plan-price">49,900</span>
             <span class="plan-suffix">원 / 월</span>
           </div>
-          <div class="plan-period">매월 결제 · 언제든 해지</div>
-          <p class="plan-desc">연간 부담 없이 먼저 써보고 싶은 센터를 위한 플랜. <strong style="color:var(--accent);font-weight:600;">창립 파트너는 첫 달 100원</strong>.</p>
+          <div class="plan-period">언제든 해지</div>
+          <p class="plan-desc">먼저 써보는 센터용. <strong style="color:var(--accent);">창립 파트너 첫 달 100원</strong>.</p>
         </div>
       </div>
-
-      <!-- Pilot CTA -->
-      <div class="pilot-cta">
-        <a class="btn-primary" href="/checkout/?role=operator&plan=founder-yearly">결제하고 시작하기 <span class="arr">→</span></a>
-      </div>
-      <p class="pilot-note">언제든 해지 · 7일 내 전액 환불 · 별도 계약 없음</p>
     </div>
   </section>
 
-
-  <!-- ===== Footnote FAQ (v2.4 · Phase 2 ⑦) ===== -->
-  <section class="footnote-faq">
-    <div class="footnote-faq-inner">
-      <div class="ff-item">
-        <h4 class="ff-q">Q1. 무료 체험판은 어떻게 보나요?</h4>
-        <p class="ff-a">상단의 무료 체험판 보기 또는 각 기능의 체험하기를 누르면 로그인 없이 정적 데모를 볼 수 있습니다. 실제 AI 호출 없이 대표 시나리오로 흐름을 먼저 확인합니다.</p>
+  <!-- SLOT 11: Urgency -->
+  <section class="urgency" style="position:relative;">
+    <span class="slot-label" style="color:var(--accent);">11 · Urgency</span>
+    <div class="urgency-inner">
+      <div class="urgency-text">
+        <strong>5월 31일 마감.</strong> 그 후엔 정가 적용 + 창립 파트너 혜택 종료.<br>
+        지금 합류하면 <strong style="color:var(--accent);">이 가격이 영구 잠금</strong>입니다.
       </div>
-      <div class="ff-item">
-        <h4 class="ff-q">Q2. 결제와 문의는 어떻게 다른가요?</h4>
-        <p class="ff-a">바로 시작하려면 결제하고 시작하기를 누릅니다. 지점 적용, 직원 계정, 운영 도입 범위를 먼저 맞추고 싶으면 문의/대기자 등록으로 남겨주세요.</p>
-      </div>
-      <div class="ff-item">
-        <h4 class="ff-q">Q3. 창립 파트너 혜택은 어떻게 확정되나요?</h4>
-        <p class="ff-a">결제 완료 순서대로 창립 파트너 혜택이 확정됩니다. 문의/대기자 등록은 상담과 결제 안내를 먼저 받을 수 있는 경로입니다.</p>
+      <div class="urgency-cta">
+        <a class="btn-primary" href="#cta">창립 파트너로 합류 <span class="arr">→</span></a>
       </div>
     </div>
   </section>
 
-  <!-- Site footer (minimal · v2.4) -->
-  <footer class="site-footer-minimal">
+  <!-- SLOT 12: Final CTA -->
+  <section class="final-cta" style="position:relative; padding: 96px 40px;">
+    <span class="slot-label">12 · CTA</span>
+    <div class="container">
+      <h2 class="final-head">
+        9년 노하우가 옆에 앉습니다.<br><em style="color:var(--accent); font-style:normal;">지금 시작하세요.</em>
+      </h2>
+      <p class="final-guarantee">즉시 시작 · <strong style="color:var(--ink);">7일 내 전액 환불 보장</strong></p>
+      <div class="final-cta-wrap">
+        <a class="btn-primary" href="#cta">지금 시작하기 <span class="arr">→</span></a>
+        <span class="final-meta">5월 31일까지 합류 시 창립 파트너 가격 영구 잠금</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h3 class="faq-head">자주 묻는 질문</h3>
+    <div class="faq-item">
+      <p class="faq-q">Q1. 직원이 여러 명이면 어떻게 쓰나요?</p>
+      <p class="faq-a">대표 계정 + 직원 추가 이용권. 데이터 자동 공유.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Q2. 데모는 어떻게 보나요?</p>
+      <p class="faq-a">[데모 먼저 보기] · 로그인 없이 만져보실 수 있습니다.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Q3. 환불 정책은요?</p>
+      <p class="faq-a">7일 이내 전액 환불.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
     <span class="brand-symbol"><span></span><span></span><span></span></span>
     <span class="brand-word">NORE</span>
-    <span class="sfm-copy">© 2026</span>
+    <span class="sfm-copy">© 2026 NORE</span>
   </footer>
-
-  <script>
-    // Founders Counter · 뷰포트 진입 시 0→target 카운트업
-    (function(){
-      const el = document.querySelector('.fc-current');
-      const bar = document.querySelector('.fc-bar');
-      if (!el) return;
-      const target = parseInt(el.dataset.target, 10);
-      const barTarget = bar ? parseFloat(bar.dataset.target) : 0;
-      const duration = 1600;
-      let started = false;
-
-      function animate() {
-        const start = performance.now();
-        function step(now) {
-          const t = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-          el.textContent = Math.round(target * eased);
-          if (t < 1) requestAnimationFrame(step);
-          else el.textContent = target;
-        }
-        requestAnimationFrame(step);
-        if (bar) bar.style.width = barTarget + '%';
-      }
-
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting && !started) {
-              started = true;
-              animate();
-              io.disconnect();
-            }
-          });
-        }, { threshold: 0.4 });
-        io.observe(el);
-      } else {
-        animate();
-      }
-    })();
-  </script>
-
-
-  <!-- ===== Waitlist Modal (v2.4 · Phase 2 ⑥) ===== -->
-  <div class="modal-backdrop" id="waitlist-modal" hidden>
-    <div class="modal-box" role="dialog" aria-labelledby="wl-title" aria-modal="true">
-      <button class="modal-close" id="wl-close" aria-label="닫기">
-        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
-
-      <div class="modal-head">
-        <span class="modal-eyebrow">Founding Partners · 창립 파트너</span>
-        <h2 class="modal-title" id="wl-title">문의/대기자 등록</h2>
-        <p class="modal-sub">도입 문의를 남기면 체험판 안내와 결제 링크를 순서대로 보내드립니다.</p>
-      </div>
-
-      <form class="wl-form" id="wl-form" novalidate>
-        <div class="wl-field">
-          <label class="wl-label">이름 <span class="wl-req">*</span></label>
-          <input type="text" name="name" required class="wl-input" placeholder="홍길동" autocomplete="name">
-        </div>
-
-        <div class="wl-field">
-          <label class="wl-label">휴대폰 번호 <span class="wl-req">*</span></label>
-          <input type="tel" name="phone" required class="wl-input" placeholder="010-1234-5678" autocomplete="tel">
-          <span class="wl-hint">카카오 알림톡이 발송되는 번호입니다.</span>
-        </div>
-
-        <div class="wl-field">
-          <label class="wl-label">역할 <span class="wl-req">*</span></label>
-          <div class="wl-radio-group">
-            <label class="wl-radio"><input type="radio" name="role" value="operator" required><span>대표·관리자</span></label>
-            <label class="wl-radio"><input type="radio" name="role" value="trainer"><span>트레이너</span></label>
-            <label class="wl-radio"><input type="radio" name="role" value="other"><span>기타</span></label>
-          </div>
-        </div>
-
-        <div class="wl-field">
-          <label class="wl-label" id="wl-loc-label">센터명 <span class="wl-req">*</span></label>
-          <input type="text" name="location" required class="wl-input" id="wl-loc-input">
-        </div>
-
-        <div class="wl-field">
-          <label class="wl-label">센터 규모 · 경력 <span class="wl-opt">선택</span></label>
-          <input type="text" name="size" class="wl-input" placeholder="예: 회원 200명 / 5년차">
-        </div>
-
-        <div class="wl-field">
-          <label class="wl-label">현재 쓰는 관리 도구 <span class="wl-opt">선택</span></label>
-          <input type="text" name="current_tool" class="wl-input" placeholder="엑셀 / 바디코디 / 없음">
-        </div>
-
-        <div class="wl-field">
-          <label class="wl-label">질문·요청사항 <span class="wl-opt">선택</span></label>
-          <textarea name="message" class="wl-textarea" rows="3"></textarea>
-        </div>
-
-        <div class="wl-agree">
-          <label class="wl-check">
-            <input type="checkbox" name="agree_privacy" required>
-            <span>[필수] 개인정보 수집·이용 동의 <a href="#" class="wl-link" target="_blank" rel="noopener">전문</a></span>
-          </label>
-          <label class="wl-check">
-            <input type="checkbox" name="agree_alimtalk" required>
-            <span>[필수] 카카오 알림톡 수신 동의 <a href="#" class="wl-link" target="_blank" rel="noopener">전문</a></span>
-          </label>
-        </div>
-
-        <button type="submit" class="wl-submit" id="wl-submit">문의/대기자 등록</button>
-        <p class="wl-foot">언제든 해지 가능 · 스팸 없음</p>
-      </form>
-
-      <div class="wl-success" hidden id="wl-success">
-        <div class="wl-success-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </div>
-        <h3 class="wl-success-title">창립 파트너 <span class="wl-success-num" id="wl-success-num">No.328</span>로 합류하셨습니다.</h3>
-        <p class="wl-success-sub">공식 런칭 전 카카오톡으로 확인 메시지를 보내드립니다.</p>
-        <button class="wl-success-close" id="wl-success-close">확인</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script>
-    // === Supabase 초기화 (건우님 프로젝트 생성 후 URL·anon key 교체) ===
-    const SUPA_URL  = 'https://qxbsrzefaigvukbcqvxy.supabase.co';   // TODO: 교체
-    const SUPA_ANON = 'sb_publishable_t90gFwPbsyNkySl9aZcwew_MLjDn33s';                      // TODO: 교체
-    const supa = window.supabase.createClient(SUPA_URL, SUPA_ANON);
-
-    // === 페이지 역할 (어느 랜딩인지) ===
-    const IS_OPERATOR = window.location.pathname.includes('/operator');
-    const IS_TRAINER  = window.location.pathname.includes('/trainer');
-    const DEFAULT_ROLE = IS_TRAINER ? 'trainer' : 'operator';
-    const LOC_LABEL    = IS_TRAINER ? '활동지역' : '센터명';
-    const LANDING_SRC  = window.location.pathname;
-
-    // === 성공 메시지 카운터 범위 (마케팅용 수동 조정) ===
-    // 상단 카운터 .fc-current data-target 값과 맞춰서 관리
-    const SUCCESS_NUM_MIN = 328;
-    const SUCCESS_NUM_MAX = 340;
-
-    // === DOM ===
-    const modal       = document.getElementById('waitlist-modal');
-    const modalClose  = document.getElementById('wl-close');
-    const form        = document.getElementById('wl-form');
-    const submitBtn   = document.getElementById('wl-submit');
-    const successEl   = document.getElementById('wl-success');
-    const successNum  = document.getElementById('wl-success-num');
-    const successClose= document.getElementById('wl-success-close');
-    const locLabel    = document.getElementById('wl-loc-label');
-
-    // === 모달 open / close ===
-    function openModal(){
-      locLabel.innerHTML = `${LOC_LABEL} <span class="wl-req">*</span>`;
-      const defaultRadio = form.querySelector(`input[name="role"][value="${DEFAULT_ROLE}"]`);
-      if (defaultRadio && !form.role.value) defaultRadio.checked = true;
-      modal.hidden = false;
-      requestAnimationFrame(()=> modal.classList.add('show'));
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal(){
-      modal.classList.remove('show');
-      setTimeout(()=>{ modal.hidden = true; document.body.style.overflow = ''; }, 260);
-    }
-
-    // CTA 버튼 연결 (문의/대기자 등록 텍스트 포함 링크 전체)
-    document.querySelectorAll('a.btn-secondary, [data-open-waitlist]').forEach(btn=>{
-      if (btn.hasAttribute('data-open-waitlist') || btn.textContent.includes('대기자') || btn.textContent.includes('문의')) {
-        btn.addEventListener('click', e=>{ e.preventDefault(); openModal(); });
-      }
-    });
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', e=>{ if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', e=>{ if (e.key === 'Escape' && !modal.hidden) closeModal(); });
-    if (window.location.hash === '#waitlist') setTimeout(openModal, 220);
-
-    // === Form submit ===
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      if (submitBtn.disabled) return;
-
-      const fd = new FormData(form);
-      const payload = {
-        name:          fd.get('name').trim(),
-        phone:         fd.get('phone').trim(),
-        role:          fd.get('role'),
-        location:      fd.get('location').trim(),
-        size:          fd.get('size')?.trim() || null,
-        current_tool:  fd.get('current_tool')?.trim() || null,
-        message:       fd.get('message')?.trim() || null,
-        agree_privacy: fd.get('agree_privacy') === 'on',
-        agree_alimtalk:fd.get('agree_alimtalk') === 'on',
-        landing_source: LANDING_SRC
-      };
-
-      if (!payload.name || !payload.phone || !payload.role || !payload.location) return;
-      if (!payload.agree_privacy || !payload.agree_alimtalk) return;
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = '등록 중...';
-
-      try {
-        const { error } = await supa.from('waitlist').insert(payload);
-        if (error) throw error;
-
-        form.hidden = true;
-        const fakeNum = Math.floor(Math.random() * (SUCCESS_NUM_MAX - SUCCESS_NUM_MIN + 1)) + SUCCESS_NUM_MIN;
-        successNum.textContent = `No.${fakeNum}`;
-        successEl.hidden = false;
-
-        const fcCurrent = document.querySelector('.fc-current, .hub-counter-num');
-        if (fcCurrent) {
-          const now = parseInt(fcCurrent.textContent, 10) || 0;
-          fcCurrent.textContent = now + 1;
-        }
-      } catch (err) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = '문의/대기자 등록';
-        alert('등록 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-        console.error(err);
-      }
-    });
-
-    successClose.addEventListener('click', ()=>{
-      closeModal();
-      setTimeout(()=>{
-        form.reset(); form.hidden = false;
-        successEl.hidden = true;
-        submitBtn.disabled = false;
-        submitBtn.textContent = '문의/대기자 등록';
-      }, 300);
-    });
-  </script>
 
 </body>
 </html>
