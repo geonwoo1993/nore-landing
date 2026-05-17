@@ -31,17 +31,19 @@
       content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
     }
 
-    .hub-cards { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 40px 96px; max-width: 1280px; margin-left: auto; margin-right: auto; }
-    .hub-card {
+    .hub-cards { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 40px 64px; max-width: 1280px; margin-left: auto; margin-right: auto; }
+    a.hub-card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 22px; padding: 36px 36px 32px;
-      display: flex; flex-direction: column; gap: 16px;
+      border-radius: 22px; padding: 36px 36px 28px;
+      display: flex; flex-direction: column; gap: 14px;
       min-height: 320px;
       transition: border 260ms ease, transform 420ms cubic-bezier(.2,.7,.2,1), box-shadow 420ms ease;
-      cursor: pointer;
       position: relative; overflow: hidden;
+      text-decoration: none; color: inherit;
     }
-    .hub-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(255,105,0,0.22); }
+    a.hub-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 48px -24px rgba(255,105,0,0.22); }
+    a.hub-card:hover .card-go { background: var(--accent); }
+    a.hub-card:hover .card-go .arr { transform: translateX(4px); }
     .hub-card .discount-flag {
       position: absolute; top: 16px; right: 16px;
       padding: 6px 12px; border-radius: 999px;
@@ -52,36 +54,30 @@
     .hub-tag { font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); }
     .hub-tag .num { color: var(--accent); font-weight: 700; margin-left: 6px; }
     .hub-title { font-size: 36px; font-weight: 600; letter-spacing: -0.024em; line-height: 1.14; color: var(--ink); }
-    .hub-line { font-size: 16px; color: var(--ink-soft); font-weight: 400; line-height: 1.6; }
+    .hub-line { font-size: 15px; color: var(--ink-soft); font-weight: 400; line-height: 1.6; }
 
     .price-row {
       display: flex; align-items: baseline; gap: 10px;
-      margin-top: 4px; padding-top: 16px;
+      margin-top: 4px; padding-top: 14px;
       border-top: 1px solid var(--border);
     }
     .price-strike { color: var(--ink-mute); text-decoration: line-through; font-size: 15px; font-weight: 400; font-family: 'Archivo', sans-serif; }
     .price-final {
       color: var(--ink); font-weight: 700;
-      font-family: 'Archivo', sans-serif; font-size: 24px;
+      font-family: 'Archivo', sans-serif; font-size: 26px;
       letter-spacing: -0.01em;
     }
     .price-suffix { color: var(--ink-soft); font-size: 13px; }
 
-    .hub-cta-row { margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 10px; }
-    .hub-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 20px; border-radius: 12px;
+    .card-go {
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+      padding: 12px 18px; border-radius: 10px;
       background: var(--ink); color: #fff;
       font-size: 14px; font-weight: 600;
-      letter-spacing: -0.005em;
       transition: background 220ms ease;
     }
-    .hub-cta:hover { background: var(--accent); }
-    .hub-cta-secondary {
-      font-size: 13px; color: var(--ink-mute);
-      text-decoration: underline; text-underline-offset: 3px;
-    }
-    .hub-cta-secondary:hover { color: var(--accent); }
+    .card-go .arr { transition: transform 220ms ease; }
 
     .hero-subnote {
       margin-top: 24px; max-width: min(640px, 100%);
@@ -110,11 +106,11 @@
     @media (max-width: 720px) {
       .hero { padding: 56px 22px 72px !important; }
       .partner-badge { font-size: 11px; padding: 7px 12px; letter-spacing: 0.1em; }
-      .hub-cards { grid-template-columns: 1fr; padding: 0 22px 64px; }
-      .hub-card { min-height: 280px; padding: 30px 26px 28px; }
-      .hub-title { font-size: 30px; }
+      .hub-cards { grid-template-columns: 1fr; padding: 0 22px 48px; }
+      a.hub-card { min-height: 260px; padding: 28px 24px 24px; }
+      .hub-title { font-size: 28px; }
       .price-final { font-size: 22px; }
-      .hub-cta { padding: 11px 16px; font-size: 13.5px; }
+      .card-go { padding: 11px 16px; font-size: 13.5px; }
       .partner-block { padding: 22px 22px; flex-direction: column; align-items: flex-start; }
       .footer-note { padding: 0 22px; }
     }
@@ -155,43 +151,31 @@
   <section style="position: relative; padding: 32px 0 24px;">
     <div class="hub-cards">
 
-      <div class="hub-card">
+      <a class="hub-card" href="https://s.tosspayments.com/Bnje0hkkb4M">
         <span class="discount-flag">5% OFF</span>
         <span class="hub-tag">FOR OWNERS<span class="num">01</span></span>
         <h2 class="hub-title">대표·관리자</h2>
-        <p class="hub-line">
-          매출·KPI·직원 계정까지 한 화면.<br>
-          대표는 결정만 하세요.
-        </p>
+        <p class="hub-line">매출·KPI·직원 계정까지 한 화면.</p>
         <div class="price-row">
           <span class="price-strike">478,800원</span>
           <span class="price-final">454,860원</span>
           <span class="price-suffix">/ 1년 (VAT 포함)</span>
         </div>
-        <div class="hub-cta-row">
-          <a class="hub-cta" href="/checkout/?role=operator&ref=EAL5">EAL 할인가로 결제하기 →</a>
-          <a class="hub-cta-secondary" href="/operator/?ref=EAL5">제품 자세히</a>
-        </div>
-      </div>
+        <span class="card-go">결제하기 <span class="arr">→</span></span>
+      </a>
 
-      <div class="hub-card">
+      <a class="hub-card" href="https://s.tosspayments.com/Bnje0ceENYr">
         <span class="discount-flag">5% OFF</span>
         <span class="hub-tag">FOR TRAINERS<span class="num">02</span></span>
         <h2 class="hub-title">트레이너</h2>
-        <p class="hub-line">
-          회원관리·피드백·개인 KPI를 AI가.<br>
-          트레이너는 수업에만 집중.
-        </p>
+        <p class="hub-line">회원관리·피드백·개인 KPI를 AI가.</p>
         <div class="price-row">
           <span class="price-strike">358,800원</span>
           <span class="price-final">340,860원</span>
           <span class="price-suffix">/ 1년 (VAT 포함)</span>
         </div>
-        <div class="hub-cta-row">
-          <a class="hub-cta" href="/checkout/?role=trainer&ref=EAL5">EAL 할인가로 결제하기 →</a>
-          <a class="hub-cta-secondary" href="/trainer/?ref=EAL5">제품 자세히</a>
-        </div>
-      </div>
+        <span class="card-go">결제하기 <span class="arr">→</span></span>
+      </a>
 
     </div>
   </section>
@@ -202,8 +186,9 @@
   </div>
 
   <p class="footer-note">
-    트레이너 추가 인원권(226,860원, 5% 할인 적용)이 필요하다면 <a href="/checkout/?role=trainer-add&ref=EAL5" style="color:var(--ink); text-decoration: underline;">여기에서 결제</a>하세요.
-    혜택 관련 문의는 EAL 담당자에게 연락 부탁드립니다.
+    트레이너 추가 인원권(226,860원, 5% 할인 적용)이 필요하다면 <a href="https://s.tosspayments.com/Bnje0X1gzoZ" style="color:var(--ink); text-decoration: underline;">여기에서 바로 결제</a>하세요.
+    혜택 관련 문의는 EAL 담당자에게 연락 부탁드립니다.<br>
+    <span style="display:inline-block; margin-top:8px; color:var(--ink-mute);">* 계정당 활성 회원 수, AI 토큰 사용량에 정책 제한이 있을 수 있습니다. 정책 변경 시 별도 안내됩니다.</span>
   </p>
 
   <footer class="site-footer">

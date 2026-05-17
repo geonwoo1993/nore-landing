@@ -11,23 +11,59 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/demo.css">
   <style>
-    /* 추천인 코드 블록 — 결제 진입 시 코드 입력/표시 */
-    .ref-block { margin-top: 28px; padding: 20px 22px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg); }
+    /* 간결 checkout — 한 박스 + 추천인 코드 + 결제 버튼 + 고지 */
+    .co-wrap { max-width: 640px; width: 100%; margin: 0 auto; padding: 40px 24px 80px; }
+    .co-eyebrow { display: block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 10px; }
+    .co-title { font-size: clamp(28px, 4vw, 38px); font-weight: 600; letter-spacing: -0.015em; line-height: 1.18; color: var(--ink); margin-bottom: 8px; }
+    .co-subtitle { font-size: 15px; color: var(--ink-soft); line-height: 1.55; }
+
+    .co-summary {
+      margin-top: 22px; padding: 24px 24px 22px;
+      border: 1px solid var(--border); border-radius: 16px; background: var(--bg);
+    }
+    .co-summary .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .co-summary .label { font-size: 14px; color: var(--ink-soft); }
+    .co-summary .value { font-size: 15px; color: var(--ink); font-weight: 600; }
+    .co-summary .price-line { margin-top: 12px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .co-summary .price-final { font-family: 'Archivo', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); }
+    .co-summary .price-strike { color: var(--ink-mute); text-decoration: line-through; font-family: 'Archivo', sans-serif; font-size: 16px; font-weight: 500; }
+    .co-summary .price-suffix { font-size: 13px; color: var(--ink-soft); }
+
+    .ref-block { margin-top: 16px; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border); background: #fff; }
     .ref-block.is-applied { background: #ECF8EE; border-color: #B8E0BE; }
     .ref-block.is-error { background: #FFF1F0; border-color: #F4C2BD; }
-    .ref-eyebrow { display: block; font-family: 'Archivo', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 10px; }
-    .ref-block.is-applied .ref-eyebrow { color: #2E7D32; }
-    .ref-block.is-error .ref-eyebrow { color: #C0392B; }
-    .ref-msg { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+    .ref-msg { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+    .ref-block.is-applied .ref-msg { color: #2E7D32; }
+    .ref-block.is-error .ref-msg { color: #C0392B; }
     .ref-msg strong { color: var(--ink); font-weight: 600; }
-    .ref-input-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
-    .ref-input { flex: 1 1 200px; min-width: 0; padding: 12px 14px; border: 1px solid var(--border-strong); border-radius: 10px; background: #fff; color: var(--ink); font-size: 15px; font-family: inherit; letter-spacing: 0.04em; text-transform: uppercase; }
+    .ref-input-row { display: flex; gap: 8px; margin-top: 10px; }
+    .ref-input { flex: 1 1 auto; min-width: 0; padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 8px; background: #fff; color: var(--ink); font-size: 14px; font-family: inherit; letter-spacing: 0.04em; text-transform: uppercase; }
     .ref-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-    .ref-apply-btn { padding: 12px 22px; border: 0; border-radius: 10px; background: var(--ink); color: #fff; font-size: 14.5px; font-weight: 600; font-family: inherit; cursor: pointer; letter-spacing: 0.02em; }
+    .ref-apply-btn { padding: 10px 16px; border: 0; border-radius: 8px; background: var(--ink); color: #fff; font-size: 13.5px; font-weight: 600; font-family: inherit; cursor: pointer; }
     .ref-apply-btn:hover { background: var(--accent); }
-    .ref-skip { margin-top: 10px; font-size: 13px; color: var(--ink-mute); }
-    .ref-clear { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
-    .price-strike { color: var(--ink-mute); text-decoration: line-through; margin-right: 8px; font-weight: 400; }
+    .ref-clear { display: inline-block; margin-top: 8px; font-size: 12.5px; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
+
+    .co-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .co-pay {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 16px 24px; border-radius: 12px;
+      background: var(--accent); color: #fff !important;
+      font-size: 16px; font-weight: 700; letter-spacing: -0.005em;
+      text-decoration: none; transition: background 220ms ease;
+    }
+    .co-pay:hover { background: var(--accent-hover); }
+    .co-back {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px; font-size: 13px; color: var(--ink-mute); text-decoration: none;
+    }
+    .co-back:hover { color: var(--accent); }
+
+    .co-fineprint {
+      margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--border);
+      font-size: 12px; color: var(--ink-mute); line-height: 1.6;
+    }
+    .co-fineprint p { margin: 0 0 6px; }
+    .co-fineprint p:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body>
@@ -37,164 +73,131 @@
         <span class="brand-symbol"><span></span><span></span><span></span></span>
         <span>NORE</span>
       </a>
-      <div class="nav-links">
-        <a class="nav-link" href="/operator/try/">대표 체험판</a>
-        <a class="nav-link" href="/trainer/try/">트레이너 체험판</a>
-      </div>
     </nav>
 
-    <main class="checkout-wrap">
-      <section class="checkout-card">
-        <span class="eyebrow">Checkout Link · 결제 시작</span>
-        <h1 id="checkout-title">결제하고 시작하기</h1>
-        <p id="checkout-copy">선택한 역할과 요금제를 확인하고 결제 페이지로 이동합니다.</p>
+    <main class="co-wrap">
+      <span class="co-eyebrow">Checkout · 결제 진행</span>
+      <h1 class="co-title" id="co-title">결제하고 시작하기</h1>
+      <p class="co-subtitle">결제 버튼을 누르면 토스페이먼츠로 이동합니다.</p>
 
-        <div class="checkout-options">
-          <div class="plan-box">
-            <strong id="checkout-role">선택 역할</strong>
-            <span id="checkout-role-copy">역할 정보를 불러오는 중입니다.</span>
-          </div>
-          <div class="plan-box">
-            <strong id="checkout-plan">선택 요금제</strong>
-            <span id="checkout-plan-copy">요금제 정보를 불러오는 중입니다.</span>
-          </div>
+      <!-- 한 박스 요약 -->
+      <div class="co-summary">
+        <div class="row">
+          <span class="label">선택 역할</span>
+          <span class="value" id="co-role">트레이너</span>
         </div>
+        <div class="row" style="margin-top:10px;">
+          <span class="label">요금제</span>
+          <span class="value">창립 파트너 1년권 · VAT 포함</span>
+        </div>
+        <div class="price-line" id="co-price-line">
+          <span class="price-final" id="co-price-final">358,800원</span>
+          <span class="price-suffix">/ 1년</span>
+        </div>
+      </div>
 
-        <!-- 추천인 코드 블록 -->
-        <div class="ref-block" id="ref-block">
-          <span class="ref-eyebrow" id="ref-eyebrow">Referral · 추천인 코드</span>
-          <div class="ref-msg" id="ref-msg">제휴 파트너에서 발급받은 코드가 있다면 입력해주세요. 할인이 자동 적용됩니다.</div>
-          <div class="ref-input-row" id="ref-input-row">
-            <input class="ref-input" id="ref-input" type="text" placeholder="추천인 코드 입력" autocomplete="off" maxlength="20">
-            <button class="ref-apply-btn" id="ref-apply-btn" type="button">적용</button>
-          </div>
-          <div class="ref-skip">코드가 없으면 그대로 결제 진행하시면 됩니다.</div>
+      <!-- 추천인 코드 (한 줄) -->
+      <div class="ref-block" id="ref-block">
+        <div class="ref-msg" id="ref-msg">제휴 파트너 코드가 있다면 입력하세요.</div>
+        <div class="ref-input-row" id="ref-input-row">
+          <input class="ref-input" id="ref-input" type="text" placeholder="추천인 코드" autocomplete="off" maxlength="20">
+          <button class="ref-apply-btn" id="ref-apply-btn" type="button">적용</button>
         </div>
+      </div>
 
-        <div class="checkout-status" id="checkout-status">
-          결제 버튼을 누르면 토스페이먼츠 결제 페이지로 이동합니다.
-        </div>
+      <!-- 결제 액션 -->
+      <div class="co-actions">
+        <a class="co-pay" id="co-pay" href="#">결제하고 시작하기 →</a>
+        <a class="co-back" id="co-back" href="/">랜딩으로 돌아가기</a>
+      </div>
 
-        <div class="checkout-actions">
-          <a class="btn-primary" id="checkout-link" href="#">결제 링크 열기</a>
-          <a class="btn-secondary" id="checkout-demo" href="/trainer/try/">무료 체험판 보기</a>
-          <a class="btn-ghost" id="checkout-back" href="/">랜딩으로 돌아가기</a>
-        </div>
-      </section>
+      <!-- 고지 -->
+      <div class="co-fineprint">
+        <p>* 계정당 활성 회원 수, AI 토큰 사용량에 정책 제한이 있을 수 있습니다. 정책 변경 시 별도 안내됩니다.</p>
+        <p>* 7일 내 전액 환불 보장 · 결제 영수증은 토스페이먼츠에서 자동 발급됩니다.</p>
+      </div>
     </main>
   </div>
 
   <script>
-    // === 기본(파트너 없음) 결제 링크 ===
     const STANDARD_LINKS = {
-      trainer:       'https://s.tosspayments.com/BngSuw9o776',  // 358,800원
-      'trainer-add': 'https://s.tosspayments.com/BngSurP08sK',  // 238,800원
-      operator:      'https://s.tosspayments.com/BngSu0pAcBK'   // 478,800원
+      trainer:       'https://s.tosspayments.com/BngSuw9o776',
+      'trainer-add': 'https://s.tosspayments.com/BngSurP08sK',
+      operator:      'https://s.tosspayments.com/BngSu0pAcBK'
     };
+    const STANDARD_PRICE = { trainer: 358800, 'trainer-add': 238800, operator: 478800 };
 
-    const STANDARD_PRICE = {
-      trainer: 358800,
-      'trainer-add': 238800,
-      operator: 478800
-    };
-
-    // === 추천인 코드 → 파트너 매핑 ===
-    // landingPath 있으면 코드 입력 시 해당 파트너 페이지로 redirect.
+    // 추천인 코드 → 파트너 매핑. landingPath 있으면 코드 입력 시 해당 파트너 페이지로 redirect.
     const REFERRAL_PARTNERS = {
-      // EAL 프로 — 20% 할인 (한정)
       EALPRO: {
         label: 'EAL 제휴 회원',
         discountLabel: '20% 할인',
         landingPath: '/partners/eal-pro/',
         links: {
-          operator:      'https://s.tosspayments.com/Bnje0EugYW4', // 운영자 383,040원
-          trainer:       'https://s.tosspayments.com/Bnje0K9YXIT', // 트레이너 287,040원
-          'trainer-add': 'https://s.tosspayments.com/Bnje0QQASGm'  // 트레이너 추가 191,040원
+          operator:      'https://s.tosspayments.com/Bnje0EugYW4',
+          trainer:       'https://s.tosspayments.com/Bnje0K9YXIT',
+          'trainer-add': 'https://s.tosspayments.com/Bnje0QQASGm'
         },
-        priceOverride: {
-          operator: 383040,
-          trainer: 287040,
-          'trainer-add': 191040
-        }
+        priceOverride: { operator: 383040, trainer: 287040, 'trainer-add': 191040 }
       },
-      // EAL 일반 제휴 — 5% 할인 (영구)
       EAL5: {
         label: 'EAL 제휴 회원',
         discountLabel: '5% 할인',
         landingPath: '/partners/eal-5/',
         links: {
-          operator:      'https://s.tosspayments.com/Bnje0hkkb4M', // 운영자 454,860원
-          trainer:       'https://s.tosspayments.com/Bnje0ceENYr', // 트레이너 340,860원
-          'trainer-add': 'https://s.tosspayments.com/Bnje0X1gzoZ'  // 트레이너 추가 226,860원
+          operator:      'https://s.tosspayments.com/Bnje0hkkb4M',
+          trainer:       'https://s.tosspayments.com/Bnje0ceENYr',
+          'trainer-add': 'https://s.tosspayments.com/Bnje0X1gzoZ'
         },
-        priceOverride: {
-          operator: 454860,
-          trainer: 340860,
-          'trainer-add': 226860
-        }
+        priceOverride: { operator: 454860, trainer: 340860, 'trainer-add': 226860 }
       }
     };
 
-    // === 파라미터 파싱 ===
     const params = new URLSearchParams(window.location.search);
     const role = ['operator', 'trainer', 'trainer-add'].includes(params.get('role')) ? params.get('role') : 'trainer';
     const refRaw = (params.get('ref') || '').trim().toUpperCase();
     const partner = REFERRAL_PARTNERS[refRaw];
-    const partnerLinkReady = partner && partner.links[role];
+    const partnerReady = partner && partner.links[role];
 
-    // === 가격/링크 결정 ===
     const standardPrice = STANDARD_PRICE[role];
-    const finalPrice = partnerLinkReady ? partner.priceOverride[role] : standardPrice;
-    const finalLink = partnerLinkReady ? partner.links[role] : STANDARD_LINKS[role];
+    const finalPrice = partnerReady ? partner.priceOverride[role] : standardPrice;
+    const finalLink = partnerReady ? partner.links[role] : STANDARD_LINKS[role];
 
-    // === 카피 ===
     const roleLabel = role === 'operator' ? '대표·관리자' : role === 'trainer-add' ? '트레이너 추가 인원' : '트레이너';
-    const planLabel = '창립 파트너 1년권';
-    const priceLabel = partnerLinkReady
-      ? '<span class="price-strike">' + standardPrice.toLocaleString() + '원</span>' + finalPrice.toLocaleString() + '원'
-      : finalPrice.toLocaleString() + '원';
-    const landingHref = role === 'operator' ? '/operator/#pilot' : '/trainer/#pilot';
-    const demoHref = role === 'operator' ? '/operator/try/' : '/trainer/try/';
+    const landingHref = role === 'operator' ? '/operator/' : '/trainer/';
 
-    document.getElementById('checkout-title').textContent = roleLabel + ' 결제하고 시작하기';
-    document.getElementById('checkout-copy').textContent = roleLabel + '용 ' + planLabel + ' 선택 상태입니다. 결제 버튼을 누르면 토스페이먼츠 결제 페이지로 이동합니다.';
-    document.getElementById('checkout-role').textContent = roleLabel;
-    document.getElementById('checkout-role-copy').textContent = role === 'operator'
-      ? '센터 운영, 매출/KPI, 직원 계정까지 보는 대표·관리자 흐름입니다.'
-      : '회원 관리, 피드백, 브랜딩, 개인 KPI를 쓰는 트레이너 흐름입니다.';
-    document.getElementById('checkout-plan').textContent = planLabel;
-    document.getElementById('checkout-plan-copy').innerHTML = priceLabel + ' (VAT 포함) · 1년 이용';
-    document.getElementById('checkout-demo').href = demoHref;
-    document.getElementById('checkout-back').href = landingHref;
+    document.getElementById('co-title').textContent = roleLabel + ' 결제하고 시작하기';
+    document.getElementById('co-role').textContent = roleLabel;
+    document.getElementById('co-back').href = landingHref;
 
-    // === 추천인 블록 렌더 ===
+    const priceLineEl = document.getElementById('co-price-line');
+    if (partnerReady) {
+      priceLineEl.innerHTML =
+        '<span class="price-strike">' + standardPrice.toLocaleString() + '원</span>' +
+        '<span class="price-final">' + finalPrice.toLocaleString() + '원</span>' +
+        '<span class="price-suffix">/ 1년</span>';
+    } else {
+      document.getElementById('co-price-final').textContent = finalPrice.toLocaleString() + '원';
+    }
+
     const refBlock = document.getElementById('ref-block');
-    const refEyebrow = document.getElementById('ref-eyebrow');
     const refMsg = document.getElementById('ref-msg');
     const refInputRow = document.getElementById('ref-input-row');
     const refInput = document.getElementById('ref-input');
-    const refApplyBtn = document.getElementById('ref-apply-btn');
-    const refSkip = refBlock.querySelector('.ref-skip');
 
     function renderRef() {
-      if (partnerLinkReady) {
+      if (partnerReady) {
         refBlock.classList.add('is-applied');
-        refEyebrow.textContent = '✓ ' + partner.label + ' ' + partner.discountLabel + ' 적용';
-        refMsg.innerHTML = '<strong>' + refRaw + '</strong> 코드가 적용되었습니다. ' + standardPrice.toLocaleString() + '원 → <strong>' + finalPrice.toLocaleString() + '원</strong>';
+        refMsg.innerHTML = '✓ <strong>' + partner.label + ' ' + partner.discountLabel + '</strong> 적용 — ' + standardPrice.toLocaleString() + '원 → ' + finalPrice.toLocaleString() + '원';
         refInputRow.style.display = 'none';
-        refSkip.innerHTML = '<a class="ref-clear" id="ref-clear">다른 코드로 변경</a>';
-        document.getElementById('ref-clear').addEventListener('click', clearRef);
-      } else if (refRaw && partner && !partnerLinkReady) {
-        refBlock.classList.add('is-error');
-        refEyebrow.textContent = '⚠️ 결제 링크 준비 중';
-        refMsg.innerHTML = '<strong>' + refRaw + '</strong> 코드는 인식되었지만, 해당 역할의 결제 링크가 아직 준비되지 않았습니다. 일반 결제로 진행됩니다.';
-        refInputRow.style.display = 'none';
-        refSkip.innerHTML = '<a class="ref-clear" id="ref-clear">다른 코드 입력</a>';
-        document.getElementById('ref-clear').addEventListener('click', clearRef);
+        const clearLink = document.createElement('a');
+        clearLink.className = 'ref-clear';
+        clearLink.textContent = '다른 코드 입력';
+        clearLink.addEventListener('click', clearRef);
+        refBlock.appendChild(clearLink);
       } else if (refRaw && !partner) {
         refBlock.classList.add('is-error');
-        refEyebrow.textContent = '⚠️ 유효하지 않은 코드';
-        refMsg.innerHTML = '<strong>' + refRaw + '</strong>는 등록된 코드가 아닙니다. 코드를 다시 확인해주세요.';
+        refMsg.innerHTML = '⚠️ <strong>' + refRaw + '</strong>는 등록된 코드가 아닙니다.';
         refInput.value = refRaw;
       }
     }
@@ -203,12 +206,10 @@
       const code = (refInput.value || '').trim().toUpperCase();
       if (!code) return;
       const target = REFERRAL_PARTNERS[code];
-      // 유효 코드 + landingPath 있으면 파트너 페이지로 redirect (역할 유지)
       if (target && target.landingPath) {
         window.location.href = target.landingPath + '?role=' + role;
         return;
       }
-      // 무효 코드는 기존 동작(ref 파라미터 붙여 reload → renderRef가 에러 표시)
       const next = new URLSearchParams(window.location.search);
       next.set('ref', code);
       window.location.search = next.toString();
@@ -221,21 +222,15 @@
       window.location.search = qs ? qs : '';
     }
 
-    refApplyBtn.addEventListener('click', applyCode);
+    document.getElementById('ref-apply-btn').addEventListener('click', applyCode);
     refInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') applyCode(); });
     renderRef();
 
-    // === 결제 버튼 ===
-    const checkoutLink = document.getElementById('checkout-link');
-    const status = document.getElementById('checkout-status');
-
+    const payBtn = document.getElementById('co-pay');
     if (finalLink) {
-      checkoutLink.href = finalLink;
+      payBtn.href = finalLink;
     } else {
-      checkoutLink.addEventListener('click', (event) => {
-        event.preventDefault();
-        status.textContent = '결제 링크가 일시적으로 비활성화되어 있습니다. 잠시 후 다시 시도해주세요.';
-      });
+      payBtn.addEventListener('click', (e) => { e.preventDefault(); payBtn.textContent = '결제 링크 준비 중입니다.'; });
     }
   </script>
 </body>
