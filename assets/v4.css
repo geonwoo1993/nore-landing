@@ -69,27 +69,56 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .eyebrow::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .eyebrow .ko { font-family: 'Pretendard Variable', sans-serif; letter-spacing: 0.02em; text-transform: none; margin-left: 8px; }
 
-/* Buttons */
+/* Buttons — NORE 컬러보드 (warm ink #1F1B17 + K2 #E86511) 정렬 */
 .btn-primary {
-  font-size: 14.5px; font-weight: 500;
-  color: #fff; background: var(--ink);
-  padding: 14px 24px; border-radius: 999px;
+  font-size: 15px; font-weight: 600;
+  color: #FCFAF5; background: #1F1B17;
+  padding: 15px 26px; border-radius: 999px;
   letter-spacing: -0.005em;
-  transition: background 220ms ease;
-  display: inline-flex; align-items: center; gap: 6px;
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 8px 22px -10px rgba(31,27,23,0.32), 0 0 0 1px rgba(31,27,23,0.04);
+  border: none; cursor: pointer;
 }
-.btn-primary:hover { background: var(--accent); }
-.btn-primary .arr { font-family: 'Archivo', sans-serif; }
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -10px rgba(255,105,0,0.42), 0 0 0 1px rgba(255,105,0,0.18);
+  color: #FCFAF5;
+}
+.btn-primary .arr { font-family: 'Archivo', sans-serif; font-weight: 700; }
 .btn-secondary {
-  font-size: 14.5px; font-weight: 500;
-  color: var(--ink); background: transparent;
+  font-size: 15px; font-weight: 600;
+  color: var(--ink); background: var(--surface);
   padding: 14px 22px; border-radius: 999px;
   border: 1px solid var(--border-strong);
   letter-spacing: -0.005em;
-  transition: background 220ms ease, border-color 220ms ease;
-  display: inline-flex; align-items: center; gap: 6px;
+  transition: background 220ms ease, border-color 220ms ease, transform 220ms ease;
+  display: inline-flex; align-items: center; gap: 8px;
 }
-.btn-secondary:hover { background: rgba(10,10,10,0.04); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--accent-soft); border-color: var(--accent); transform: translateY(-1px); }
+
+/* btn-soft — 은근한 강조 (자세히 보기, AI 라이브 체험 등) */
+.btn-soft {
+  font-size: 14.5px; font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 11px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,105,0,0.22);
+  letter-spacing: -0.005em;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: all 220ms ease;
+  position: relative;
+}
+.btn-soft .arr { font-family: 'Archivo', sans-serif; font-weight: 700; }
+.btn-soft:hover {
+  background: var(--accent);
+  color: #FCFAF5;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -10px rgba(255,105,0,0.42);
+}
 
 /* Container */
 .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
@@ -605,16 +634,39 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .demo-after-cta { margin-top: 28px; gap: 12px; }
 }
 
-/* Demo bridge — KPI 설명에서 데모 탭으로 연결 */
-.demo-bridge { margin-top: 88px; text-align: center; padding-top: 56px; border-top: 1px solid var(--border); }
+/* Demo bridge — slot 6 메인 head (mech 3카드 제거 후) */
+.demo-bridge { margin-top: 32px; text-align: center; }
 .demo-bridge .eyebrow { justify-content: center; display: inline-flex; }
 .demo-bridge-head {
-  margin: 14px auto 0;
-  font-size: 36px; font-weight: 600;
-  letter-spacing: -0.022em; line-height: 1.24;
-  color: var(--ink); max-width: 720px;
+  margin: 18px auto 0;
+  font-size: 44px; font-weight: 600;
+  letter-spacing: -0.024em; line-height: 1.16;
+  color: var(--ink); max-width: 780px;
 }
 .demo-bridge-head em { font-style: normal; color: var(--accent); }
+
+/* Checklist 결과 박스 밖 AI봇 라이브 체험 CTA */
+.checklist-ai-cta {
+  margin-top: 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  text-align: center;
+}
+.cai-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent);
+}
+.cai-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+  position: relative;
+}
+.cai-dot::before {
+  content: ''; position: absolute; inset: -4px;
+  border-radius: 50%; background: var(--accent); opacity: 0.3;
+  animation: hint-pulse-ring 1.8s ease-out infinite;
+}
+.cai-link { padding: 13px 24px; font-size: 15px; }
 
 /* Demo tabs — 대시보드 / 트레이너 KPI 분기 */
 .demo-tabs { margin-top: 36px; text-align: center; }
@@ -644,19 +696,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .demo-tab-panel { display: none; }
 .demo-tab-panel.active { display: block; }
 
-/* Slot 6 (id=demo) 모바일 — 임베드 꽉 채우기 위해 padding 축소 */
+/* Slot 6 (id=demo) 모바일 — 임베드 엣지-투-엣지 꽉 채움 */
 @media (max-width: 720px) {
-  .demo-bridge { margin-top: 56px; }
-  .demo-bridge-head { font-size: 24px; line-height: 1.32; }
-  .demo-tabs { margin-top: 28px; }
-  .demo-tabs-nav { gap: 8px; margin-bottom: 20px; }
-  .demo-tab-btn { padding: 10px 16px; font-size: 13.5px; gap: 7px; flex: 1 1 calc(50% - 4px); justify-content: center; }
+  .demo-bridge { margin-top: 12px; }
+  .demo-bridge-head { font-size: 28px; line-height: 1.24; }
+  .demo-tabs { margin-top: 24px; }
+  .demo-tabs-nav { gap: 8px; margin-bottom: 18px; padding: 0 14px; }
+  .demo-tab-btn { padding: 11px 14px; font-size: 13px; gap: 6px; flex: 1 1 calc(50% - 4px); justify-content: center; }
   .demo-tab-btn .dt-label { letter-spacing: -0.01em; }
-  #demo.mechanism { padding-left: 14px !important; padding-right: 14px !important; }
+  /* 섹션 + container 패딩 0 — 임베드는 좌우 화면 끝까지 */
+  #demo.mechanism { padding-left: 0 !important; padding-right: 0 !important; }
   #demo .container { padding-left: 0 !important; padding-right: 0 !important; }
-  #demo .mechanism-flow, #demo .demo-bridge, #demo .demo-try-hint, #demo .demo-after-cta { padding-left: 10px; padding-right: 10px; }
-  .arcade-frame-wrap.demo-mobile-only { max-width: none !important; margin-top: 14px; }
-  .arcade-frame-wrap.demo-mobile-only > div { aspect-ratio: 0.621891 / 1; max-height: calc(41px + 80vh); }
+  /* 텍스트류만 다시 좌우 패딩 부여 */
+  #demo > .container > .eyebrow,
+  #demo .demo-bridge,
+  #demo .demo-try-hint,
+  #demo .demo-after-cta { padding-left: 16px; padding-right: 16px; }
+  #demo .demo-try-hint { margin-left: auto; margin-right: auto; }
+  /* 임베드는 엣지투엣지 + border-radius 0 */
+  #demo .arcade-frame-wrap { max-width: none !important; margin: 16px 0 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+  #demo .arcade-frame-wrap iframe { border-radius: 0 !important; }
+  #demo .arcade-frame-wrap > div { aspect-ratio: 0.621891 / 1; max-height: calc(41px + 88vh); }
 }
 
 /* Scroll to top FAB — 모든 페이지 공통 */
