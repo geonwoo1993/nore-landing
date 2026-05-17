@@ -338,54 +338,49 @@ body[data-mode="member"] .member-shell{display:flex}
     <main class="admin-main">
       <div class="admin-main-head">
         <div>
-          <div class="admin-main-title">김민지 회원 상세</div>
-          <div class="admin-main-sub">우측 NORE AI가 이 회원 데이터에 답합니다 →</div>
+          <div class="admin-main-title">내 워크스페이스</div>
+          <div class="admin-main-sub">우측 NORE AI가 이 데이터에 답합니다 →</div>
         </div>
-        <div class="admin-main-date">PT 12/30 · 26세 · 다이어트</div>
+        <div class="admin-main-date">2026.04 · 정민재 트레이너</div>
       </div>
 
-      <div class="tr-detail">
-        <div class="tr-detail-head">
-          <div>
-            <div class="tr-detail-name">김민지</div>
-            <div class="tr-detail-name-sub">5월 등록 · 주 2회 · 다음 PT 5/19 (월) 19:00</div>
-          </div>
-          <div class="tr-detail-badge">PROGRESS GOOD</div>
+      <div class="dash-revenue">
+        <div class="dash-revenue-head">
+          <div class="dash-revenue-label">2026.04 내 매출</div>
+          <div class="dash-revenue-trend" style="color:var(--red)">↓ -8.5%</div>
         </div>
-        <div class="tr-detail-grid">
-          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">출석</div><div class="tr-detail-cell-num">92%</div><div class="tr-detail-cell-hint">11/12회</div></div>
-          <div class="tr-detail-cell good"><div class="tr-detail-cell-label">체중 ↓</div><div class="tr-detail-cell-num">-2.4kg</div><div class="tr-detail-cell-hint">4주 누적</div></div>
-          <div class="tr-detail-cell"><div class="tr-detail-cell-label">식단 기록</div><div class="tr-detail-cell-num">18일</div><div class="tr-detail-cell-hint">최근 21일 중</div></div>
-          <div class="tr-detail-cell warn"><div class="tr-detail-cell-label">컨디션</div><div class="tr-detail-cell-num">3.2/5</div><div class="tr-detail-cell-hint">평소 4.1</div></div>
+        <div class="dash-revenue-main">
+          <div class="dash-revenue-num">1,180</div>
+          <div class="dash-revenue-unit">만원</div>
         </div>
-      </div>
-
-      <div class="tr-section">
-        <div class="tr-section-title"><b>최근 식단 — AI 자동 분석</b><span>오늘 5/18</span></div>
-        <div class="tr-meal-card">
-          <div class="tr-meal-thumb">🥗</div>
-          <div class="tr-meal-body">
-            <div class="tr-meal-head"><div class="tr-meal-name">아침 — 닭가슴살 샐러드</div><div class="tr-meal-time">08:20</div></div>
-            <div class="tr-meal-macro">약 <b>320kcal</b> · 단백질 <b>32g</b> · 탄수 <b>12g</b> · 지방 <b>14g</b></div>
-          </div>
-        </div>
-        <div class="tr-meal-card">
-          <div class="tr-meal-thumb">🍙</div>
-          <div class="tr-meal-body">
-            <div class="tr-meal-head"><div class="tr-meal-name">점심 — 참치 김밥 1줄</div><div class="tr-meal-time">13:05</div></div>
-            <div class="tr-meal-macro">약 <b>520kcal</b> · 단백질 <b>16g</b> · 탄수 <b>72g</b> · 지방 <b>18g</b></div>
-            <div class="tr-meal-note">⚠ 단백질 부족 — AI가 회원에게 자동 보강 안내함</div>
-          </div>
+        <div class="dash-revenue-pay">
+          <div class="dash-revenue-pay-item">담당 <b>8명</b></div>
+          <div class="dash-revenue-pay-item">회원당 ARPU <b>147만</b></div>
+          <div class="dash-revenue-pay-item">평균 대비 <b style="color:var(--red)">-26%</b></div>
         </div>
       </div>
 
-      <div class="tr-section">
-        <div class="tr-section-title"><b>이번 주 KPI</b><span>정민재 트레이너</span></div>
-        <div class="tr-msg-row head"><div>지표</div><div>현재</div><div style="text-align:right">평균 대비</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">매출</div><div class="tr-msg-text"><b>1,180만</b> · 4월</div><div class="tr-msg-tag alert">-8.5%</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">재등록</div><div class="tr-msg-text"><b>74%</b> · 평균 78%</div><div class="tr-msg-tag alert">-4%p</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">소화율</div><div class="tr-msg-text"><b>85%</b> · 평균 89%</div><div class="tr-msg-tag alert">-4%p</div></div>
-        <div class="tr-msg-row"><div class="tr-msg-time">신규 전환</div><div class="tr-msg-text"><b>62%</b> · 평균 70%</div><div class="tr-msg-tag alert">-8%p</div></div>
+      <div class="dash-cycle">
+        <div class="dash-cycle-title"><b>이번 달 KPI</b><span>트레이너 평균 대비</span></div>
+        <div class="dash-cycle-grid">
+          <div class="dash-cycle-cell warn"><div class="dash-cycle-cell-label">재등록</div><div class="dash-cycle-cell-num">74%</div><div class="dash-cycle-cell-hint">-4%p</div></div>
+          <div class="dash-cycle-cell warn"><div class="dash-cycle-cell-label">소화율</div><div class="dash-cycle-cell-num">85%</div><div class="dash-cycle-cell-hint">-4%p</div></div>
+          <div class="dash-cycle-cell warn"><div class="dash-cycle-cell-label">신규 전환</div><div class="dash-cycle-cell-num">62%</div><div class="dash-cycle-cell-hint">-8%p</div></div>
+          <div class="dash-cycle-cell"><div class="dash-cycle-cell-label">만족도</div><div class="dash-cycle-cell-num">4.6</div><div class="dash-cycle-cell-hint">평균 4.4</div></div>
+        </div>
+      </div>
+
+      <div class="dash-trainer">
+        <div class="dash-trainer-head">
+          <div class="dash-trainer-title">담당 회원 8명</div>
+          <div class="dash-trainer-sub">4월 진도</div>
+        </div>
+        <div class="dash-trainer-row head"><div></div><div>이름</div><div style="text-align:right">PT 잔여</div><div style="text-align:right">출석</div><div style="text-align:right">진도</div></div>
+        <div class="dash-trainer-row"><div class="dash-trainer-rank">01</div><div class="dash-trainer-name">최예린</div><div class="dash-trainer-num">17/20</div><div class="dash-trainer-num good">95%</div><div class="dash-trainer-num good">우수</div></div>
+        <div class="dash-trainer-row"><div class="dash-trainer-rank">02</div><div class="dash-trainer-name">김민지</div><div class="dash-trainer-num">12/30</div><div class="dash-trainer-num good">92%</div><div class="dash-trainer-num">정체기</div></div>
+        <div class="dash-trainer-row"><div class="dash-trainer-rank">03</div><div class="dash-trainer-name">박수현</div><div class="dash-trainer-num">8/20</div><div class="dash-trainer-num">87%</div><div class="dash-trainer-num">순항</div></div>
+        <div class="dash-trainer-row"><div class="dash-trainer-rank">04</div><div class="dash-trainer-name">윤도현</div><div class="dash-trainer-num">5/10</div><div class="dash-trainer-num warn">72%</div><div class="dash-trainer-num warn">통증</div></div>
+        <div class="dash-trainer-row"><div class="dash-trainer-rank">05</div><div class="dash-trainer-name">이재훈</div><div class="dash-trainer-num warn">3/30</div><div class="dash-trainer-num warn">60%</div><div class="dash-trainer-num warn">위험</div></div>
       </div>
 
     </main>
