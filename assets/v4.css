@@ -601,8 +601,81 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 @media (max-width: 720px) {
   .demo-try-hint { font-size: 12.5px; padding: 9px 16px 9px 14px; }
-  .arcade-frame-wrap { margin-top: 20px; border-radius: 16px; }
+  .arcade-frame-wrap { margin-top: 20px; border-radius: 14px; }
   .demo-after-cta { margin-top: 28px; gap: 12px; }
+}
+
+/* Demo bridge — KPI 설명에서 데모 탭으로 연결 */
+.demo-bridge { margin-top: 88px; text-align: center; padding-top: 56px; border-top: 1px solid var(--border); }
+.demo-bridge .eyebrow { justify-content: center; display: inline-flex; }
+.demo-bridge-head {
+  margin: 14px auto 0;
+  font-size: 36px; font-weight: 600;
+  letter-spacing: -0.022em; line-height: 1.24;
+  color: var(--ink); max-width: 720px;
+}
+.demo-bridge-head em { font-style: normal; color: var(--accent); }
+
+/* Demo tabs — 대시보드 / 트레이너 KPI 분기 */
+.demo-tabs { margin-top: 36px; text-align: center; }
+.demo-tabs-nav {
+  display: flex; gap: 12px; justify-content: center;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.demo-tab-btn {
+  font-family: inherit;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-size: 15px; font-weight: 600;
+  color: var(--ink); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 9px;
+  transition: all 200ms ease;
+  letter-spacing: -0.005em;
+}
+.demo-tab-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.demo-tab-btn.active {
+  background: var(--ink); color: #FCFAF5; border-color: var(--ink);
+  box-shadow: 0 6px 18px -8px rgba(10,10,10,0.32);
+}
+.demo-tab-btn .dt-icon { font-size: 10px; color: var(--accent); }
+.demo-tab-btn.active .dt-icon { color: var(--accent); }
+.demo-tab-panel { display: none; }
+.demo-tab-panel.active { display: block; }
+
+/* Slot 6 (id=demo) 모바일 — 임베드 꽉 채우기 위해 padding 축소 */
+@media (max-width: 720px) {
+  .demo-bridge { margin-top: 56px; }
+  .demo-bridge-head { font-size: 24px; line-height: 1.32; }
+  .demo-tabs { margin-top: 28px; }
+  .demo-tabs-nav { gap: 8px; margin-bottom: 20px; }
+  .demo-tab-btn { padding: 10px 16px; font-size: 13.5px; gap: 7px; flex: 1 1 calc(50% - 4px); justify-content: center; }
+  .demo-tab-btn .dt-label { letter-spacing: -0.01em; }
+  #demo.mechanism { padding-left: 14px !important; padding-right: 14px !important; }
+  #demo .container { padding-left: 0 !important; padding-right: 0 !important; }
+  #demo .mechanism-flow, #demo .demo-bridge, #demo .demo-try-hint, #demo .demo-after-cta { padding-left: 10px; padding-right: 10px; }
+  .arcade-frame-wrap.demo-mobile-only { max-width: none !important; margin-top: 14px; }
+  .arcade-frame-wrap.demo-mobile-only > div { aspect-ratio: 0.621891 / 1; max-height: calc(41px + 80vh); }
+}
+
+/* Scroll to top FAB — 모든 페이지 공통 */
+.scroll-top-fab {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 48px; height: 48px;
+  background: var(--ink); color: #FCFAF5;
+  border: 1px solid var(--ink);
+  border-radius: 50%; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 12px 28px -10px rgba(10,10,10,0.36);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease, background 200ms ease;
+  z-index: 90;
+}
+.scroll-top-fab.visible { opacity: 1; transform: translateY(0); }
+.scroll-top-fab:hover { background: var(--accent); border-color: var(--accent); }
+@media (max-width: 720px) {
+  .scroll-top-fab { bottom: 18px; right: 18px; width: 44px; height: 44px; }
 }
 
 /* Features (Slot 8) — reuse from existing */
